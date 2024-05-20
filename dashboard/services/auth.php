@@ -17,7 +17,11 @@ function verifyUser(string $username, string $password) {
         return false;
     }
 
-    return true;
+    if ($user['role'] !== 'pasien') {
+        return false;
+    }
+
+    return $user;
 }
 
 function verifyUserDashboard(string $username, string $password) {

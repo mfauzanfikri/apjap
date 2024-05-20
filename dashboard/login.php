@@ -1,12 +1,17 @@
 <?php
 
+session_start();
+
 require './services/auth.php';
 
-session_start();
+if (isset($_SESSION['username'])) {
+    header('Location: /dashboard/logout.php');
+}
 
 $isError = false;
 
 if (isset($_POST) && isset($_POST['submit'])) {
+
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -17,6 +22,7 @@ if (isset($_POST) && isset($_POST['submit'])) {
 
         $isError = true;
     } else {
+        $_SESSION['id_user'] = $user['id_user'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['role'] = $user['role'];
@@ -30,65 +36,95 @@ if (isset($_POST) && isset($_POST['submit'])) {
 
 
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <link rel="shortcut icon" href="./assets/compiled/svg/favicon.svg" type="image/x-icon" />
-    <link rel="stylesheet" href="./assets/compiled/css/app.css" />
-    <link rel="stylesheet" href="./assets/compiled/css/app-dark.css" />
-    <link rel="stylesheet" href="./assets/compiled/css/auth.css" />
+    <title>Dashboard - Login</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <!-- <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet"> -->
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <script src="assets/static/js/initTheme.js"></script>
-    <div id="auth">
-        <div class="row h-100">
-            <div class="col-lg-5 col-12">
-                <div id="auth-left">
-                    <div class="auth-logo">
-                        <a href="index.html"><img src="./assets/compiled/svg/logo.svg" alt="Logo" /></a>
+
+    <main>
+        <div class="container">
+            <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                            <div class="card mb-3 pb-2">
+                                <div class="card-body">
+                                    <div class="pt-4 pb-2">
+                                        <h1 class="card-title text-center pb-0 fs-4">Aplikasi Jadwal dan Penjadwalan Rumah Sakit Umum Daerah Ogan Komering Ilir (APJAP)</h1>
+                                        <p class="text-center small">Log in untuk mengakses sistem.</p>
+                                    </div>
+
+                                    <form action="" method="post" class="row g-3 needs-validation">
+
+                                        <div class="col-12">
+                                            <label for="yourUsername" class="form-label">Username</label>
+                                            <div class="input-group has-validation">
+                                                <input type="text" name="username" class="form-control" id="yourUsername" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="yourPassword" class="form-label">Password</label>
+                                            <input type="password" name="password" class="form-control" id="yourPassword" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100" type="submit" name="submit">Login</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h1 class="auth-title">Sistem Informasi Penjadwalan Rumah Sakit</h1>
-                    <p class="auth-subtitle mb-5">
-                        Log in untuk mengakses sistem.
-                    </p>
-                    <?php if ($isError) : ?>
-                        <div class="alert alert-danger alert-dismissible show fade">
-                            Username atau password salah.
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    <?php endif; ?>
-
-                    <form action="" method="post">
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input required type="text" class="form-control form-control-xl" placeholder="Username" name="username" />
-                            <div class="form-control-icon">
-                                <i class="bi bi-person"></i>
-                            </div>
-                        </div>
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input required type="password" class="form-control form-control-xl" placeholder="Password" name="password" />
-                            <div class="form-control-icon">
-                                <i class="bi bi-shield-lock"></i>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5" name="submit">
-                            Log in
-                        </button>
-                    </form>
                 </div>
-            </div>
-            <div class="col-lg-7 d-none d-lg-block">
-                <div id="auth-right"></div>
-            </div>
-        </div>
-    </div>
 
-    <script src="assets/compiled/js/app.js"></script>
+            </section>
+
+        </div>
+    </main><!-- End #main -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <!-- <script src="assets/vendor/apexcharts/apexcharts.min.js"></script> -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="assets/vendor/echarts/echarts.min.js"></script>
+    <script src="assets/vendor/quill/quill.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script> -->
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+
 </body>
 
 </html>

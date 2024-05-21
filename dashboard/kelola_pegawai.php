@@ -71,7 +71,7 @@ $userSelect = getUsersWithNoPegawai();
                                                             <div class="col-12">
                                                                 <label for="jabatan" class="form-label">Jabatan</label>
                                                                 <select id="jabatan" class="form-select" name="jabatan" required>
-                                                                    <option selected disabled>Pilih Jabatan</option>
+                                                                    <option selected disabled value="0">Pilih Jabatan</option>
                                                                     <option value="kepala bidang">Kepala Bidang</option>
                                                                     <option value="kepala seksi">Kepala Seksi</option>
                                                                     <option value="staff">Staff</option>
@@ -80,7 +80,7 @@ $userSelect = getUsersWithNoPegawai();
                                                             <div class="col-12">
                                                                 <label for="status_pegawai" class="form-label">Status Pegawai</label>
                                                                 <select id="status_pegawai" class="form-select" name="status_pegawai" required>
-                                                                    <option disabled>Pilih Status Pegawai</option>
+                                                                    <option disabled value="0">Pilih Status Pegawai</option>
                                                                     <option selected value="aktif">Aktif</option>
                                                                     <option value="nonaktif">Nonaktif</option>
                                                                 </select>
@@ -88,7 +88,7 @@ $userSelect = getUsersWithNoPegawai();
                                                             <div class="col-12">
                                                                 <label for="id_user" class="form-label">User</label>
                                                                 <select id="id_user" class="form-select" name="id_user" required>
-                                                                    <option selected disabled>Pilih User</option>
+                                                                    <option selected disabled value="0">Pilih User</option>
                                                                     <?php foreach ($userSelect as $user) : ?>
                                                                         <option value="<?= $user['id_user'] ?>"><?= $user['username'] ?></option>
                                                                     <?php endforeach; ?>
@@ -132,7 +132,13 @@ $userSelect = getUsersWithNoPegawai();
                                         <tr>
                                             <th></th>
                                             <th>Nama</th>
-                                            <th>Submit</th>
+                                            <th>NIP</th>
+                                            <th>Username</th>
+                                            <th>Jabatan</th>
+                                            <th>Status</th>
+                                            <th>Alamat</th>
+                                            <th>No. Telepon</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -140,6 +146,12 @@ $userSelect = getUsersWithNoPegawai();
                                             <tr>
                                                 <td></td>
                                                 <td><?= $pegawai['nama']; ?></td>
+                                                <td><?= $pegawai['nip']; ?></td>
+                                                <td><?= $pegawai['username']; ?></td>
+                                                <td><?= ucwords($pegawai['jabatan']); ?></td>
+                                                <td><?= $pegawai['status_pegawai']; ?></td>
+                                                <td><?= $pegawai['alamat']; ?></td>
+                                                <td><?= $pegawai['no_telepon']; ?></td>
                                                 <td class="d-flex justify-content-center gap-2">
                                                     <!-- button edit -->
                                                     <div>
@@ -164,8 +176,49 @@ $userSelect = getUsersWithNoPegawai();
 
                                                                             <div class="row gap-3">
                                                                                 <div class="col-12">
+                                                                                    <label for="nip" class="form-label">NIP</label>
+                                                                                    <input type="text" class="form-control" id="nip" name="nip" placeholder="<?= $pegawai['nip'] ?>" autocomplete="off">
+                                                                                </div>
+                                                                                <div class="col-12">
                                                                                     <label for="nama" class="form-label">Nama</label>
-                                                                                    <input type="text" placeholder=<?= $pegawai['nama'] ?> class="form-control" id="nama" name="nama" autocomplete="off">
+                                                                                    <input type="text" class="form-control" id="nama" name="nama" placeholder="<?= $pegawai['nama'] ?>" autocomplete="off">
+                                                                                </div>
+                                                                                <div class="col-12">
+                                                                                    <label for="alamat" class="form-label">Alamat</label>
+                                                                                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="<?= $pegawai['alamat'] ?>" autocomplete="off">
+                                                                                </div>
+                                                                                <div class="col-12">
+                                                                                    <label for="no_telepon" class="form-label">No. Telepon</label>
+                                                                                    <input type="text" class="form-control" id="no_telepon" name="no_telepon" placeholder="<?= $pegawai['no_telepon'] ?>" autocomplete="off">
+                                                                                </div>
+                                                                                <div class="col-12">
+                                                                                    <label for="jabatan" class="form-label">Jabatan</label>
+                                                                                    <select id="jabatan" class="form-select" name="jabatan">
+                                                                                        <option selected disabled value="0">Pilih Jabatan</option>
+                                                                                        <option value="kepala bidang">Kepala Bidang</option>
+                                                                                        <option value="kepala seksi">Kepala Seksi</option>
+                                                                                        <option value="staff">Staff</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-12">
+                                                                                    <label for="status_pegawai" class="form-label">Status Pegawai</label>
+                                                                                    <select id="status_pegawai" class="form-select" name="status_pegawai">
+                                                                                        <option selected disabled value="0">Pilih Status Pegawai</option>
+                                                                                        <option value="aktif">Aktif</option>
+                                                                                        <option value="nonaktif">Nonaktif</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-12">
+                                                                                    <label for="id_user" class="form-label">User</label>
+                                                                                    <select id="id_user" class="form-select" name="id_user">
+                                                                                        <option selected disabled value="0">Pilih User</option>
+                                                                                        <?php foreach ($userSelect as $user) : ?>
+                                                                                            <?php if ($user['username'] === $pegawai['username']) {
+                                                                                                continue;
+                                                                                            } ?>
+                                                                                            <option value="<?= $user['id_user'] ?>"><?= $user['username'] ?></option>
+                                                                                        <?php endforeach; ?>
+                                                                                    </select>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

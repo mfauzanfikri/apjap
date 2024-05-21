@@ -1,7 +1,9 @@
 <?php
 require_once './services/db.php';
 
-$ruangan = getRuangan();
+$perawat = getPerawat();
+
+$pegawaiSelect = getPegawaiWithNoPerawat();
 
 ?>
 
@@ -10,11 +12,11 @@ $ruangan = getRuangan();
 <main id="main" class="main">
 
     <section class="pagetitle">
-        <h1>Kelola Ruangan</h1>
+        <h1>Kelola Perawat</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item active">Kelola Ruangan</li>
+                <li class="breadcrumb-item active">Kelola Perawat</li>
             </ol>
         </nav>
     </section><!-- End Page Title -->
@@ -24,28 +26,37 @@ $ruangan = getRuangan();
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Tabel Ruangan</h5>
+                        <h5 class="card-title">Tabel Perawat</h5>
                         <div class="row justify-content-end">
                             <div class="col">
                                 <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah-ruangan">
-                                        Tambah Ruangan
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah-perawat">
+                                        Tambah Perawat
                                     </button>
 
-                                    <div class="modal fade" id="tambah-ruangan" tabindex="-1">
+                                    <div class="modal fade" id="tambah-perawat" tabindex="-1">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Tambah ruangan</h5>
+                                                    <h5 class="modal-title">Tambah perawat</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form action="/dashboard/actions/kelola_ruangan.php" method="post">
+                                                <form action="/dashboard/actions/kelola_perawat.php" method="post">
                                                     <input type="hidden" value="tambah" name="jenis">
                                                     <div class="modal-body">
                                                         <div class="row gap-3">
                                                             <div class="col-12">
-                                                                <label for="nama" class="form-label">Nama</label>
-                                                                <input type="text" class="form-control" id="nama" name="nama" autocomplete="off" required>
+                                                                <label for="no_sip" class="form-label">No. SIP</label>
+                                                                <input type="text" class="form-control" id="no_sip" name="no_sip" autocomplete="off" required>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <label for="id_pegawai" class="form-label">Pegawai</label>
+                                                                <select id="id_pegawai" class="form-select" name="id_pegawai" required>
+                                                                    <option selected disabled value="0">Pilih Pegawai</option>
+                                                                    <?php foreach ($pegawaiSelect as $pegawai) : ?>
+                                                                        <option value="<?= $pegawai['id_pegawai'] ?>"><?= $pegawai['nama'] ?>/<?= $pegawai['nip'] ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -80,36 +91,40 @@ $ruangan = getRuangan();
 
                         <div class="row mt-2">
                             <div class="col">
-                                <table id="ruangan-table" class="table table-striped" style="width: 100%;">
+                                <table id="perawat-table" class="table table-striped" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th></th>
                                             <th>Nama</th>
+                                            <th>NIP</th>
+                                            <th>No. SIP</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($ruangan as $ruangan) : ?>
+                                        <?php foreach ($perawat as $perawat) : ?>
                                             <tr>
                                                 <td></td>
-                                                <td><?= $ruangan['nama']; ?></td>
+                                                <td><?= $perawat['nama']; ?></td>
+                                                <td><?= $perawat['nip']; ?></td>
+                                                <td><?= $perawat['no_sip']; ?></td>
                                                 <td class="d-flex justify-content-center gap-2">
                                                     <!-- button edit -->
                                                     <div>
-                                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-ruangan-" . $ruangan['id_ruangan']; ?>>
+                                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-perawat-" . $perawat['id_perawat']; ?>>
                                                             Edit
                                                         </button>
 
-                                                        <div class="modal fade" id=<?= "edit-ruangan-" . $ruangan['id_ruangan']; ?> tabindex="-1">
+                                                        <div class="modal fade" id=<?= "edit-perawat-" . $perawat['id_perawat']; ?> tabindex="-1">
                                                             <div class="modal-dialog modal-dialog-centered">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title">Edit ruangan</h5>
+                                                                        <h5 class="modal-title">Edit perawat</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_ruangan.php" method="post">
+                                                                    <form action="/dashboard/actions/kelola_perawat.php" method="post">
                                                                         <input type="hidden" name="jenis" value="edit">
-                                                                        <input type="hidden" name="id_ruangan" value=<?= (string) $ruangan['id_ruangan'] ?>>
+                                                                        <input type="hidden" name="id_perawat" value=<?= (string) $perawat['id_perawat'] ?>>
                                                                         <div class="modal-body">
                                                                             <div class="alert alert-warning" role="alert">
                                                                                 Isi kolom yang hanya ingin diubah.
@@ -117,8 +132,20 @@ $ruangan = getRuangan();
 
                                                                             <div class="row gap-3">
                                                                                 <div class="col-12">
-                                                                                    <label for="nama" class="form-label">Nama</label>
-                                                                                    <input type="text" placeholder=<?= $ruangan['nama'] ?> class="form-control" id="nama" name="nama" autocomplete="off">
+                                                                                    <label for="no_sip" class="form-label">No. SIP</label>
+                                                                                    <input type="text" class="form-control" id="no_sip" name="no_sip" autocomplete="off">
+                                                                                </div>
+                                                                                <div class="col-12">
+                                                                                    <label for="id_pegawai" class="form-label">Pegawai</label>
+                                                                                    <select id="id_pegawai" class="form-select" name="id_pegawai">
+                                                                                        <option selected disabled value="0">Pilih Pegawai</option>
+                                                                                        <?php foreach ($pegawaiSelect as $pegawai) : ?>
+                                                                                            <?php if ($pegawai['nip'] === $perawat['nip']) {
+                                                                                                continue;
+                                                                                            } ?>
+                                                                                            <option value="<?= $pegawai['id_pegawai'] ?>"><?= $pegawai['nama'] ?></option>
+                                                                                        <?php endforeach; ?>
+                                                                                    </select>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -133,23 +160,23 @@ $ruangan = getRuangan();
                                                     </div>
                                                     <!-- button hapus -->
                                                     <div>
-                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=<?= "#hapus-ruangan-" . $ruangan['id_ruangan']; ?>>
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=<?= "#hapus-perawat-" . $perawat['id_perawat']; ?>>
                                                             Hapus
                                                         </button>
 
-                                                        <div class="modal fade" id=<?= "hapus-ruangan-" . $ruangan['id_ruangan']; ?> tabindex="-1">
+                                                        <div class="modal fade" id=<?= "hapus-perawat-" . $perawat['id_perawat']; ?> tabindex="-1">
                                                             <div class="modal-dialog modal-dialog-centered">
                                                                 <div class="modal-content">
 
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title">Hapus ruangan</h5>
+                                                                        <h5 class="modal-title">Hapus perawat</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_ruangan.php" method="post">
+                                                                    <form action="/dashboard/actions/kelola_perawat.php" method="post">
                                                                         <input type="hidden" name="jenis" value="delete">
-                                                                        <input type="hidden" name="id_ruangan" value="<?= $ruangan['id_ruangan'] ?>">
+                                                                        <input type="hidden" name="id_perawat" value="<?= $perawat['id_perawat'] ?>">
                                                                         <div class="modal-body">
-                                                                            <p>Apakah Anda yakin ingin menghapus ruangan dengan nama <b><?= $ruangan['nama']; ?></b>?</p>
+                                                                            <p>Apakah Anda yakin ingin menghapus perawat dengan nama <b><?= $perawat['nama']; ?> dan NIP <b><?= $perawat['nip']; ?></b>?</p>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -194,7 +221,7 @@ if (isset($_SESSION['warningMsg'])) {
 <script src="assets/vendor/datatables/datatables.min.js"></script>
 
 <script>
-    const table = $('#ruangan-table').DataTable({
+    const table = $('#perawat-table').DataTable({
         columnDefs: [{
             searchable: false,
             orderable: false,

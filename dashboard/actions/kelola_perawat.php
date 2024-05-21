@@ -5,7 +5,7 @@ session_start();
 require_once '../services/db.php';
 require_once '../utils/utils.php';
 
-$allowedFields = ['id_user', 'nip', 'nama', 'alamat', 'no_telepon', 'jabatan', 'status_pegawai'];
+$allowedFields = ['id_pegawai', 'no_sip'];
 
 if (isset($_POST['submit'])) {
     switch ($_POST['jenis']) {
@@ -29,17 +29,17 @@ if (isset($_POST['submit'])) {
 
             if (!$isValid) {
                 $_SESSION['errorMsg'] = 'Semua field harus diisi.';
-                header('Location: /dashboard/kelola_pegawai.php');
+                header('Location: /dashboard/kelola_perawat.php');
                 die();
             }
 
-            $isSuccess = addPegawai($data);
+            $isSuccess = addPerawat($data);
 
             if ($isSuccess === true) {
-                $_SESSION['successMsg'] = 'Pegawai berhasil ditambahkan.';
+                $_SESSION['successMsg'] = 'Perawat berhasil ditambahkan.';
             } else {
                 $nip = $_POST['nip'];
-                $_SESSION['errorMsg'] = "Pegawai dengan NIP $nip sudah ada.";
+                $_SESSION['errorMsg'] = "Perawat dengan NIP $nip sudah ada.";
             }
 
             break;
@@ -47,9 +47,9 @@ if (isset($_POST['submit'])) {
         case 'edit':
             $data = [];
 
-            if (!isset($_POST['id_pegawai'])) {
-                $_SESSION['errorMsg'] = "id_pegawai tidak ada.";
-                header('Location: /dashboard/kelola_pegawai.php');
+            if (!isset($_POST['id_perawat'])) {
+                $_SESSION['errorMsg'] = "id_perawat tidak ada.";
+                header('Location: /dashboard/kelola_perawat.php');
                 die();
             }
 
@@ -60,30 +60,29 @@ if (isset($_POST['submit'])) {
             }
 
             if (empty($data)) {
-                header('Location: /dashboard/kelola_pegawai.php');
+                header('Location: /dashboard/kelola_perawat.php');
                 die();
             }
 
-            $isSuccess = editPegawai($data, $_POST['id_pegawai']);
+            $isSuccess = editPerawat($data, $_POST['id_perawat']);
 
             if ($isSuccess === true) {
-                $_SESSION['successMsg'] = 'Pegawai berhasil edit.';
+                $_SESSION['successMsg'] = 'Perawat berhasil edit.';
             } else {
-                $nip = $_POST['nip'];
-                $_SESSION['errorMsg'] = "Pegawai dengan NIP $nip sudah ada.";
+                $_SESSION['errorMsg'] = "Perawat dengan pegawai sudah ada.";
             }
 
             break;
 
         case 'delete':
-            $pegawaiId = $_POST['id_pegawai'];
+            $perawatId = $_POST['id_perawat'];
 
-            $isSuccess = deletePegawai($pegawaiId);
+            $isSuccess = deletePerawat($perawatId);
 
             if ($isSuccess === true) {
-                $_SESSION['successMsg'] = 'Pegawai berhasil dihapus.';
+                $_SESSION['successMsg'] = 'Perawat berhasil dihapus.';
             } else {
-                $_SESSION['errorMsg'] = 'Pegawai tidak ditemukan.';
+                $_SESSION['errorMsg'] = 'Perawat tidak ditemukan.';
             }
 
             break;
@@ -92,6 +91,6 @@ if (isset($_POST['submit'])) {
             break;
     }
 
-    header('Location: /dashboard/kelola_pegawai.php');
+    header('Location: /dashboard/kelola_perawat.php');
     die();
 }

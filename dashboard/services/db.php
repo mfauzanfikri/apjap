@@ -220,7 +220,7 @@ function addPegawai($pegawaiData) {
         return false;
     }
 
-    query('INSERT INTO pegawai (id_user,nip,nama,alamat,no_telepon,jabatan,status_pegawai) VALUES (:id_user,:nip,nama,:alamat,:no_telepon,:jabatan,:status_pegawai)', $pegawaiData);
+    query('INSERT INTO pegawai (id_user,nip,nama,alamat,no_telepon,jabatan,status_pegawai) VALUES (:id_user,:nip,:nama,:alamat,:no_telepon,:jabatan,:status_pegawai)', $pegawaiData);
 
     return true;
 }
@@ -257,7 +257,7 @@ function editPegawai($pegawaiData, $pegawaiId) {
 }
 
 function deletePegawai(string|int $pegawaiId) {
-    $isExist = getRuanganById($pegawaiId);
+    $isExist = getPegawaiById($pegawaiId);
 
     if (!$isExist) {
         return false;
@@ -272,4 +272,139 @@ function getUsersWithNoPegawai() {
     $user = fetchAll('SELECT u.id_user,username FROM user u LEFT JOIN pegawai p ON u.id_user = p.id_user WHERE p.id_pegawai IS NULL AND NOT u.role = "pasien"');
 
     return $user;
+}
+
+// dokter
+function getDokter() {
+    $dokter = fetchAll('SELECT id_dokter,nama,nip,spesialisasi,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai');
+
+    return $dokter;
+}
+
+function getDokterById(string|int $dokterId): array|false {
+    $dokter = fetch('SELECT id_dokter,nama,nip,spesialisasi,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai WHERE id_dokter = :id_dokter', ['id_dokter' => $dokterId]);
+
+    return $dokter;
+}
+
+function addDokter($dokterData) {
+    $isDuplicate = fetch('SELECT id_pegawai FROM dokter WHERE id_pegawai = :id_pegawai', ['id_pegawai' => $dokterData['id_pegawai']]);
+
+    if ($isDuplicate !== false) {
+        return false;
+    }
+
+    query('INSERT INTO dokter (id_pegawai,spesialisasi,no_sip) VALUES (:id_pegawai,:spesialisasi,:no_sip)', $dokterData);
+
+    return true;
+}
+
+function editDokter($dokterData, $dokterId) {
+    if (isset($dokterData['id_pegawai'])) {
+        $isDuplicate = fetch('SELECT * FROM dokter WHERE id_pegawai = :id_pegawai', ['id_pegawai' => $dokterData['id_pegawai']]);
+
+        if ($isDuplicate !== false) {
+            return false;
+        }
+    }
+
+    $fieldsTemp = [];
+
+    foreach ($dokterData as $key => $value) {
+        $fieldsTemp[] = $key . " = :" . $key;
+    }
+
+    $fields = implode(', ', $fieldsTemp);
+
+
+    query("UPDATE dokter SET $fields WHERE id_dokter = $dokterId", $dokterData);
+
+    return true;
+}
+
+function deleteDokter(string|int $dokterId) {
+    $isExist = getDokterById($dokterId);
+
+    if (!$isExist) {
+        return false;
+    }
+
+    query("DELETE FROM dokter WHERE id_dokter = $dokterId");
+
+    return true;
+}
+
+function getPegawaiWithNoDokter() {
+    $pegawaiWithNoPerawat = 'SELECT p.id_pegawai,p.nip,p.nama FROM pegawai p LEFT JOIN perawat pe ON p.id_pegawai = pe.id_pegawai WHERE pe.id_pegawai IS NULL';
+    $pegawai = fetchAll("SELECT p.id_pegawai,p.nip,p.nama FROM ($pegawaiWithNoPerawat) p LEFT JOIN dokter d ON p.id_pegawai = d.id_pegawai WHERE d.id_pegawai IS NULL");
+
+    return $pegawai;
+}
+
+
+// perawat
+function getPerawat() {
+    $perawat = fetchAll('SELECT id_perawat,nama,nip,no_sip FROM perawat p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai');
+
+    return $perawat;
+}
+
+function getPerawatById(string|int $perawatId): array|false {
+    $perawat = fetch('SELECT id_perawat,nama,nip,no_sip FROM perawat p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai WHERE id_perawat = :id_perawat', ['id_perawat' => $perawatId]);
+
+    return $perawat;
+}
+
+function addPerawat($perawatData) {
+    $isDuplicate = fetch('SELECT id_pegawai FROM perawat WHERE id_pegawai = :id_pegawai', ['id_pegawai' => $perawatData['id_pegawai']]);
+
+    if ($isDuplicate !== false) {
+        return false;
+    }
+
+    query('INSERT INTO perawat (id_pegawai,no_sip) VALUES (:id_pegawai,:no_sip)', $perawatData);
+
+    return true;
+}
+
+function editPerawat($perawatData, $perawatId) {
+    if (isset($perawatData['id_pegawai'])) {
+        $isDuplicate = fetch('SELECT * FROM perawat WHERE id_pegawai = :id_pegawai', ['id_pegawai' => $perawatData['id_pegawai']]);
+
+        if ($isDuplicate !== false) {
+            return false;
+        }
+    }
+
+    $fieldsTemp = [];
+
+    foreach ($perawatData as $key => $value) {
+        $fieldsTemp[] = $key . " = :" . $key;
+    }
+
+    $fields = implode(', ', $fieldsTemp);
+
+
+    query("UPDATE perawat SET $fields WHERE id_perawat = $perawatId", $perawatData);
+
+    return true;
+}
+
+function deletePerawat(string|int $perawatId) {
+    $isExist = getPerawatById($perawatId);
+
+    if (!$isExist) {
+        return false;
+    }
+
+    query("DELETE FROM perawat WHERE id_perawat = $perawatId");
+
+    return true;
+}
+
+function getPegawaiWithNoPerawat() {
+    $pegawaiWithNoDokter = 'SELECT p.id_pegawai,p.nip,p.nama FROM pegawai p LEFT JOIN dokter d ON p.id_pegawai = d.id_pegawai WHERE d.id_pegawai IS NULL';
+    $pegawai = fetchAll("SELECT p.id_pegawai,p.nip,p.nama FROM ($pegawaiWithNoDokter) p LEFT JOIN perawat pe ON p.id_pegawai = pe.id_pegawai WHERE pe.id_pegawai IS NULL");
+
+    return $pegawai;
 }

@@ -12,18 +12,44 @@
             </a>
         </li>
 
+        <li class="nav-heading">Admin</li>
+
         <!-- kelola user -->
         <li class="nav-item">
             <a class="nav-link <?= $url === '/dashboard/kelola_user.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_user.php">
-                <i class="bi bi-file-earmark"></i>
+                <i class="bi bi-person"></i>
                 <span>Kelola User</span>
+            </a>
+        </li>
+
+        <!-- kelola pegawai -->
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/dashboard/kelola_pegawai.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_pegawai.php">
+                <i class="bi bi-people"></i>
+                <span>Kelola Pegawai</span>
+            </a>
+        </li>
+
+        <!-- kelola dokter -->
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/dashboard/kelola_dokter.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_dokter.php">
+                <i class="bi bi-person-badge"></i>
+                <span>Kelola Dokter</span>
+            </a>
+        </li>
+
+        <!-- kelola perawat -->
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/dashboard/kelola_perawat.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_perawat.php">
+                <i class="bi bi-person-badge-fill"></i>
+                <span>Kelola Perawat</span>
             </a>
         </li>
 
         <!-- kelola ruangan -->
         <li class="nav-item">
             <a class="nav-link <?= $url === '/dashboard/kelola_ruangan.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_ruangan.php">
-                <i class="bi bi-file-earmark"></i>
+                <i class="bi bi-hospital"></i>
                 <span>Kelola Ruangan</span>
             </a>
         </li>

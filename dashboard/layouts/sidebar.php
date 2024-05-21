@@ -12,7 +12,7 @@
             </a>
         </li>
 
-        <li class="nav-heading">Admin</li>
+        <li class="nav-heading">Sumber Daya</li>
 
         <!-- kelola user -->
         <li class="nav-item">

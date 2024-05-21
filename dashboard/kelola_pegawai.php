@@ -109,7 +109,7 @@ $userSelect = getUsersWithNoPegawai();
                         </div>
                         <?php if (isset($_SESSION['successMsg'])) : ?>
                             <div class="mt-2">
-                                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     <?= $_SESSION['successMsg']; ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>

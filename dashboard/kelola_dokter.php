@@ -4,6 +4,7 @@ require_once './services/db.php';
 $dokter = getDokter();
 
 $pegawaiSelect = getPegawaiWithNoDokter();
+$poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
 
 ?>
 
@@ -61,6 +62,12 @@ $pegawaiSelect = getPegawaiWithNoDokter();
                                                                         <option value="<?= $pegawai['id_pegawai'] ?>"><?= $pegawai['nama'] ?>/<?= $pegawai['nip'] ?></option>
                                                                     <?php endforeach; ?>
                                                                 </select>
+                                                                <select id="poli" class="form-select" name="poli" required>
+                                                                    <option selected disabled value="0">Pilih Poli</option>
+                                                                    <?php foreach ($poliSelect as $poli) : ?>
+                                                                        <option value="<?= $poli ?>"><?= $poli ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -77,7 +84,7 @@ $pegawaiSelect = getPegawaiWithNoDokter();
                         </div>
                         <?php if (isset($_SESSION['successMsg'])) : ?>
                             <div class="mt-2">
-                                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     <?= $_SESSION['successMsg']; ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
@@ -103,6 +110,7 @@ $pegawaiSelect = getPegawaiWithNoDokter();
                                             <th>NIP</th>
                                             <th>No. SIP</th>
                                             <th>Spesialisasi</th>
+                                            <th>Poli</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -114,6 +122,7 @@ $pegawaiSelect = getPegawaiWithNoDokter();
                                                 <td><?= $dokter['nip']; ?></td>
                                                 <td><?= $dokter['no_sip']; ?></td>
                                                 <td><?= $dokter['spesialisasi']; ?></td>
+                                                <td><?= $dokter['poli']; ?></td>
                                                 <td class="d-flex justify-content-center gap-2">
                                                     <!-- button edit -->
                                                     <div>

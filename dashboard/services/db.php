@@ -276,13 +276,13 @@ function getUsersWithNoPegawai() {
 
 // dokter
 function getDokter() {
-    $dokter = fetchAll('SELECT id_dokter,nama,nip,spesialisasi,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai');
+    $dokter = fetchAll('SELECT id_dokter,nama,nip,spesialisasi,poli,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai');
 
     return $dokter;
 }
 
 function getDokterById(string|int $dokterId): array|false {
-    $dokter = fetch('SELECT id_dokter,nama,nip,spesialisasi,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai WHERE id_dokter = :id_dokter', ['id_dokter' => $dokterId]);
+    $dokter = fetch('SELECT id_dokter,nama,nip,spesialisasi,poli,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai WHERE id_dokter = :id_dokter', ['id_dokter' => $dokterId]);
 
     return $dokter;
 }
@@ -294,7 +294,7 @@ function addDokter($dokterData) {
         return false;
     }
 
-    query('INSERT INTO dokter (id_pegawai,spesialisasi,no_sip) VALUES (:id_pegawai,:spesialisasi,:no_sip)', $dokterData);
+    query('INSERT INTO dokter (id_pegawai,spesialisasi,poli,no_sip) VALUES (:id_pegawai,:spesialisasi,:poli,:no_sip)', $dokterData);
 
     return true;
 }

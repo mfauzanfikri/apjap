@@ -62,6 +62,9 @@ $poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
                                                                         <option value="<?= $pegawai['id_pegawai'] ?>"><?= $pegawai['nama'] ?>/<?= $pegawai['nip'] ?></option>
                                                                     <?php endforeach; ?>
                                                                 </select>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <label for="id_pegawai" class="form-label">Poli</label>
                                                                 <select id="poli" class="form-select" name="poli" required>
                                                                     <option selected disabled value="0">Pilih Poli</option>
                                                                     <?php foreach ($poliSelect as $poli) : ?>
@@ -148,11 +151,11 @@ $poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
                                                                             <div class="row gap-3">
                                                                                 <div class="col-12">
                                                                                     <label for="no_sip" class="form-label">No. SIP</label>
-                                                                                    <input type="text" class="form-control" id="no_sip" name="no_sip" autocomplete="off">
+                                                                                    <input type="text" class="form-control" id="no_sip" name="no_sip" placeholder="<?= $dokter['no_sip'] ?>" autocomplete="off">
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <label for="spesialisasi" class="form-label">Spesialisasi</label>
-                                                                                    <input type="text" class="form-control" id="spesialisasi" name="spesialisasi" autocomplete="off">
+                                                                                    <input type="text" class="form-control" id="spesialisasi" name="spesialisasi" placeholder="<?= $dokter['spesialisasi'] ?>" autocomplete="off">
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <label for="id_pegawai" class="form-label">Pegawai</label>
@@ -163,6 +166,15 @@ $poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
                                                                                                 continue;
                                                                                             } ?>
                                                                                             <option value="<?= $pegawai['id_pegawai'] ?>"><?= $pegawai['nama'] ?></option>
+                                                                                        <?php endforeach; ?>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-12">
+                                                                                    <label for="id_pegawai" class="form-label">Poli</label>
+                                                                                    <select id="poli" class="form-select" name="poli">
+                                                                                        <option selected disabled value="0">Pilih Poli</option>
+                                                                                        <?php foreach ($poliSelect as $poli) : ?>
+                                                                                            <option value="<?= $poli ?>"><?= $poli ?></option>
                                                                                         <?php endforeach; ?>
                                                                                     </select>
                                                                                 </div>

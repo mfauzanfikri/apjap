@@ -294,6 +294,12 @@ function addDokter($dokterData) {
         return false;
     }
 
+    $isDuplicate = fetch('SELECT no_sip FROM dokter WHERE no_sip = :no_sip', ['no_sip' => $dokterData['no_sip']]);
+
+    if ($isDuplicate !== false) {
+        return false;
+    }
+
     query('INSERT INTO dokter (id_pegawai,spesialisasi,poli,no_sip) VALUES (:id_pegawai,:spesialisasi,:poli,:no_sip)', $dokterData);
 
     return true;
@@ -407,4 +413,30 @@ function getPegawaiWithNoPerawat() {
     $pegawai = fetchAll("SELECT p.id_pegawai,p.nip,p.nama FROM ($pegawaiWithNoDokter) p LEFT JOIN perawat pe ON p.id_pegawai = pe.id_pegawai WHERE pe.id_pegawai IS NULL");
 
     return $pegawai;
+}
+
+// jadwal dokter
+function getJadwalDokter() {
+    $subQuery = 'SELECT jd.id_jadwal_dokter,jd.id_dokter,jd.tanggal,jd.waktu_mulai,jd.waktu_selesai,jd.shift,d.id_pegawai,d.spesialisasi,d.poli,d.no_sip  FROM jadwal_dokter jd LEFT JOIN dokter d ON jd.id_dokter = d.id_dokter';
+    $jadwalDokter = fetchAll("SELECT a.id_jadwal_dokter,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.spesialisasi,a.poli,a.no_sip,b.nip,b.nama,b.jabatan,b.status_pegawai FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai");
+
+    return $jadwalDokter;
+}
+
+function addJadwalDokter($data) {
+    $fieldsTemp = [];
+    $placeholdersTemp = [];
+
+    foreach ($data as $key => $value) {
+        $fieldsTemp[] = $key;
+        $placeholdersTemp[] = ':' . $key;
+    }
+
+    $fields = implode(',', $fieldsTemp);
+    $placeholders = implode(',', $placeholdersTemp);
+
+    $query = "INSERT INTO jadwal_dokter ($fields) VALUES ($placeholders)";
+    query($query, $data);
+
+    return true;
 }

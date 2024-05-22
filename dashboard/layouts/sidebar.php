@@ -53,6 +53,16 @@
                 <span>Kelola Ruangan</span>
             </a>
         </li>
+
+        <li class="nav-heading">Penjadwalan</li>
+
+        <!-- kelola jadwal dokter -->
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/dashboard/kelola_jadwal_dokter.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_jadwal_dokter.php">
+                <i class="bi bi-calendar"></i>
+                <span>Kelola Jadwal Dokter</span>
+            </a>
+        </li>
     </ul>
 
 </aside><!-- End Sidebar-->

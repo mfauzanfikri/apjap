@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
             }
 
             if (!$isValid) {
-                $_SESSION['errorMsg'] = 'Semua field harus diisi.';
+                $_SESSION['errorMsg'] = 'Semua kolom harus diisi.';
                 header('Location: /dashboard/kelola_dokter.php');
                 die();
             }

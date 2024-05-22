@@ -7,6 +7,11 @@ $users = getUsers();
 
 <?php include './layouts/header.php'; ?>
 
+<script>
+    // ubah page title
+    $(document).prop('title', 'Kelola User')
+</script>
+
 <main id="main" class="main">
 
     <section class="pagetitle">

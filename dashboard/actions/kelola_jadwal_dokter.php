@@ -6,7 +6,6 @@ require_once '../services/db.php';
 require_once '../utils/utils.php';
 
 $allowedFields = ['id_dokter', 'tanggal', 'waktu_mulai', 'waktu_selesai', 'shift'];
-$addFields = ['poli', 'tanggal', 'id_dokter_1', 'id_dokter_2', 'id_dokter_3'];
 
 if (isset($_POST['submit'])) {
 
@@ -14,50 +13,50 @@ if (isset($_POST['submit'])) {
 
     switch ($_POST['jenis']) {
         case 'tambah':
-            $isValid = true;
-
             // validation
-            foreach ($addFields as $field) {
-                $isValid = isset($_POST[$field]);
-
-                if (isset($_POST[$field]) && $_POST[$field] === "0") {
-                    $isValid = false;
-                }
-
-                if (!$isValid) {
-                    break;
-                }
-            }
-
-            if (!$isValid) {
-                $_SESSION['errorMsg'] = 'Semua field harus diisi.';
+            if (!isset($_POST['tanggal'])) {
+                $_SESSION['errorMsg'] = 'Kolom tanggal harus diisi.';
                 header('Location: /dashboard/kelola_jadwal_dokter.php');
                 die();
             }
 
-            $data = [
-                'pagi' => [
+            if (!isset($_POST['id_dokter_1']) && !isset($_POST['id_dokter_2']) && !isset($_POST['id_dokter_3'])) {
+                $_SESSION['errorMsg'] = 'Jadwal praktek dokter harus diisi minimal satu.';
+                header('Location: /dashboard/kelola_jadwal_dokter.php');
+                die();
+            }
+
+            $data = [];
+
+            if (isset($_POST['id_dokter_1'])) {
+                $data['pagi'] = [
                     'id_dokter' => $_POST['id_dokter_1'],
                     'tanggal' => $_POST['tanggal'],
                     'waktu_mulai' => '08:00',
                     'waktu_selesai' => '10:00',
                     'shift' => 'pagi'
-                ],
-                'siang' => [
+                ];
+            }
+
+            if (isset($_POST['id_dokter_2'])) {
+                $data['siang'] = [
                     'id_dokter' => $_POST['id_dokter_2'],
                     'tanggal' => $_POST['tanggal'],
                     'waktu_mulai' => '14:00',
                     'waktu_selesai' => '16:00',
                     'shift' => 'siang'
-                ],
-                'malam' => [
+                ];
+            }
+
+            if (isset($_POST['id_dokter_3'])) {
+                $data['malam'] = [
                     'id_dokter' => $_POST['id_dokter_3'],
                     'tanggal' => $_POST['tanggal'],
                     'waktu_mulai' => '19:00',
                     'waktu_selesai' => '21:00',
                     'shift' => 'malam'
-                ]
-            ];
+                ];
+            }
 
             foreach ($data as $d) {
                 addJadwalDokter($d);
@@ -68,8 +67,6 @@ if (isset($_POST['submit'])) {
             break;
 
         case 'edit':
-            dd($_POST);
-
             $data = [];
 
             if (!isset($_POST['id_jadwal_dokter'])) {
@@ -78,14 +75,43 @@ if (isset($_POST['submit'])) {
                 die();
             }
 
-            // TODO: editFields
+            if (isset($_POST['tanggal']) && !empty($_POST['tanggal'])) {
+                $data['tanggal'] = $_POST['tanggal'];
+            }
+
+            if (isset($_POST['id_dokter']) && $_POST['id_dokter'] !== '0') {
+                $data['id_dokter'] = $_POST['id_dokter'];
+            }
+
+            if (isset($_POST['waktu']) && $_POST['waktu'] !== '0') {
+                switch ($_POST['waktu']) {
+                    case 'pagi':
+                        $data['waktu_mulai'] = '08:00';
+                        $data['waktu_selesai'] = '10:00';
+                        $data['shift'] = 'pagi';
+
+                        break;
+                    case 'siang':
+                        $data['waktu_mulai'] = '14:00';
+                        $data['waktu_selesai'] = '16:00';
+                        $data['shift'] = 'siang';
+
+                        break;
+                    case 'malam':
+                        $data['waktu_mulai'] = '19:00';
+                        $data['waktu_selesai'] = '21:00';
+                        $data['shift'] = 'malam';
+
+                        break;
+                }
+            }
 
             if (empty($data)) {
                 header('Location: /dashboard/kelola_jadwal_dokter.php');
                 die();
             }
 
-            $isSuccess = editDokter($data, $_POST['id_jadwal_dokter']);
+            $isSuccess = editJadwalDokter($data, $_POST['id_jadwal_dokter']);
 
             if ($isSuccess === true) {
                 $_SESSION['successMsg'] = 'Jadwal dokter berhasil edit.';
@@ -96,9 +122,9 @@ if (isset($_POST['submit'])) {
             break;
 
         case 'delete':
-            dd($_POST);
-
             $jdId = $_POST['id_jadwal_dokter'];
+
+            $isSuccess = deleteJadwalDokter($jdId);
 
             if ($isSuccess === true) {
                 $_SESSION['successMsg'] = 'Jadwal dokter berhasil dihapus.';

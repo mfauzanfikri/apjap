@@ -5,16 +5,14 @@ $pegawai = getPegawai();
 
 $userSelect = getUsersWithNoPegawai();
 
-// echo '<pre>';
-// var_dump(hash('sha256', 'Pasien123'));
-// print_r($pegawai);
-// print_r($userSelect);
-// echo '</pre>';
-// die();
-
 ?>
 
 <?php include './layouts/header.php'; ?>
+
+<script>
+    // ubah page title
+    $(document).prop('title', 'Kelola Pegawai')
+</script>
 
 <main id="main" class="main">
 

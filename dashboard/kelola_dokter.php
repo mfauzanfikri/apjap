@@ -10,6 +10,11 @@ $poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
 
 <?php include './layouts/header.php'; ?>
 
+<script>
+    // ubah page title
+    $(document).prop('title', 'Kelola Dokter')
+</script>
+
 <main id="main" class="main">
 
     <section class="pagetitle">

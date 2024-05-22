@@ -423,6 +423,13 @@ function getJadwalDokter() {
     return $jadwalDokter;
 }
 
+function getJadwalDokterById($jdId) {
+    $subQuery = 'SELECT jd.id_jadwal_dokter,jd.id_dokter,jd.tanggal,jd.waktu_mulai,jd.waktu_selesai,jd.shift,d.id_pegawai,d.spesialisasi,d.poli,d.no_sip  FROM jadwal_dokter jd LEFT JOIN dokter d ON jd.id_dokter = d.id_dokter';
+    $jadwalDokter = fetch("SELECT a.id_jadwal_dokter,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.spesialisasi,a.poli,a.no_sip,b.nip,b.nama,b.jabatan,b.status_pegawai FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai WHERE id_jadwal_dokter = $jdId");
+
+    return $jadwalDokter;
+}
+
 function addJadwalDokter($data) {
     $fieldsTemp = [];
     $placeholdersTemp = [];
@@ -437,6 +444,32 @@ function addJadwalDokter($data) {
 
     $query = "INSERT INTO jadwal_dokter ($fields) VALUES ($placeholders)";
     query($query, $data);
+
+    return true;
+}
+
+function editJadwalDokter($data, $jdId) {
+    $fieldsTemp = [];
+
+    foreach ($data as $key => $value) {
+        $fieldsTemp[] = $key . " = :" . $key;
+    }
+
+    $fields = implode(', ', $fieldsTemp);
+
+    query("UPDATE jadwal_dokter SET $fields WHERE id_jadwal_dokter = $jdId", $data);
+
+    return true;
+}
+
+function deleteJadwalDokter(string|int $jdId) {
+    $isExist = getJadwalDokterById($jdId);
+
+    if (!$isExist) {
+        return false;
+    }
+
+    query("DELETE FROM jadwal_dokter WHERE id_jadwal_dokter = $jdId");
 
     return true;
 }

@@ -7,6 +7,11 @@ $ruangan = getRuangan();
 
 <?php include './layouts/header.php'; ?>
 
+<script>
+    // ubah page title
+    $(document).prop('title', 'Kelola Ruangan')
+</script>
+
 <main id="main" class="main">
 
     <section class="pagetitle">

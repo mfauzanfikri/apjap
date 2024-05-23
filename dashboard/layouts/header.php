@@ -2,7 +2,7 @@
 
 session_start();
 
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['username']) || $_SESSION['role'] === 'pasien') {
   header('Location: /dashboard/login.php');
 }
 

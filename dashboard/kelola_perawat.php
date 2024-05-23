@@ -181,7 +181,7 @@ $pegawaiSelect = getPegawaiWithNoPerawat();
                                                                         <input type="hidden" name="jenis" value="delete">
                                                                         <input type="hidden" name="id_perawat" value="<?= $perawat['id_perawat'] ?>">
                                                                         <div class="modal-body">
-                                                                            <p>Apakah Anda yakin ingin menghapus perawat dengan nama <b><?= $perawat['nama']; ?> dan NIP <b><?= $perawat['nip']; ?></b>?</p>
+                                                                            <p>Apakah Anda yakin ingin menghapus perawat dengan nama <b><?= $perawat['nama']; ?></b> dan NIP <b><?= $perawat['nip']; ?></b>?</p>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>

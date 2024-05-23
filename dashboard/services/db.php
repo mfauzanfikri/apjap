@@ -473,3 +473,62 @@ function deleteJadwalDokter(string|int $jdId) {
 
     return true;
 }
+
+// jadwal perawat
+function getJadwalPerawat() {
+    $subQuery = 'SELECT jp.id_jadwal_perawat,jp.id_perawat,jp.tanggal,jp.waktu_mulai,jp.waktu_selesai,jp.shift,jp.poli,jp.status,p.id_pegawai,p.no_sip FROM jadwal_perawat jp LEFT JOIN perawat p ON jp.id_perawat = p.id_perawat';
+    $jadwalPerawat = fetchAll("SELECT a.id_jadwal_perawat,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.poli,a.status,a.no_sip,b.nip,b.nama,b.jabatan,b.status_pegawai FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai");
+
+    return $jadwalPerawat;
+}
+
+function getJadwalPerawatById($jpId) {
+    $subQuery = 'SELECT jp.id_jadwal_perawat,jp.id_perawat,jp.tanggal,jp.waktu_mulai,jp.waktu_selesai,jp.shift,jp.poli,jp.status,p.id_pegawai,p.no_sip FROM jadwal_perawat jp LEFT JOIN perawat p ON jp.id_perawat = p.id_perawat';
+    $jadwalPerawat = fetch("SELECT a.id_jadwal_perawat,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.poli,a.status,a.no_sip,b.nip,b.nama,b.jabatan,b.status_pegawai FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai WHERE id_jadwal_perawat = $jpId");
+
+    return $jadwalPerawat;
+}
+
+function addJadwalPerawat($data) {
+    $fieldsTemp = [];
+    $placeholdersTemp = [];
+
+    foreach ($data as $key => $value) {
+        $fieldsTemp[] = $key;
+        $placeholdersTemp[] = ':' . $key;
+    }
+
+    $fields = implode(',', $fieldsTemp);
+    $placeholders = implode(',', $placeholdersTemp);
+
+    $query = "INSERT INTO jadwal_perawat ($fields) VALUES ($placeholders)";
+    query($query, $data);
+
+    return true;
+}
+
+function editJadwalPerawat($data, $jpId) {
+    $fieldsTemp = [];
+
+    foreach ($data as $key => $value) {
+        $fieldsTemp[] = $key . " = :" . $key;
+    }
+
+    $fields = implode(', ', $fieldsTemp);
+
+    query("UPDATE jadwal_perawat SET $fields WHERE id_jadwal_perawat = $jpId", $data);
+
+    return true;
+}
+
+function deleteJadwalPerawat(string|int $jpId) {
+    $isExist = getJadwalPerawatById($jpId);
+
+    if (!$isExist) {
+        return false;
+    }
+
+    query("DELETE FROM jadwal_perawat WHERE id_jadwal_perawat = $jpId");
+
+    return true;
+}

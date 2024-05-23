@@ -247,7 +247,7 @@ $userSelect = getUsersWithNoPegawai();
                                                                         <input type="hidden" name="jenis" value="delete">
                                                                         <input type="hidden" name="id_pegawai" value="<?= $pegawai['id_pegawai'] ?>">
                                                                         <div class="modal-body">
-                                                                            <p>Apakah Anda yakin ingin menghapus pegawai dengan nama <b><?= $pegawai['nama']; ?></b>?</p>
+                                                                            <p>Apakah Anda yakin ingin menghapus pegawai dengan nama <b><?= $pegawai['nama']; ?></b> dan NIP <b><?= $pegawai['nip'] ?></b>?</p>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>

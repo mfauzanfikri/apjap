@@ -54,13 +54,21 @@
             </a>
         </li>
 
-        <li class="nav-heading">Penjadwalan</li>
+        <li class="nav-heading">Penjadwalan Kerja</li>
 
         <!-- kelola jadwal dokter -->
         <li class="nav-item">
             <a class="nav-link <?= $url === '/dashboard/kelola_jadwal_dokter.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_jadwal_dokter.php">
                 <i class="bi bi-calendar"></i>
                 <span>Kelola Jadwal Dokter</span>
+            </a>
+        </li>
+
+        <!-- kelola jadwal perawat -->
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/dashboard/kelola_jadwal_perawat.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_jadwal_perawat.php">
+                <i class="bi bi-calendar-fill"></i>
+                <span>Kelola Jadwal Perawat</span>
             </a>
         </li>
     </ul>

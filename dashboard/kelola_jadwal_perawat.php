@@ -1,10 +1,10 @@
 <?php
+
 require_once './services/db.php';
 
-$dokter = getDokter();
+$perawat = getPerawat();
 
-$pegawaiSelect = getPegawaiWithNoDokter();
-$poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
+$jadwalPerawat = getJadwalPerawat();
 
 ?>
 
@@ -12,17 +12,17 @@ $poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
 
 <script>
     // ubah page title
-    $(document).prop('title', 'Kelola Dokter')
+    $(document).prop('title', 'Kelola Jadwal Perawat')
 </script>
 
 <main id="main" class="main">
 
     <section class="pagetitle">
-        <h1>Kelola Dokter</h1>
+        <h1>Kelola Jadwal Perawat</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item active">Kelola Dokter</li>
+                <li class="breadcrumb-item active">Kelola Jadwal Perawat</li>
             </ol>
         </nav>
     </section><!-- End Page Title -->
@@ -32,49 +32,60 @@ $poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Tabel Dokter</h5>
+
+                        <h5 class="card-title">Jadwal Perawat</h5>
                         <div class="row justify-content-end">
                             <div class="col">
                                 <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah-dokter">
-                                        Tambah Dokter
+                                    <!-- tambah jadwal perawat modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah-jp">
+                                        Tambah Jadwal Perawat
                                     </button>
 
-                                    <div class="modal fade" id="tambah-dokter" tabindex="-1">
+                                    <div class="modal fade" id="tambah-jp" tabindex="-1">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Tambah dokter</h5>
+                                                    <h5 class="modal-title">Tambah Jadwal Perawat</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form action="/dashboard/actions/kelola_dokter.php" method="post">
+                                                <!-- tambah jadwal perawat  form -->
+                                                <form action="/dashboard/actions/kelola_jadwal_perawat.php" method="post">
                                                     <input type="hidden" value="tambah" name="jenis">
                                                     <div class="modal-body">
                                                         <div class="row gap-3">
                                                             <div class="col-12">
-                                                                <label for="no_sip" class="form-label">No. SIP</label>
-                                                                <input type="text" class="form-control" id="no_sip" name="no_sip" autocomplete="off" required>
+                                                                <label for="tanggal">Tanggal</label>
+                                                                <input id="tanggal" class="form-control" type="date" name="tanggal" required />
                                                             </div>
                                                             <div class="col-12">
-                                                                <label for="spesialisasi" class="form-label">Spesialisasi</label>
-                                                                <input type="text" class="form-control" id="spesialisasi" name="spesialisasi" autocomplete="off" required>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <label for="id_pegawai" class="form-label">Pegawai</label>
-                                                                <select id="id_pegawai" class="form-select" name="id_pegawai" required>
-                                                                    <option selected disabled value="0">Pilih Pegawai</option>
-                                                                    <?php foreach ($pegawaiSelect as $pegawai) : ?>
-                                                                        <option value="<?= $pegawai['id_pegawai'] ?>"><?= $pegawai['nama'] ?>/<?= $pegawai['nip'] ?></option>
+                                                                <label for="id_perawat" class="form-label">Perawat</label>
+                                                                <select id="id_perawat" class="form-select" name="id_perawat" required>
+                                                                    <option selected disabled value="0">Pilih Perawat</option>
+                                                                    <?php foreach ($perawat as $p) : ?>
+                                                                        <option value="<?= $p['id_perawat'] ?>"><?= $p['nama'] ?>/<?= $p['nip'] ?></option>
                                                                     <?php endforeach; ?>
                                                                 </select>
                                                             </div>
                                                             <div class="col-12">
-                                                                <label for="id_pegawai" class="form-label">Poli</label>
+                                                                <label for="shift" class="form-label">Shift</label>
+                                                                <select id="shift" class="form-select" name="shift" required>
+                                                                    <option selected disabled value="0">Pilih Shift</option>
+                                                                    <option value="1">Shift 1 07:00 - 14.00 WIB</option>
+                                                                    <option value="2">Shift 2 14:00 - 21.00 WIB</option>
+                                                                    <option value="3">Shift 3 21:00 - 07.00 WIB</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <label for="poli" class="form-label">Poli</label>
                                                                 <select id="poli" class="form-select" name="poli" required>
-                                                                    <option selected disabled value="0">Pilih Poli</option>
-                                                                    <?php foreach ($poliSelect as $poli) : ?>
-                                                                        <option value="<?= $poli ?>"><?= $poli ?></option>
-                                                                    <?php endforeach; ?>
+                                                                    <option selected value="0">Pilih Poli</option>
+                                                                    <option value="Gigi">Gigi</option>
+                                                                    <option value="THT">THT</option>
+                                                                    <option value="PDL">PDL</option>
+                                                                    <option value="Saraf">Saraf</option>
+                                                                    <option value="Anak">Anak</option>
+                                                                    <option value="Mata">Mata</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -90,6 +101,7 @@ $poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
                                 </div>
                             </div>
                         </div>
+
                         <?php if (isset($_SESSION['successMsg'])) : ?>
                             <div class="mt-2">
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -110,77 +122,71 @@ $poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
 
                         <div class="row mt-2">
                             <div class="col">
-                                <table id="dokter-table" class="table table-striped" style="width: 100%;">
+                                <!-- table jadwal perawat gigi -->
+                                <table id="jp-table" class="table table-striped" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>Nama</th>
+                                            <th>Nama Perawat</th>
                                             <th>NIP</th>
-                                            <th>No. SIP</th>
-                                            <th>Spesialisasi</th>
-                                            <th>Poli</th>
+                                            <th>Tanggal</th>
+                                            <th>Waktu</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($dokter as $dokter) : ?>
+                                        <?php foreach ($jadwalPerawat as $jp) : ?>
                                             <tr>
                                                 <td></td>
-                                                <td><?= $dokter['nama']; ?></td>
-                                                <td><?= $dokter['nip']; ?></td>
-                                                <td><?= $dokter['no_sip']; ?></td>
-                                                <td><?= $dokter['spesialisasi']; ?></td>
-                                                <td><?= $dokter['poli']; ?></td>
+                                                <td><?= $jp['nama']; ?></td>
+                                                <td><?= $jp['nip']; ?></td>
+                                                <td><?= $jp['tanggal']; ?></td>
+                                                <td><?= $jp['waktu_mulai']; ?> - <?= $jp['waktu_selesai']; ?> WIB</td>
                                                 <td class="d-flex justify-content-center gap-2">
                                                     <!-- button edit -->
                                                     <div>
-                                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-dokter-" . $dokter['id_dokter']; ?>>
+                                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-jp-" . $jp['id_jadwal_perawat']; ?>>
                                                             Edit
                                                         </button>
 
-                                                        <div class="modal fade" id=<?= "edit-dokter-" . $dokter['id_dokter']; ?> tabindex="-1">
+                                                        <div class="modal fade" id=<?= "edit-jp-" . $jp['id_jadwal_perawat']; ?> tabindex="-1">
                                                             <div class="modal-dialog modal-dialog-centered">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title">Edit dokter</h5>
+                                                                        <h5 class="modal-title">Edit jadwal perawat</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_dokter.php" method="post">
+                                                                    <form action="/dashboard/actions/kelola_jadwal_perawat.php" method="post">
                                                                         <input type="hidden" name="jenis" value="edit">
-                                                                        <input type="hidden" name="id_dokter" value=<?= (string) $dokter['id_dokter'] ?>>
+                                                                        <input type="hidden" name="id_jadwal_perawat" value=<?= (string) $jp['id_jadwal_perawat'] ?>>
                                                                         <div class="modal-body">
                                                                             <div class="alert alert-warning" role="alert">
                                                                                 Isi kolom yang hanya ingin diubah.
                                                                             </div>
-
                                                                             <div class="row gap-3">
                                                                                 <div class="col-12">
-                                                                                    <label for="no_sip" class="form-label">No. SIP</label>
-                                                                                    <input type="text" class="form-control" id="no_sip" name="no_sip" placeholder="<?= $dokter['no_sip'] ?>" autocomplete="off">
+                                                                                    <label for="tanggal">Tanggal</label>
+                                                                                    <input id="tanggal" class="form-control" type="date" name="tanggal" />
                                                                                 </div>
                                                                                 <div class="col-12">
-                                                                                    <label for="spesialisasi" class="form-label">Spesialisasi</label>
-                                                                                    <input type="text" class="form-control" id="spesialisasi" name="spesialisasi" placeholder="<?= $dokter['spesialisasi'] ?>" autocomplete="off">
-                                                                                </div>
-                                                                                <div class="col-12">
-                                                                                    <label for="id_pegawai" class="form-label">Pegawai</label>
-                                                                                    <select id="id_pegawai" class="form-select" name="id_pegawai">
-                                                                                        <option selected disabled value="0">Pilih Pegawai</option>
-                                                                                        <?php foreach ($pegawaiSelect as $pegawai) : ?>
-                                                                                            <?php if ($pegawai['nip'] === $dokter['nip']) {
-                                                                                                continue;
-                                                                                            } ?>
-                                                                                            <option value="<?= $pegawai['id_pegawai'] ?>"><?= $pegawai['nama'] ?></option>
-                                                                                        <?php endforeach; ?>
+                                                                                    <label for="shift" class="form-label">Shift</label>
+                                                                                    <select id="shift" class="form-select" name="shift">
+                                                                                        <option selected value="0">Pilih Shift</option>
+                                                                                        <option value="1">Shift 1 07:00 - 14.00 WIB</option>
+                                                                                        <option value="2">Shift 2 14:00 - 21.00 WIB</option>
+                                                                                        <option value="3">Shift 3 21:00 - 07.00 WIB</option>
                                                                                     </select>
                                                                                 </div>
                                                                                 <div class="col-12">
-                                                                                    <label for="id_pegawai" class="form-label">Poli</label>
+                                                                                    <label for="poli" class="form-label">Poli</label>
                                                                                     <select id="poli" class="form-select" name="poli">
-                                                                                        <option selected disabled value="0">Pilih Poli</option>
-                                                                                        <?php foreach ($poliSelect as $poli) : ?>
-                                                                                            <option value="<?= $poli ?>"><?= $poli ?></option>
-                                                                                        <?php endforeach; ?>
+                                                                                        <option selected value="0">Pilih Poli</option>
+                                                                                        <option value="Gigi">Gigi</option>
+                                                                                        <option value="THT">THT</option>
+                                                                                        <option value="PDL">PDL</option>
+                                                                                        <option value="Saraf">Saraf</option>
+                                                                                        <option value="Anak">Anak</option>
+                                                                                        <option value="Mata">Mata</option>
                                                                                     </select>
                                                                                 </div>
                                                                             </div>
@@ -196,23 +202,22 @@ $poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
                                                     </div>
                                                     <!-- button hapus -->
                                                     <div>
-                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=<?= "#hapus-dokter-" . $dokter['id_dokter']; ?>>
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=<?= "#hapus-jp-" . $jp['id_jadwal_perawat']; ?>>
                                                             Hapus
                                                         </button>
 
-                                                        <div class="modal fade" id=<?= "hapus-dokter-" . $dokter['id_dokter']; ?> tabindex="-1">
+                                                        <div class="modal fade" id=<?= "hapus-jp-" . $jp['id_jadwal_perawat']; ?> tabindex="-1">
                                                             <div class="modal-dialog modal-dialog-centered">
                                                                 <div class="modal-content">
-
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title">Hapus dokter</h5>
+                                                                        <h5 class="modal-title">Hapus jadwal perawat</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_dokter.php" method="post">
+                                                                    <form action="/dashboard/actions/kelola_jadwal_perawat.php" method="post">
                                                                         <input type="hidden" name="jenis" value="delete">
-                                                                        <input type="hidden" name="id_dokter" value="<?= $dokter['id_dokter'] ?>">
+                                                                        <input type="hidden" name="id_jadwal_perawat" value="<?= $jp['id_jadwal_perawat'] ?>">
                                                                         <div class="modal-body">
-                                                                            <p>Apakah Anda yakin ingin menghapus dokter dengan nama <b><?= $dokter['nama']; ?></b> dan NIP <b><?= $dokter['nip']; ?></b>?</p>
+                                                                            <p>Apakah Anda yakin ingin menghapus <b>jadwal perawat</b> dengan nama <b><?= $jp['nama']; ?></b> dan NIP <b><?= $jp['nip']; ?></b> tanggal <b><?= $jp['tanggal'] ?></b> jam <b><?= $jp['waktu_mulai'] ?> - <?= $jp['waktu_selesai'] ?></b>?</p>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -230,6 +235,7 @@ $poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
                                 </table>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -257,23 +263,40 @@ if (isset($_SESSION['warningMsg'])) {
 <script src="assets/vendor/datatables/datatables.min.js"></script>
 
 <script>
-    const table = $('#dokter-table').DataTable({
+    // table jadwal perawat
+    const tableJp = $('#jp-table').DataTable({
         columnDefs: [{
             searchable: false,
             orderable: false,
-            width: '10%',
+            width: '1%',
             targets: 0
         }, {
             className: "dt-head-center",
-            targets: [2]
+            targets: [5]
         }, ],
+        layout: {
+            topStart: {
+                buttons: [
+                    'pageLength',
+                    {
+                        extend: 'searchBuilder',
+                        config: {
+                            columns: [1, 2, 3, 4]
+                        }
+                    }
+                ]
+            }
+        },
+        order: [
+            [3, 'desc']
+        ]
     });
 
-    table
+    tableJp
         .on('order.dt search.dt', function() {
             var i = 1;
 
-            table
+            tableJp
                 .cells(null, 0, {
                     search: 'applied',
                     order: 'applied'

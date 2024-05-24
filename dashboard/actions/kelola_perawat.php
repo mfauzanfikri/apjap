@@ -67,7 +67,7 @@ if (isset($_POST['submit'])) {
             $isSuccess = editPerawat($data, $_POST['id_perawat']);
 
             if ($isSuccess === true) {
-                $_SESSION['successMsg'] = 'Perawat berhasil edit.';
+                $_SESSION['successMsg'] = 'Perawat berhasil diedit.';
             } else {
                 $_SESSION['errorMsg'] = "Perawat dengan pegawai sudah ada.";
             }

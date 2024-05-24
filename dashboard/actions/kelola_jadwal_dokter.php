@@ -114,7 +114,7 @@ if (isset($_POST['submit'])) {
             $isSuccess = editJadwalDokter($data, $_POST['id_jadwal_dokter']);
 
             if ($isSuccess === true) {
-                $_SESSION['successMsg'] = 'Jadwal dokter berhasil edit.';
+                $_SESSION['successMsg'] = 'Jadwal dokter berhasil diedit.';
             } else {
                 $_SESSION['errorMsg'] = "Jadwal dokter dengan pegawai sudah ada.";
             }

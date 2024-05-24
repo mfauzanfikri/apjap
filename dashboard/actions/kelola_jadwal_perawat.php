@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
 
             if (!$isValid) {
                 $_SESSION['errorMsg'] = 'Semua kolom harus diisi.';
-                header('Location: /dashboard/kelola_dokter.php');
+                header('Location: /dashboard/kelola_jadwal_perawat.php');
                 die();
             }
 
@@ -57,10 +57,10 @@ if (isset($_POST['submit'])) {
             $isSuccess = addJadwalPerawat($data);
 
             if ($isSuccess === true) {
-                $_SESSION['successMsg'] = 'Dokter berhasil ditambahkan.';
+                $_SESSION['successMsg'] = 'Jadwal perawat berhasil ditambahkan.';
             } else {
                 $nip = $_POST['nip'];
-                $_SESSION['errorMsg'] = "Dokter dengan NIP $nip sudah ada.";
+                $_SESSION['errorMsg'] = "Jadwal perawat dengan NIP $nip sudah ada.";
             }
 
             $_SESSION['successMsg'] = 'Jadwal perawat berhasil ditambahkan.';
@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
             }
 
             if (empty($data)) {
-                header('Location: /dashboard/kelola_dokter.php');
+                header('Location: /dashboard/kelola_jadwal_perawat.php');
                 die();
             }
 
@@ -89,7 +89,7 @@ if (isset($_POST['submit'])) {
 
             $isSuccess = editJadwalPerawat($data, $_POST['id_jadwal_perawat']);
 
-            $_SESSION['successMsg'] = 'Jadwal perawat berhasil edit.';
+            $_SESSION['successMsg'] = 'Jadwal perawat berhasil diedit.';
 
             break;
 

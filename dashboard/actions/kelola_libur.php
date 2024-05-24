@@ -69,7 +69,7 @@ if (isset($_POST['submit'])) {
 
             $isSuccess = editLibur($data, $_POST['id_libur']);
 
-            $_SESSION['successMsg'] = 'Jadawal libur pegawai berhasil edit.';
+            $_SESSION['successMsg'] = 'Jadawal libur pegawai berhasil diedit.';
 
             break;
 

@@ -15,7 +15,7 @@ function getStatusColor($status) {
         case 'disetujui':
             return 'success';
             break;
-        case 'proses':
+        case 'ditolak':
             return 'danger';
             break;
 

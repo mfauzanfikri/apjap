@@ -279,7 +279,7 @@ if (isset($_SESSION['warningMsg'])) {
             targets: 0
         }, {
             className: "dt-head-center",
-            targets: [5]
+            targets: [4, 8]
         }, ],
         layout: {
             topStart: {
@@ -288,7 +288,7 @@ if (isset($_SESSION['warningMsg'])) {
                     {
                         extend: 'searchBuilder',
                         config: {
-                            columns: [1, 2, 3, 4]
+                            columns: [1, 2, 3, 4, 5, 6, 7]
                         }
                     }
                 ]

@@ -67,7 +67,7 @@ if (isset($_POST['submit'])) {
             $isSuccess = editPegawai($data, $_POST['id_pegawai']);
 
             if ($isSuccess === true) {
-                $_SESSION['successMsg'] = 'Pegawai berhasil edit.';
+                $_SESSION['successMsg'] = 'Pegawai berhasil diedit.';
             } else {
                 $nip = $_POST['nip'];
                 $_SESSION['errorMsg'] = "Pegawai dengan NIP $nip sudah ada.";

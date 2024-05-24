@@ -85,6 +85,8 @@ if (isset($_POST['submit'])) {
                 die();
             }
 
+            $data['status'] = 'proses';
+
             $isSuccess = editJadwalPerawat($data, $_POST['id_jadwal_perawat']);
 
             $_SESSION['successMsg'] = 'Jadwal perawat berhasil edit.';

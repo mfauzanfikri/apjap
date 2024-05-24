@@ -1,5 +1,12 @@
 <?php include './layouts/header.php'; ?>
 
+<?php
+require './utils/utils.php';
+
+// dd($_SESSION);
+
+?>
+
 <!-- ======= #main ======= -->
 <main id="main" class="main">
 

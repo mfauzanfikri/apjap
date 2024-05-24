@@ -1,6 +1,7 @@
 <?php
 
 require_once './services/db.php';
+require_once './utils/utils.php';
 
 $perawat = getPerawat();
 
@@ -33,7 +34,7 @@ $jadwalPerawat = getJadwalPerawat();
                 <div class="card">
                     <div class="card-body">
 
-                        <h5 class="card-title">Jadwal Perawat</h5>
+                        <h5 class="card-title">Tabel Jadwal Perawat</h5>
                         <div class="row justify-content-end">
                             <div class="col">
                                 <div class="d-flex justify-content-end">
@@ -131,6 +132,9 @@ $jadwalPerawat = getJadwalPerawat();
                                             <th>NIP</th>
                                             <th>Tanggal</th>
                                             <th>Waktu</th>
+                                            <th>Shift</th>
+                                            <th>Poli</th>
+                                            <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -142,6 +146,9 @@ $jadwalPerawat = getJadwalPerawat();
                                                 <td><?= $jp['nip']; ?></td>
                                                 <td><?= $jp['tanggal']; ?></td>
                                                 <td><?= $jp['waktu_mulai']; ?> - <?= $jp['waktu_selesai']; ?> WIB</td>
+                                                <td><?= $jp['shift'] ?></td>
+                                                <td><?= $jp['poli']; ?></td>
+                                                <td><span class="badge text-bg-<?= getStatusColor($jp['status']); ?>"><?= $jp['status']; ?></span></td>
                                                 <td class="d-flex justify-content-center gap-2">
                                                     <!-- button edit -->
                                                     <div>

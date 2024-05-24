@@ -196,13 +196,19 @@ function deleteRuangan(string|int $ruanganId) {
 
 // pegawai
 function getPegawai() {
-    $pegawai = fetchAll('SELECT id_pegawai,username,nip,nama,alamat,no_telepon,jabatan,status_pegawai FROM pegawai p LEFT JOIN user u ON p.id_user = u.id_user');
+    $pegawai = fetchAll('SELECT id_pegawai,p.id_user,username,nip,nama,alamat,no_telepon,jabatan,status_pegawai FROM pegawai p LEFT JOIN user u ON p.id_user = u.id_user');
 
     return $pegawai;
 }
 
 function getPegawaiById(string|int $pegawaiId): array|false {
-    $pegawai = fetch('SELECT id_pegawai,username,nip,nama,alamat,no_telepon,jabatan,status_pegawai FROM pegawai p LEFT JOIN user u ON p.id_user = u.id_user WHERE id_pegawai = :id_pegawai', ['id_pegawai' => $pegawaiId]);
+    $pegawai = fetch('SELECT id_pegawai,p.id_user,username,nip,nama,alamat,no_telepon,jabatan,status_pegawai FROM pegawai p LEFT JOIN user u ON p.id_user = u.id_user WHERE id_pegawai = :id_pegawai', ['id_pegawai' => $pegawaiId]);
+
+    return $pegawai;
+}
+
+function getPegawaiByUserId(string|int $userId): array|false {
+    $pegawai = fetch('SELECT id_pegawai,p.id_user,username,nip,nama,alamat,no_telepon,jabatan,status_pegawai FROM pegawai p LEFT JOIN user u ON p.id_user = u.id_user WHERE p.id_user = :id_user', ['id_user' => $userId]);
 
     return $pegawai;
 }
@@ -276,13 +282,19 @@ function getUsersWithNoPegawai() {
 
 // dokter
 function getDokter() {
-    $dokter = fetchAll('SELECT id_dokter,nama,nip,spesialisasi,poli,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai');
+    $dokter = fetchAll('SELECT id_dokter,p.id_pegawai,nama,nip,spesialisasi,poli,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai');
 
     return $dokter;
 }
 
 function getDokterById(string|int $dokterId): array|false {
-    $dokter = fetch('SELECT id_dokter,nama,nip,spesialisasi,poli,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai WHERE id_dokter = :id_dokter', ['id_dokter' => $dokterId]);
+    $dokter = fetch('SELECT id_dokter,p.id_pegawai,nama,nip,spesialisasi,poli,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai WHERE id_dokter = :id_dokter', ['id_dokter' => $dokterId]);
+
+    return $dokter;
+}
+
+function getDokterByPegawaiId(string|int $pegawaiId): array|false {
+    $dokter = fetch('SELECT id_dokter,p.id_pegawai,nama,nip,spesialisasi,poli,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai WHERE p.id_pegawai = :id_pegawai', ['id_pegawai' => $pegawaiId]);
 
     return $dokter;
 }
@@ -350,13 +362,19 @@ function getPegawaiWithNoDokter() {
 
 // perawat
 function getPerawat() {
-    $perawat = fetchAll('SELECT id_perawat,nama,nip,no_sip FROM perawat p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai');
+    $perawat = fetchAll('SELECT id_perawat,p.id_pegawai,nama,nip,no_sip FROM perawat p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai');
 
     return $perawat;
 }
 
 function getPerawatById(string|int $perawatId): array|false {
-    $perawat = fetch('SELECT id_perawat,nama,nip,no_sip FROM perawat p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai WHERE id_perawat = :id_perawat', ['id_perawat' => $perawatId]);
+    $perawat = fetch('SELECT id_perawat,p.id_pegawai,nama,nip,no_sip FROM perawat p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai WHERE id_perawat = :id_perawat', ['id_perawat' => $perawatId]);
+
+    return $perawat;
+}
+
+function getPerawatByPegawaiId(string|int $pegawaiId): array|false {
+    $perawat = fetch('SELECT id_perawat,p.id_pegawai,nama,nip,no_sip FROM perawat p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai WHERE p.id_pegawai = :id_pegawai', ['id_pegawai' => $pegawaiId]);
 
     return $perawat;
 }
@@ -529,6 +547,119 @@ function deleteJadwalPerawat(string|int $jpId) {
     }
 
     query("DELETE FROM jadwal_perawat WHERE id_jadwal_perawat = $jpId");
+
+    return true;
+}
+
+// libur
+function getLibur() {
+    $libur = fetchAll('SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai');
+
+    return $libur;
+}
+
+function getLiburById($id) {
+    $libur = fetch("SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai WHERE l.id_libur = $id");
+
+    return $libur;
+}
+
+function getLiburByPegawaiId($id) {
+    $libur = fetchAll("SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai WHERE p.id_pegawai = $id");
+
+    return $libur;
+}
+
+function addLibur($data) {
+    $fieldsTemp = [];
+    $placeholdersTemp = [];
+
+    foreach ($data as $key => $value) {
+        $fieldsTemp[] = $key;
+        $placeholdersTemp[] = ':' . $key;
+    }
+
+    $fields = implode(',', $fieldsTemp);
+    $placeholders = implode(',', $placeholdersTemp);
+
+    $query = "INSERT INTO libur ($fields) VALUES ($placeholders)";
+    query($query, $data);
+
+    return true;
+}
+
+
+function editLibur($data, $id) {
+    $fieldsTemp = [];
+
+    foreach ($data as $key => $value) {
+        $fieldsTemp[] = $key . " = :" . $key;
+    }
+
+    $fields = implode(', ', $fieldsTemp);
+
+    query("UPDATE libur SET $fields WHERE id_libur = $id", $data);
+
+    return true;
+}
+
+function deleteLibur(string|int $id) {
+    $isExist = getLiburById($id);
+
+    if (!$isExist) {
+        return false;
+    }
+
+    query("DELETE FROM libur WHERE id_libur = $id");
+
+    return true;
+}
+
+// cuti
+function getCuti() {
+    $cuti = fetchAll('SELECT c.id_cuti,c.id_validator,c.tanggal_mulai,c.tanggal_selesai,c.status,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM cuti c LEFT JOIN pegawai p ON c.id_pegawai = p.id_pegawai');
+
+    return $cuti;
+}
+
+function getCutiById($id) {
+    $cuti = fetch("SELECT c.id_cuti,c.id_validator,c.tanggal_mulai,c.tanggal_selesai,c.status,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM cuti c LEFT JOIN pegawai p ON c.id_pegawai = p.id_pegawai WHERE c.id_libur = $id");
+
+    return $cuti;
+}
+
+function getCutiByPegawaiId($id) {
+    $cuti = fetchAll("SELECT c.id_cuti,c.id_validator,c.tanggal_mulai,c.tanggal_selesai,c.status,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM cuti c LEFT JOIN pegawai p ON c.id_pegawai = p.id_pegawai WHERE p.id_pegawai = $id");
+
+    return $cuti;
+}
+
+function addCuti($data) {
+    $fieldsTemp = [];
+    $placeholdersTemp = [];
+
+    foreach ($data as $key => $value) {
+        $fieldsTemp[] = $key;
+        $placeholdersTemp[] = ':' . $key;
+    }
+
+    $fields = implode(',', $fieldsTemp);
+    $placeholders = implode(',', $placeholdersTemp);
+
+    $query = "INSERT INTO cuti ($fields) VALUES ($placeholders)";
+    query($query, $data);
+
+    return true;
+}
+
+function deleteCuti(string|int $id) {
+    $isExist = getCutiById($id);
+
+    if (!$isExist) {
+        return false;
+    }
+
+    query("DELETE FROM cuti WHERE id_cuti = $id");
 
     return true;
 }

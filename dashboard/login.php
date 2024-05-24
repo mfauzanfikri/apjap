@@ -3,6 +3,7 @@
 session_start();
 
 require './services/auth.php';
+require './utils/utils.php';
 
 if (isset($_SESSION['username'])) {
     header('Location: /dashboard/logout.php');
@@ -26,6 +27,21 @@ if (isset($_POST) && isset($_POST['submit'])) {
         $_SESSION['username'] = $user['username'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['role'] = $user['role'];
+
+        $pegawai = getPegawaiByUserId($user['id_user']);
+        $_SESSION['id_pegawai'] = $pegawai['id_pegawai'];
+        $_SESSION['nip'] = $pegawai['nip'];
+        $_SESSION['nama'] = $pegawai['nama'];
+        $_SESSION['alamat'] = $pegawai['alamat'];
+        $_SESSION['no_telepon'] = $pegawai['no_telepon'];
+        $_SESSION['jabatan'] = $pegawai['jabatan'];
+        $_SESSION['status_pegawai'] = $pegawai['status_pegawai'];
+
+        $isDokter = getDokterByPegawaiId($pegawai['id_pegawai']);
+        $_SESSION['isDokter'] = $isDokter !== false ? true : false;
+
+        $isPerawat = getPerawatByPegawaiId($pegawai['id_pegawai']);
+        $_SESSION['isPerawat'] = $isPerawat !== false ? true : false;
 
         header("Location: /dashboard");
         die();

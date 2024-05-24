@@ -71,6 +71,33 @@
                 <span>Kelola Jadwal Perawat</span>
             </a>
         </li>
+        </li>
+
+        <!-- kelola jadwal libur -->
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/dashboard/kelola_libur.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_libur.php">
+                <i class="bi bi-calendar-check"></i>
+                <span>Kelola Jadwal Libur</span>
+            </a>
+        </li>
+
+        <!-- kelola jadwal cuti -->
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/dashboard/kelola_cuti.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_cuti.php">
+                <i class="bi bi-calendar-check-fill"></i>
+                <span>Kelola Jadwal Cuti</span>
+            </a>
+        </li>
+
+        <li class="nav-heading">Laporan</li>
+
+        <!-- laporan jadwal kerja -->
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/dashboard/laporan_jadwal_kerja.php' ? '' : 'collapsed' ?>" href="/dashboard/laporan_jadwal_kerja.php">
+                <i class="bi bi-file-earmark-zip"></i>
+                <span>Laporan Jadwal kerja</span>
+            </a>
+        </li>
     </ul>
 
 </aside><!-- End Sidebar-->

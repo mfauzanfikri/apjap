@@ -231,6 +231,19 @@ if (isset($_SESSION['warningMsg'])) {
             className: "dt-head-center",
             targets: [3, 4]
         }, ],
+        layout: {
+            topStart: {
+                buttons: [
+                    'pageLength',
+                    {
+                        extend: 'searchBuilder',
+                        config: {
+                            columns: [1, 2, 3, 4, 5, 6]
+                        }
+                    },
+                ]
+            }
+        }
     });
 
     table

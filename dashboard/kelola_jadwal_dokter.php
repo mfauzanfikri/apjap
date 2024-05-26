@@ -1417,8 +1417,8 @@ if (isset($_SESSION['warningMsg'])) {
             width: '1%',
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [5]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {
@@ -1461,8 +1461,8 @@ if (isset($_SESSION['warningMsg'])) {
             width: '1%',
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [5]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {
@@ -1505,8 +1505,8 @@ if (isset($_SESSION['warningMsg'])) {
             width: '1%',
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [5]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {
@@ -1549,8 +1549,8 @@ if (isset($_SESSION['warningMsg'])) {
             width: '1%',
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [5]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {
@@ -1593,8 +1593,8 @@ if (isset($_SESSION['warningMsg'])) {
             width: '1%',
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [5]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {
@@ -1637,8 +1637,8 @@ if (isset($_SESSION['warningMsg'])) {
             width: '1%',
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [5]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {

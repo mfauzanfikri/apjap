@@ -210,8 +210,8 @@ if (isset($_SESSION['warningMsg'])) {
             width: '10%',
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [2]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
     });
 

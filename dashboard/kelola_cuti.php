@@ -127,7 +127,7 @@ $pegawai = getPegawai();
                                                 <td><?= $c['nama']; ?></td>
                                                 <td><?= $c['nip']; ?></td>
                                                 <td><?= $c['tanggal_mulai']; ?> - <?= $c['tanggal_selesai']; ?></td>
-                                                <td class="text-center"><span class="badge text-bg-<?= getStatusColor($c['status']); ?>"><?= $c['status'] ?></span></td>
+                                                <td><span class="badge text-bg-<?= getStatusColor($c['status']); ?>"><?= $c['status'] ?></span></td>
                                                 <td class="d-flex justify-content-center">
                                                     <!-- button hapus -->
                                                     <div>
@@ -200,8 +200,8 @@ if (isset($_SESSION['warningMsg'])) {
             width: '1%',
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [4, 5]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {

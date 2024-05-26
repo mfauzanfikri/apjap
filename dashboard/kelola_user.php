@@ -116,7 +116,7 @@ $users = getUsers();
                                                 <td></td>
                                                 <td><?= $user['username']; ?></td>
                                                 <td><?= $user['email']; ?></td>
-                                                <td class="text-center"><?= ucfirst($user['role']); ?></td>
+                                                <td><?= ucfirst($user['role']); ?></td>
                                                 <td class="d-flex justify-content-center gap-2">
                                                     <!-- button edit -->
                                                     <div>
@@ -232,8 +232,8 @@ if (isset($_SESSION['warningMsg'])) {
             orderable: false,
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [3, 4]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {

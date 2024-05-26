@@ -32,6 +32,7 @@ $ruanganSelect = getRuangan();
         </nav>
     </section><!-- End Page Title -->
 
+    <!-- admin dan kepala bidang saja -->
     <?php if (authorization(['role' => [Role::ADMIN]]) || authorization(['jabatan' => [Jabatan::KEPALA_BIDANG]])) : ?>
         <section class="section">
             <div class="row">
@@ -313,7 +314,7 @@ $ruanganSelect = getRuangan();
                                                         <td><?= $jo['tanggal']; ?></td>
                                                         <td><?= $jo['nama_pengaju']; ?>/<?= $jo['nip_pengaju']; ?></td>
                                                         <td><?= $jo['nama_dokter']; ?>/<?= $jo['nip_dokter']; ?></td>
-                                                        <td class="text-center"><span class="badge text-bg-<?= getStatusColor($jo['status']); ?>"><?= $jo['status'] ?></span></td>
+                                                        <td><span class="badge text-bg-<?= getStatusColor($jo['status']); ?>"><?= $jo['status'] ?></span></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -413,8 +414,8 @@ if (isset($_SESSION['warningMsg'])) {
             width: '1%',
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [5]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {
@@ -457,8 +458,8 @@ if (isset($_SESSION['warningMsg'])) {
             width: '1%',
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [6]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {

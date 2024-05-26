@@ -32,46 +32,56 @@ function redirect($url) {
 
 // rules: role, jabatan, profesi
 function authorization($rules) {
-    if (!isset($_SESSION['username'])) {
+    if (!isset($_SESSION['username']) || (!isset($rules['role']) && !isset($rules['jabatan']) && !isset($rules['profesi']))) {
         return false;
     }
 
     if (isset($rules['role'])) {
         $userRole = $_SESSION['role'];
 
-        $isFound = array_search($userRole, $rules['role']);
 
-        if ($isFound === false) {
-            return false;
+        if (is_array($rules['role'])) {
+            $isAuthorized = array_search($userRole, $rules['role']);
+
+            if ($isAuthorized === false) {
+                return false;
+            }
+        } else {
+            if ($rules['role'] !== $userRole) {
+                return false;
+            }
         }
     }
 
     if (isset($rules['jabatan'])) {
         $userJabatan = $_SESSION['jabatan'];
 
-        $isFound = array_search($userJabatan, $rules['jabatan']);
+        if (is_array($rules['jabatan'])) {
+            $isAuthorized = array_search($userJabatan, $rules['jabatan']);
 
-        if ($isFound === false) {
-            return false;
+            if ($isAuthorized === false) {
+                return false;
+            }
+        } else {
+            if ($rules['jabatan'] !== $userJabatan) {
+                return false;
+            }
         }
     }
 
     if (isset($rules['profesi'])) {
         $userIsDokter = $_SESSION['isDokter'];
         $userIsPerawat = $_SESSION['isPerawat'];
+        $userProfesi = $userIsDokter ? Profesi::DOKTER : ($userIsPerawat ? Profesi::PERAWAT : null);
 
-        $isFoundPerawat = array_search('perawat', $rules['profesi']);
+        if (is_array($rules['profesi'])) {
+            $isAuthorized = array_search($userProfesi, $rules['profesi']);
 
-        if ($isFoundPerawat !== false) {
-            if ($userIsPerawat === false) {
+            if ($isAuthorized === false) {
                 return false;
             }
-        }
-
-        $isFoundDokter = array_search('dokter', $rules['profesi']);
-
-        if ($isFoundDokter !== false) {
-            if ($userIsDokter === false) {
+        } else {
+            if ($userProfesi !== $rules['profesi']) {
                 return false;
             }
         }

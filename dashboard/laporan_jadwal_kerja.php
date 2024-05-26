@@ -145,7 +145,7 @@ if (isset($_SESSION['warningMsg'])) {
             },
             {
                 className: "dt-head-center dt-body-center",
-                targets: [1, 2, 3, 4, 5]
+                targets: ['_all']
             }
         ],
         layout: {
@@ -204,7 +204,7 @@ if (isset($_SESSION['warningMsg'])) {
             targets: 0
         }, {
             className: "dt-head-center dt-body-center",
-            targets: [1, 2, 3, 4, 5, 6]
+            targets: ['_all']
         }],
         layout: {
             topStart: {

@@ -27,145 +27,147 @@ $cuti = getCuti();
             </ol>
         </nav>
     </section><!-- End Page Title -->
-
-    <section class="section">
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <!-- tab nav -->
-                        <ul class="nav nav-tabs nav-tabs-bordered" id="pengajuan-jc" role="tablist">
-                            <!-- pengajuan tab -->
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="pengajuan-tab" data-bs-toggle="tab" data-bs-target="#pengajuan" type="button" role="tab" aria-controls="home" aria-selected="true">Pengajuan</button>
-                            </li>
-                            <!-- selesai tab -->
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="selesai-tab" data-bs-toggle="tab" data-bs-target="#selesai" type="button" role="tab" aria-controls="profile" aria-selected="false">Selesai</button>
-                            </li>
-                        </ul>
-                        <div class="tab-content pt-2" id="pengajuan-jc-content">
-                            <!-- pengajuan content -->
-                            <div class="tab-pane fade show active" id="pengajuan" role="tabpanel" aria-labelledby="pengajuan-tab">
-                                <h5 class="card-title">Tabel Pengajuan Cuti oleh Pegawai</h5>
-                                <?php if (isset($_SESSION['successMsg'])) : ?>
-                                    <div class="mt-2">
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            <?= $_SESSION['successMsg']; ?>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <!-- admin dan kepala bidang saja -->
+    <?php if (authorization(['role' => [Role::ADMIN]]) || authorization(['jabatan' => [Jabatan::KEPALA_BIDANG]])) : ?>
+        <section class="section">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- tab nav -->
+                            <ul class="nav nav-tabs nav-tabs-bordered" id="pengajuan-jc" role="tablist">
+                                <!-- pengajuan tab -->
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="pengajuan-tab" data-bs-toggle="tab" data-bs-target="#pengajuan" type="button" role="tab" aria-controls="home" aria-selected="true">Pengajuan</button>
+                                </li>
+                                <!-- selesai tab -->
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="selesai-tab" data-bs-toggle="tab" data-bs-target="#selesai" type="button" role="tab" aria-controls="profile" aria-selected="false">Selesai</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content pt-2" id="pengajuan-jc-content">
+                                <!-- pengajuan content -->
+                                <div class="tab-pane fade show active" id="pengajuan" role="tabpanel" aria-labelledby="pengajuan-tab">
+                                    <h5 class="card-title">Tabel Pengajuan Cuti oleh Pegawai</h5>
+                                    <?php if (isset($_SESSION['successMsg'])) : ?>
+                                        <div class="mt-2">
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                <?= $_SESSION['successMsg']; ?>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
                                         </div>
-                                    </div>
-                                <?php endif; ?>
+                                    <?php endif; ?>
 
-                                <?php if (isset($_SESSION['errorMsg'])) : ?>
-                                    <div class="mt-2">
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <?= $_SESSION['errorMsg']; ?>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <?php if (isset($_SESSION['errorMsg'])) : ?>
+                                        <div class="mt-2">
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                <?= $_SESSION['errorMsg']; ?>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
                                         </div>
-                                    </div>
-                                <?php endif; ?>
+                                    <?php endif; ?>
 
-                                <div class="row mt-2">
-                                    <div class="col">
-                                        <!-- table cuti -->
-                                        <table id="pengajuan-table" class="table table-striped" style="width: 100%;">
-                                            <thead>
-                                                <tr>
-                                                    <th></th>
-                                                    <th>Nama Pegawai</th>
-                                                    <th>NIP</th>
-                                                    <th>Tanggal Cuti</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($cuti as $c) : ?>
-                                                    <?php if ($c['status'] !== 'proses') continue; ?>
+                                    <div class="row mt-2">
+                                        <div class="col">
+                                            <!-- table cuti -->
+                                            <table id="pengajuan-table" class="table table-striped" style="width: 100%;">
+                                                <thead>
                                                     <tr>
-                                                        <td></td>
-                                                        <td><?= $c['nama']; ?></td>
-                                                        <td><?= $c['nip']; ?></td>
-                                                        <td class="text-center"><?= $c['tanggal_mulai']; ?> s.d. <?= $c['tanggal_selesai'] ?></td>
-                                                        <td class="d-flex justify-content-center gap-2">
-                                                            <!-- button terima -->
-                                                            <form action="/dashboard/actions/pengajuan_jadwal_cuti.php" method="post">
-                                                                <input type="hidden" name="jenis" value="terima">
-                                                                <input type="hidden" name="status" value="disetujui">
-                                                                <input type="hidden" name="id_validator" value="<?= $_SESSION['id_pegawai']; ?>">
-                                                                <input type="hidden" name="id_cuti" value="<?= $c['id_cuti']; ?>">
-                                                                <button type="submit" name="submit" value="" class="btn btn-success">
-                                                                    Terima
-                                                                </button>
-                                                            </form>
-                                                            <!-- button tolak -->
-                                                            <form action="/dashboard/actions/pengajuan_jadwal_cuti.php" method="post">
-                                                                <input type="hidden" name="jenis" value="tolak">
-                                                                <input type="hidden" name="status" value="ditolak">
-                                                                <input type="hidden" name="id_validator" value="<?= $_SESSION['id_pegawai']; ?>">
-                                                                <input type="hidden" name="id_cuti" value="<?= $c['id_cuti']; ?>">
-                                                                <button type="submit" name="submit" value="" class="btn btn-danger">
-                                                                    Tolak
-                                                                </button>
-                                                            </form>
-                                                        </td>
+                                                        <th></th>
+                                                        <th>Nama Pegawai</th>
+                                                        <th>NIP</th>
+                                                        <th>Tanggal Cuti</th>
+                                                        <th>Aksi</th>
                                                     </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    <?php foreach ($cuti as $c) : ?>
+                                                        <?php if ($c['status'] !== 'proses') continue; ?>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td><?= $c['nama']; ?></td>
+                                                            <td><?= $c['nip']; ?></td>
+                                                            <td><?= $c['tanggal_mulai']; ?> s.d. <?= $c['tanggal_selesai'] ?></td>
+                                                            <td class="d-flex justify-content-center gap-2">
+                                                                <!-- button terima -->
+                                                                <form action="/dashboard/actions/pengajuan_jadwal_cuti.php" method="post">
+                                                                    <input type="hidden" name="jenis" value="terima">
+                                                                    <input type="hidden" name="status" value="disetujui">
+                                                                    <input type="hidden" name="id_validator" value="<?= $_SESSION['id_pegawai']; ?>">
+                                                                    <input type="hidden" name="id_cuti" value="<?= $c['id_cuti']; ?>">
+                                                                    <button type="submit" name="submit" value="" class="btn btn-success">
+                                                                        Terima
+                                                                    </button>
+                                                                </form>
+                                                                <!-- button tolak -->
+                                                                <form action="/dashboard/actions/pengajuan_jadwal_cuti.php" method="post">
+                                                                    <input type="hidden" name="jenis" value="tolak">
+                                                                    <input type="hidden" name="status" value="ditolak">
+                                                                    <input type="hidden" name="id_validator" value="<?= $_SESSION['id_pegawai']; ?>">
+                                                                    <input type="hidden" name="id_cuti" value="<?= $c['id_cuti']; ?>">
+                                                                    <button type="submit" name="submit" value="" class="btn btn-danger">
+                                                                        Tolak
+                                                                    </button>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- selesai content -->
-                            <div class="tab-pane fade show" id="selesai" role="tabpanel" aria-labelledby="selesai-tab">
-                                <h5 class="card-title">Tabel Cuti</h5>
-                                <?php if (isset($_SESSION['successMsg'])) : ?>
-                                    <div class="mt-2">
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            <?= $_SESSION['successMsg']; ?>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <!-- selesai content -->
+                                <div class="tab-pane fade show" id="selesai" role="tabpanel" aria-labelledby="selesai-tab">
+                                    <h5 class="card-title">Tabel Cuti</h5>
+                                    <?php if (isset($_SESSION['successMsg'])) : ?>
+                                        <div class="mt-2">
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                <?= $_SESSION['successMsg']; ?>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
                                         </div>
-                                    </div>
-                                <?php endif; ?>
+                                    <?php endif; ?>
 
-                                <?php if (isset($_SESSION['errorMsg'])) : ?>
-                                    <div class="mt-2">
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <?= $_SESSION['errorMsg']; ?>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    <?php if (isset($_SESSION['errorMsg'])) : ?>
+                                        <div class="mt-2">
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                <?= $_SESSION['errorMsg']; ?>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
                                         </div>
-                                    </div>
-                                <?php endif; ?>
+                                    <?php endif; ?>
 
-                                <div class="row mt-2">
-                                    <div class="col">
-                                        <!-- table cuti -->
-                                        <table id="selesai-table" class="table table-striped" style="width: 100%;">
-                                            <thead>
-                                                <tr>
-                                                    <th></th>
-                                                    <th>Nama Pegawai</th>
-                                                    <th>NIP</th>
-                                                    <th>Tanggal Cuti</th>
-                                                    <th>Status</th>
-                                                    <th>Validator</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($cuti as $c) : ?>
-                                                    <?php if ($c['status'] === 'proses') continue; ?>
+                                    <div class="row mt-2">
+                                        <div class="col">
+                                            <!-- table cuti -->
+                                            <table id="selesai-table" class="table table-striped" style="width: 100%;">
+                                                <thead>
                                                     <tr>
-                                                        <td></td>
-                                                        <td><?= $c['nama']; ?></td>
-                                                        <td><?= $c['nip']; ?></td>
-                                                        <td class="text-center"><?= $c['tanggal_mulai']; ?> s.d. <?= $c['tanggal_selesai']; ?></td>
-                                                        <td class="text-center"><span class="badge text-bg-<?= getStatusColor($c['status']); ?>"><?= $c['status'] ?></span></td>
-                                                        <td><?= $c['nama_validator']; ?>/<?= $c['nip_validator']; ?></td>
+                                                        <th></th>
+                                                        <th>Nama Pegawai</th>
+                                                        <th>NIP</th>
+                                                        <th>Tanggal Cuti</th>
+                                                        <th>Status</th>
+                                                        <th>Validator</th>
                                                     </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    <?php foreach ($cuti as $c) : ?>
+                                                        <?php if ($c['status'] === 'proses') continue; ?>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td><?= $c['nama']; ?></td>
+                                                            <td><?= $c['nip']; ?></td>
+                                                            <td><?= $c['tanggal_mulai']; ?> s.d. <?= $c['tanggal_selesai']; ?></td>
+                                                            <td><span class="badge text-bg-<?= getStatusColor($c['status']); ?>"><?= $c['status'] ?></span></td>
+                                                            <td><?= $c['nama_validator']; ?>/<?= $c['nip_validator']; ?></td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -173,8 +175,8 @@ $cuti = getCuti();
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    <?php endif; ?>
 
     <section class="section">
         <div class="row">
@@ -278,8 +280,8 @@ $cuti = getCuti();
                                                         <td></td>
                                                         <td><?= $c['nama']; ?></td>
                                                         <td><?= $c['nip']; ?></td>
-                                                        <td class="text-center"><?= $c['tanggal_mulai']; ?> s.d. <?= $c['tanggal_selesai'] ?></td>
-                                                        <td class="text-center"><span class="badge text-bg-<?= getStatusColor($c['status']); ?>"><?= $c['status'] ?></span></td>
+                                                        <td><?= $c['tanggal_mulai']; ?> s.d. <?= $c['tanggal_selesai'] ?></td>
+                                                        <td><span class="badge text-bg-<?= getStatusColor($c['status']); ?>"><?= $c['status'] ?></span></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -331,8 +333,8 @@ $cuti = getCuti();
                                                         <td></td>
                                                         <td><?= $c['nama']; ?></td>
                                                         <td><?= $c['nip']; ?></td>
-                                                        <td class="text-center"><?= $c['tanggal_mulai']; ?> s.d. <?= $c['tanggal_selesai']; ?></td>
-                                                        <td class="text-center"><span class="badge text-bg-<?= getStatusColor($c['status']); ?>"><?= $c['status'] ?></span></td>
+                                                        <td><?= $c['tanggal_mulai']; ?> s.d. <?= $c['tanggal_selesai']; ?></td>
+                                                        <td><span class="badge text-bg-<?= getStatusColor($c['status']); ?>"><?= $c['status'] ?></span></td>
                                                         <td><?= $c['nama_validator']; ?>/<?= $c['nip_validator']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
@@ -377,8 +379,8 @@ if (isset($_SESSION['warningMsg'])) {
             width: '1%',
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [3, 4]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {
@@ -421,8 +423,8 @@ if (isset($_SESSION['warningMsg'])) {
             width: '1%',
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [3, 4]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {
@@ -465,8 +467,8 @@ if (isset($_SESSION['warningMsg'])) {
             width: '1%',
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [3, 4]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {
@@ -509,8 +511,8 @@ if (isset($_SESSION['warningMsg'])) {
             width: '1%',
             targets: 0
         }, {
-            className: "dt-head-center",
-            targets: [3, 4]
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {

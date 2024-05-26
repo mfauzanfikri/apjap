@@ -89,6 +89,37 @@
             </a>
         </li>
 
+        <li class="nav-heading">Jadwal Kerja</li>
+
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/dashboard/jadwal_dokter.php' ? '' : 'collapsed' ?>" href="/dashboard/jadwal_dokter.php">
+                <i class="bi bi-calendar-plus"></i>
+                <span>Jadwal Dokter</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/dashboard/jadwal_perawat.php' ? '' : 'collapsed' ?>" href="/dashboard/jadwal_perawat.php">
+                <i class="bi bi-calendar-plus-fill"></i>
+                <span>Jadwal Perawat</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/dashboard/jadwal_pemeriksaan_pasien.php' ? '' : 'collapsed' ?>" href="/dashboard/jadwal_pemeriksaan_pasien.php">
+                <i class="bi bi-calendar3-event"></i>
+                <span>Jadwal Pemeriksaan Pasien</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/dashboard/jadwal_operasi_pasien.php' ? '' : 'collapsed' ?>" href="/dashboard/jadwal_operasi_pasien.php">
+                <i class="bi bi-calendar3-event-fill"></i>
+                <span>Jadwal Operasi Pasien</span>
+            </a>
+        </li>
+
+
         <li class="nav-heading">Pengajuan Jadwal</li>
 
         <li class="nav-item">

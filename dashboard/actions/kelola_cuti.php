@@ -36,17 +36,14 @@ if (isset($_POST['submit'])) {
 
             if (!$isValid) {
                 $_SESSION['errorMsg'] = 'Semua kolom harus diisi.';
-                header('Location: /dashboard/kelola_dokter.php');
+                header('Location: /dashboard/kelola_cuti.php');
                 die();
             }
 
             $isSuccess = addCuti($data);
 
             if ($isSuccess === true) {
-                $_SESSION['successMsg'] = 'Dokter berhasil ditambahkan.';
-            } else {
-                $nip = $_POST['nip'];
-                $_SESSION['errorMsg'] = "Dokter dengan NIP $nip sudah ada.";
+                $_SESSION['successMsg'] = 'Cuti berhasil ditambahkan.';
             }
 
             $_SESSION['successMsg'] = 'Jadawal cuti pegawai berhasil ditambahkan.';

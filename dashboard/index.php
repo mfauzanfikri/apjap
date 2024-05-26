@@ -1,11 +1,12 @@
-<?php include './layouts/header.php'; ?>
-
 <?php
-require './utils/utils.php';
 
-// dd($_SESSION);
+session_start();
+
+require_once './utils/utils.php';
 
 ?>
+
+<?php include './layouts/header.php'; ?>
 
 <!-- ======= #main ======= -->
 <main id="main" class="main">

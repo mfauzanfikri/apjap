@@ -13,38 +13,44 @@ $isError = false;
 
 if (isset($_POST) && isset($_POST['submit'])) {
 
-    $username = $_POST['username'];
+    $nip = $_POST['nip'];
     $password = $_POST['password'];
 
-    $user = verifyUserDashboard($username, $password);
-
-    if (!$user) {
+    $loggedInUser = getUserByNip($nip);
+    if (!$loggedInUser) {
         global $isError;
 
         $isError = true;
     } else {
-        $_SESSION['id_user'] = $user['id_user'];
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['email'] = $user['email'];
-        $_SESSION['role'] = $user['role'];
+        $user = verifyUserDashboard($loggedInUser['username'], $password);
 
-        $pegawai = getPegawaiByUserId($user['id_user']);
-        $_SESSION['id_pegawai'] = $pegawai['id_pegawai'];
-        $_SESSION['nip'] = $pegawai['nip'];
-        $_SESSION['nama'] = $pegawai['nama'];
-        $_SESSION['alamat'] = $pegawai['alamat'];
-        $_SESSION['no_telepon'] = $pegawai['no_telepon'];
-        $_SESSION['jabatan'] = $pegawai['jabatan'];
-        $_SESSION['status_pegawai'] = $pegawai['status_pegawai'];
+        if (!$user) {
+            global $isError;
 
-        $isDokter = getDokterByPegawaiId($pegawai['id_pegawai']);
-        $_SESSION['isDokter'] = $isDokter !== false ? true : false;
+            $isError = true;
+        } else {
+            $_SESSION['id_user'] = $user['id_user'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['role'] = $user['role'];
 
-        $isPerawat = getPerawatByPegawaiId($pegawai['id_pegawai']);
-        $_SESSION['isPerawat'] = $isPerawat !== false ? true : false;
+            $pegawai = getPegawaiByUserId($user['id_user']);
+            $_SESSION['id_pegawai'] = $pegawai['id_pegawai'];
+            $_SESSION['nip'] = $pegawai['nip'];
+            $_SESSION['nama'] = $pegawai['nama'];
+            $_SESSION['alamat'] = $pegawai['alamat'];
+            $_SESSION['no_telepon'] = $pegawai['no_telepon'];
+            $_SESSION['jabatan'] = $pegawai['jabatan'];
+            $_SESSION['status_pegawai'] = $pegawai['status_pegawai'];
 
-        header("Location: /dashboard");
-        die();
+            $isDokter = getDokterByPegawaiId($pegawai['id_pegawai']);
+            $_SESSION['isDokter'] = $isDokter !== false ? true : false;
+
+            $isPerawat = getPerawatByPegawaiId($pegawai['id_pegawai']);
+            $_SESSION['isPerawat'] = $isPerawat !== false ? true : false;
+
+            redirect('/dashboard');
+        }
     }
 }
 
@@ -101,15 +107,15 @@ if (isset($_POST) && isset($_POST['submit'])) {
                                     <form action="" method="post" class="row g-3 needs-validation">
 
                                         <div class="col-12">
-                                            <label for="yourUsername" class="form-label">Username</label>
+                                            <label for="nip" class="form-label">NIP</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="username" class="form-control" id="yourUsername" required>
+                                                <input type="text" name="nip" class="form-control" id="nip" required>
                                             </div>
                                         </div>
 
                                         <div class="col-12">
-                                            <label for="yourPassword" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control" id="yourPassword" required>
+                                            <label for="password" class="form-label">Password</label>
+                                            <input type="password" name="password" class="form-control" id="password" required>
                                         </div>
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100" type="submit" name="submit">Login</button>

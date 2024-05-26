@@ -1,6 +1,9 @@
 <?php
 
+session_start();
+
 require_once './services/db.php';
+require_once './utils/utils.php';
 
 $dokter = getDokter();
 

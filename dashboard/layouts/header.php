@@ -1,17 +1,8 @@
 <?php
 
-session_start();
-
 if (!isset($_SESSION['username']) || $_SESSION['role'] === 'pasien') {
-  header('Location: /dashboard/login.php');
+  redirect('/dashboard/login.php');
 }
-
-$currentUser = [
-  'id' => $_SESSION['id_user'],
-  'username' => $_SESSION['username'],
-  'email' => $_SESSION['email'],
-  'role' => $_SESSION['role']
-];
 
 ?>
 

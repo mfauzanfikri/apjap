@@ -1,5 +1,9 @@
 <?php
+
+session_start();
+
 require_once './services/db.php';
+require_once './utils/utils.php';
 
 $users = getUsers();
 
@@ -106,7 +110,7 @@ $users = getUsers();
                                     <tbody>
                                         <?php foreach ($users as $user) : ?>
                                             <?php
-                                            $disabled = $user['id_user'] === $currentUser['id'] ? "disabled" : "";
+                                            $disabled = $user['id_user'] === $_SESSION['id_user'] ? "disabled" : "";
                                             ?>
                                             <tr>
                                                 <td></td>

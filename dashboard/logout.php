@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require_once './utils/utils.php';
+
 session_destroy();
 
-header('Location: /dashboard/login.php');
+redirect('/dashboard/login.php');

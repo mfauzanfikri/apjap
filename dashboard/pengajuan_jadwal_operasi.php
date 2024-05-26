@@ -83,6 +83,7 @@ $ruanganSelect = getRuangan();
                                                         <th>Tanggal Operasi</th>
                                                         <th>Nama Pengaju</th>
                                                         <th>Nama Dokter</th>
+                                                        <th>Nama Ruangan</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
@@ -95,6 +96,7 @@ $ruanganSelect = getRuangan();
                                                             <td><?= $jo['tanggal']; ?></td>
                                                             <td><?= $jo['nama_pengaju']; ?>/<?= $jo['nip_pengaju']; ?></td>
                                                             <td><?= $jo['nama_dokter']; ?>/<?= $jo['nip_dokter']; ?></td>
+                                                            <td><?= $jo['nama_ruangan']; ?></td>
                                                             <td class="d-flex justify-content-center gap-2">
                                                                 <!-- button terima -->
                                                                 <form action="/dashboard/actions/pengajuan_jadwal_operasi.php" method="post">
@@ -157,6 +159,7 @@ $ruanganSelect = getRuangan();
                                                         <th>Tanggal Operasi</th>
                                                         <th>Nama Pengaju</th>
                                                         <th>Nama Dokter</th>
+                                                        <th>Nama Ruangan</th>
                                                         <th>Validator</th>
                                                         <th>Status</th>
                                                     </tr>
@@ -170,6 +173,7 @@ $ruanganSelect = getRuangan();
                                                             <td><?= $jo['tanggal']; ?></td>
                                                             <td><?= $jo['nama_pengaju']; ?>/<?= $jo['nip_pengaju']; ?></td>
                                                             <td><?= $jo['nama_dokter']; ?>/<?= $jo['nip_dokter']; ?></td>
+                                                            <td><?= $jo['nama_ruangan']; ?></td>
                                                             <td><?= $jo['nama_validator']; ?>/<?= $jo['nip_validator']; ?></td>
                                                             <td><span class="badge text-bg-<?= getStatusColor($jo['status']); ?>"><?= $jo['status'] ?></span></td>
                                                         </tr>
@@ -302,6 +306,7 @@ $ruanganSelect = getRuangan();
                                                     <th>Tanggal Operasi</th>
                                                     <th>Nama Pengaju</th>
                                                     <th>Nama Dokter</th>
+                                                    <th>Nama Ruangan</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
@@ -314,6 +319,7 @@ $ruanganSelect = getRuangan();
                                                         <td><?= $jo['tanggal']; ?></td>
                                                         <td><?= $jo['nama_pengaju']; ?>/<?= $jo['nip_pengaju']; ?></td>
                                                         <td><?= $jo['nama_dokter']; ?>/<?= $jo['nip_dokter']; ?></td>
+                                                        <td><?= $jo['nama_ruangan']; ?></td>
                                                         <td><span class="badge text-bg-<?= getStatusColor($jo['status']); ?>"><?= $jo['status'] ?></span></td>
                                                     </tr>
                                                 <?php endforeach; ?>
@@ -355,6 +361,7 @@ $ruanganSelect = getRuangan();
                                                     <th>Tanggal Operasi</th>
                                                     <th>Nama Pengaju</th>
                                                     <th>Nama Dokter</th>
+                                                    <th>Nama Ruangan</th>
                                                     <th>Validator</th>
                                                     <th>Status</th>
                                                 </tr>
@@ -369,6 +376,7 @@ $ruanganSelect = getRuangan();
                                                         <td><?= $jo['tanggal']; ?></td>
                                                         <td><?= $jo['nama_pengaju']; ?>/<?= $jo['nip_pengaju']; ?></td>
                                                         <td><?= $jo['nama_dokter']; ?>/<?= $jo['nip_dokter']; ?></td>
+                                                        <td><?= $jo['nama_ruangan']; ?></td>
                                                         <td><?= $jo['nama_validator']; ?>/<?= $jo['nip_validator']; ?></td>
                                                         <td><span class="badge text-bg-<?= getStatusColor($jo['status']); ?>"><?= $jo['status'] ?></span></td>
                                                     </tr>
@@ -501,6 +509,9 @@ if (isset($_SESSION['warningMsg'])) {
             orderable: false,
             width: '1%',
             targets: 0
+        }, {
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
         }, ],
         layout: {
             topStart: {
@@ -542,7 +553,10 @@ if (isset($_SESSION['warningMsg'])) {
             orderable: false,
             width: '1%',
             targets: 0
-        }],
+        }, {
+            className: "dt-head-center dt-body-center",
+            targets: ['_all']
+        }, ],
         layout: {
             topStart: {
                 buttons: [

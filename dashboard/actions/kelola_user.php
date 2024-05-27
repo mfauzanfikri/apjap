@@ -3,6 +3,7 @@
 session_start();
 
 require_once '../services/db.php';
+require_once '../utils/utils.php';
 
 if (isset($_POST['submit'])) {
     switch ($_POST['jenis']) {
@@ -63,6 +64,39 @@ if (isset($_POST['submit'])) {
             } else {
                 $_SESSION['errorMsg'] = 'User tidak ditemukan.';
             }
+
+            break;
+
+        case 'ganti_password':
+            $user = getUserById($_POST['id_user']);
+            $userPassword = $user['password'];
+            $password = hash('sha256', $_POST['password']);
+            $newPassword = hash('sha256', $_POST['password_baru']);
+
+            if ($userPassword !== $password) {
+                $_SESSION['errorMsg'] = 'Password salah.';
+                redirect('/dashboard/profil.php');
+            }
+
+            if ($userPassword === $newPassword) {
+                $_SESSION['errorMsg'] = 'Password baru tidak boleh sama dengan password sekarang.';
+                redirect('/dashboard/profil.php');
+            }
+
+            if ($_POST['password_baru'] !== $_POST['password_konfirmasi']) {
+                $_SESSION['errorMsg'] = 'Password baru dan konfirmasi password tidak sama.';
+                redirect('/dashboard/profil.php');
+            }
+
+            $data = [
+                'password' => $newPassword
+            ];
+
+            editUser($data, $_SESSION['id_user']);
+
+            $_SESSION['successMsg'] = 'Password berhasil diganti.';
+
+            redirect('/dashboard/profil.php');
 
             break;
 

@@ -43,11 +43,23 @@ if (isset($_POST) && isset($_POST['submit'])) {
             $_SESSION['jabatan'] = $pegawai['jabatan'];
             $_SESSION['status_pegawai'] = $pegawai['status_pegawai'];
 
-            $isDokter = getDokterByPegawaiId($pegawai['id_pegawai']);
-            $_SESSION['isDokter'] = $isDokter !== false ? true : false;
+            $dokter = getDokterByPegawaiId($pegawai['id_pegawai']);
+            $_SESSION['isDokter'] = $dokter !== false ? true : false;
+            if ($dokter !== false) {
+                $_SESSION['id_dokter'] = $dokter['id_dokter'];
+                $_SESSION['spesialisasi'] = $dokter['spesialisasi'];
+                $_SESSION['poli'] = $dokter['poli'];
+                $_SESSION['no_sip'] = $dokter['no_sip'];
+                $_SESSION['profesi'] = 'Dokter';
+            }
 
-            $isPerawat = getPerawatByPegawaiId($pegawai['id_pegawai']);
-            $_SESSION['isPerawat'] = $isPerawat !== false ? true : false;
+            $perawat = getPerawatByPegawaiId($pegawai['id_pegawai']);
+            $_SESSION['isPerawat'] = $perawat !== false ? true : false;
+            if ($perawat !== false) {
+                $_SESSION['id_perawat'] = $perawat['id_perawat'];
+                $_SESSION['no_sip'] = $perawat['no_sip'];
+                $_SESSION['profesi'] = 'Perawat';
+            }
 
             redirect('/dashboard');
         }

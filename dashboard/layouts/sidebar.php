@@ -152,6 +152,24 @@
                 <span>Laporan Jadwal kerja</span>
             </a>
         </li>
+
+        <li class="nav-heading">Lainnya</li>
+
+        <!-- profil -->
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/dashboard/profil.php' ? '' : 'collapsed' ?>" href="/dashboard/profil.php">
+                <i class="bi bi-person-square"></i>
+                <span>Profil</span>
+            </a>
+        </li>
+
+        <!-- logout -->
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/dashboard/logout.php' ? '' : 'collapsed' ?>" href="/dashboard/logout.php">
+                <i class="bi bi-box-arrow-left"></i>
+                <span>Logout</span>
+            </a>
+        </li>
     </ul>
 
 </aside><!-- End Sidebar-->

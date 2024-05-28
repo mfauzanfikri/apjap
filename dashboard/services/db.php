@@ -792,13 +792,13 @@ function getPasienByUserId($id) {
 
 // jadwal pemeriksaan
 function getJadwalPemeriksaan() {
-    $subQuery = "SELECT a.id_jadwal_pemeriksaan,a.id_pasien,a.id_dokter,a.id_ruangan,a.tanggal,a.poli,b.nama nama_pasien,b.no_telepon no_telepon_pasien FROM jadwal_pemeriksaan a LEFT JOIN pasien b ON a.id_pasien = b.id_pasien";
+    $subQuery = "SELECT a.id_jadwal_pemeriksaan,a.id_pasien,a.id_dokter,a.id_ruangan,a.tanggal,a.waktu,a.poli,b.nama nama_pasien,b.no_telepon no_telepon_pasien FROM jadwal_pemeriksaan a LEFT JOIN pasien b ON a.id_pasien = b.id_pasien";
 
     $subSubQuery2 = 'SELECT id_dokter,p.id_pegawai,nama,nip,spesialisasi,poli,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai';
 
-    $subQuery2 = "SELECT a.id_jadwal_pemeriksaan,a.id_pasien,a.id_dokter,a.id_ruangan,a.tanggal,a.poli,a.nama_pasien,a.no_telepon_pasien,b.nama nama_dokter,b.nip nip_dokter FROM ($subQuery) a LEFT JOIN ($subSubQuery2) b ON a.id_dokter = b.id_dokter";
+    $subQuery2 = "SELECT a.id_jadwal_pemeriksaan,a.id_pasien,a.id_dokter,a.id_ruangan,a.tanggal,a.waktu,a.poli,a.nama_pasien,a.no_telepon_pasien,b.nama nama_dokter,b.nip nip_dokter FROM ($subQuery) a LEFT JOIN ($subSubQuery2) b ON a.id_dokter = b.id_dokter";
 
-    $query = "SELECT a.id_jadwal_pemeriksaan,a.id_pasien,a.id_dokter,a.id_ruangan,a.tanggal,a.poli,a.nama_pasien,a.no_telepon_pasien,a.nama_dokter,a.nip_dokter,b.nama nama_ruangan FROM ($subQuery2) a LEFT JOIN ruangan b ON a.id_ruangan = b.id_ruangan";
+    $query = "SELECT a.id_jadwal_pemeriksaan,a.id_pasien,a.id_dokter,a.id_ruangan,a.tanggal,a.waktu,a.poli,a.nama_pasien,a.no_telepon_pasien,a.nama_dokter,a.nip_dokter,b.nama nama_ruangan FROM ($subQuery2) a LEFT JOIN ruangan b ON a.id_ruangan = b.id_ruangan";
 
     $jadwalPemeriksaan = fetchAll($query);
 

@@ -8,7 +8,7 @@
         <li class="nav-item">
             <a class="nav-link <?= $url === '/pasien' || $url === '/pasien/'  ? '' : 'collapsed' ?>" href="/pasien">
                 <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
+                <span>Home</span>
             </a>
         </li>
 
@@ -16,9 +16,17 @@
 
         <!-- jadwal pemeriksaan -->
         <li class="nav-item">
-            <a class="nav-link <?= $url === '/pasien/jadwal_pasien.php' ? '' : 'collapsed' ?>" href="/dashboard/jadwal_pasien.php">
-                <i class="bi bi-person"></i>
-                <span>Jadwal Pasien</span>
+            <a class="nav-link <?= $url === '/pasien/jadwal_pemeriksaan.php' ? '' : 'collapsed' ?>" href="/pasien/jadwal_pemeriksaan.php">
+                <i class="bi bi-clipboard2-pulse"></i>
+                <span>Jadwal Pemeriksaan</span>
+            </a>
+        </li>
+
+        <!-- jadwal operasi -->
+        <li class="nav-item">
+            <a class="nav-link <?= $url === '/pasien/jadwal_operasi.php' ? '' : 'collapsed' ?>" href="/pasien/jadwal_operasi.php">
+                <i class="bi bi-file-medical-fill"></i>
+                <span>Jadwal Operasi</span>
             </a>
         </li>
     </ul>

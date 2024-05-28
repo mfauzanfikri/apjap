@@ -2,21 +2,19 @@
 
 session_start();
 
-require_once './services/db.php';
-require_once './utils/utils.php';
+require_once '../dashboard/services/db.php';
+require_once '../dashboard/utils/utils.php';
 
 $isAuthorized = authorization([
-    'profesi' => Profesi::DOKTER
-]) || authorization([
-    'role' => Role::ADMIN
+    'role' => Role::PASIEN
 ]);
 
 if (!$isAuthorized) {
-    redirect('/dashboard');
+    redirect('/');
 }
 
 
-$jadwalPemeriksaan = getJadwalPemeriksaan();
+$jadwalOperasi = getJadwalOperasi();
 
 ?>
 
@@ -24,17 +22,17 @@ $jadwalPemeriksaan = getJadwalPemeriksaan();
 
 <script>
     // ubah page title
-    $(document).prop('title', 'Jadwal Pemeriksaan Pasien')
+    $(document).prop('title', 'Jadwal Operasi')
 </script>
 
 <main id="main" class="main">
 
     <section class="pagetitle">
-        <h1>Jadwal Pemeriksaan Pasien</h1>
+        <h1>Jadwal Operasi</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item active">Jadwal Pemeriksaan Pasien</li>
+                <li class="breadcrumb-item active">Jadwal Operasi</li>
             </ol>
         </nav>
     </section><!-- End Page Title -->
@@ -44,7 +42,7 @@ $jadwalPemeriksaan = getJadwalPemeriksaan();
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Tabel Jadwal Pemeriksaan Pasien</h5>
+                        <h5 class="card-title">Tabel Jadwal Operasi</h5>
                         <?php if (isset($_SESSION['successMsg'])) : ?>
                             <div class="mt-2">
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -65,28 +63,31 @@ $jadwalPemeriksaan = getJadwalPemeriksaan();
 
                         <div class="row mt-2">
                             <div class="col">
-                                <!-- table jadwal pemeriksaan -->
-                                <table id="jadwal-pemeriksaan-table" class="table table-striped" style="width: 100%;">
+                                <!-- table jadwal operasi -->
+                                <table id="jadwal-operasi-table" class="table table-striped" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>Nama Pasien/No. Telp</th>
-                                            <th>Tanggal Pemeriksaan</th>
+                                            <th>Tanggal Operasi</th>
+                                            <th>Nama Pengaju</th>
                                             <th>Nama Dokter</th>
-                                            <th>Ruangan</th>
-                                            <th>Poli</th>
+                                            <th>Validator</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($jadwalPemeriksaan as $jp) : ?>
-                                            <?php if ($jp['nip_dokter'] !== $_SESSION['nip']) continue; ?>
+                                        <?php foreach ($jadwalOperasi as $jo) : ?>
+                                            <?php
+                                            if ($jo['id_pasien'] !== $_SESSION['id_pasien']) continue;
+                                            $validator = $jo['nama_validator'] ? $jo['nama_validator'] . "/" . $jo['nip_validator'] : "-";
+                                            ?>
                                             <tr>
                                                 <td></td>
-                                                <td><?= $jp['nama_pasien']; ?>/<?= $jp['no_telepon_pasien']; ?></td>
-                                                <td><?= $jp['tanggal']; ?></td>
-                                                <td><?= $jp['nama_dokter']; ?>/<?= $jp['nip_dokter']; ?></td>
-                                                <td><?= $jp['nama_ruangan']; ?></td>
-                                                <td><?= $jp['poli']; ?></td>
+                                                <td><?= $jo['tanggal']; ?></td>
+                                                <td><?= $jo['nama_pengaju']; ?>/<?= $jo['nip_pengaju']; ?></td>
+                                                <td><?= $jo['nama_dokter']; ?>/<?= $jo['nip_dokter']; ?></td>
+                                                <td><?= $validator; ?></td>
+                                                <td><span class="badge text-bg-<?= getStatusColor($jo['status']); ?>"><?= $jo['status'] ?></span></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>
@@ -120,8 +121,8 @@ if (isset($_SESSION['warningMsg'])) {
 <script src="assets/vendor/datatables/datatables.min.js"></script>
 
 <script>
-    // table jadwal pemeriksaan
-    const tableJp = $('#jadwal-pemeriksaan-table').DataTable({
+    // table jadwal operasi
+    const tableJo = $('#jadwal-operasi-table').DataTable({
         columnDefs: [{
             searchable: false,
             orderable: false,
@@ -138,22 +139,22 @@ if (isset($_SESSION['warningMsg'])) {
                     {
                         extend: 'searchBuilder',
                         config: {
-                            columns: [1, 2, 3, 4, 5, 6]
+                            columns: [1, 2, 3, 4, 5]
                         }
                     }
                 ]
             }
         },
         order: [
-            [2, 'desc']
+            [1, 'desc']
         ]
     });
 
-    tableJp
+    tableJo
         .on('order.dt search.dt', function() {
             var i = 1;
 
-            tableJp
+            tableJo
                 .cells(null, 0, {
                     search: 'applied',
                     order: 'applied'

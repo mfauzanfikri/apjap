@@ -579,7 +579,28 @@ function getLiburById($id) {
 }
 
 function getLiburByPegawaiId($id) {
-    $libur = fetchAll("SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai WHERE p.id_pegawai = $id");
+    $libur = fetchAll("SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai WHERE p.id_pegawai = :id", ['id' => $id]);
+
+    return $libur;
+}
+
+function getLiburThisMonthByPegawaiId($id) {
+    $firstDay = (new \DateTime('first day of this month 00:00:00'))->format('Y-m-d');
+    $lastDay = (new \DateTime('last day of this month 00:00:00'))->format('Y-m-d');
+
+    $libur = fetchAll("SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai WHERE p.id_pegawai = :id AND l.tanggal >= :first_day AND l.tanggal <= :last_day", [
+        'id' => $id,
+        'first_day' => $firstDay,
+        'last_day' => $lastDay
+    ]);
+
+    return $libur;
+}
+
+function getLiburTodayByPegawaiId($id) {
+    $date = (new DateTime())->format('Y-m-d');
+
+    $libur = fetch("SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai WHERE p.id_pegawai = :id AND l.tanggal = :tanggal", ['id' => $id, 'tanggal' => $date]);
 
     return $libur;
 }
@@ -768,6 +789,14 @@ function getJadwalPemeriksaan() {
     $query = "SELECT a.id_jadwal_pemeriksaan,a.id_pasien,a.id_dokter,a.id_ruangan,a.tanggal,a.poli,a.nama_pasien,a.no_telepon_pasien,a.nama_dokter,a.nip_dokter,b.nama nama_ruangan FROM ($subQuery2) a LEFT JOIN ruangan b ON a.id_ruangan = b.id_ruangan";
 
     $jadwalPemeriksaan = fetchAll($query);
+
+    return $jadwalPemeriksaan;
+}
+
+function getJadwalPemeriksaanCountByDate($date) {
+    $query = "SELECT COUNT(id_jadwal_pemeriksaan) count FROM jadwal_pemeriksaan WHERE tanggal = :date";
+
+    $jadwalPemeriksaan = fetch($query, ['date' => $date]);
 
     return $jadwalPemeriksaan;
 }

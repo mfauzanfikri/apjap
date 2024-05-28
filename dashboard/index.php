@@ -3,6 +3,57 @@
 session_start();
 
 require_once './utils/utils.php';
+require_once './services/db.php';
+
+$date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+$formatter = new IntlDateFormatter('id_ID', IntlDateFormatter::LONG, IntlDateFormatter::LONG, 'Asia/Jakarta');
+
+$formatter->setPattern('EEEE');
+
+$today = $formatter->format($date);
+
+$formatter->setPattern('MMM');
+
+$month = $formatter->format($date);
+
+$formatter->setPattern('EEEE, d MMM y');
+
+$formattedDate = $formatter->format($date);
+
+$isDayOff = getLiburTodayByPegawaiId($_SESSION['id_pegawai']);
+
+$isWorkingToday = 'Bekerja';
+
+if ($isDayOff !== false) {
+    $isWorkingToday = 'Libur';
+} elseif ($_SESSION['status_pegawai'] === 'cuti') {
+    $isWorkingToday = 'Cuti';
+}
+
+$firstDay = (new \DateTime('first day of this month 00:00:00'));
+$lastDay = (new \DateTime('last day of this month 00:00:00'));
+
+$period = new DatePeriod($firstDay, new DateInterval('P1D'), $lastDay->modify('+1 day'));
+
+$daysOfMonth = [];
+$pasienCountDailyOfMonth = [];
+
+foreach ($period as $day) {
+    $date = $day->format('Y-m-d\\TH:i:s.v\\Z');
+    $daysOfMonth[] = "'$date'";
+    $pasienCountDailyOfMonth[] = (getJadwalPemeriksaanCountByDate($date))['count'];
+}
+
+// dd([$firstDay, $lastDay, $daysOfMonth, $pasienCountDailyOfMonth]);
+
+$liburThisMonth = getLiburThisMonthByPegawaiId($_SESSION['id_pegawai']);
+$liburEventsThisMonth = [];
+foreach ($liburThisMonth as $key => $value) {
+    $date = $value['tanggal'];
+    $liburEventsThisMonth[] = "{id:'$key',title:'libur',start:'$date'}";
+}
+
+// dd([$liburThisMonth, implode(',', $liburEventsThisMonth)]);
 
 ?>
 
@@ -23,44 +74,131 @@ require_once './utils/utils.php';
 
     <section class="section dashboard">
         <div class="row">
-
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-md-6">
                 <div class="card info-card revenue-card">
                     <div class="card-body">
-                        <h5 class="card-title">Revenue <span>| This Month</span></h5>
+                        <h5 class="card-title">Jadwal Kerja <span>| <?= $formattedDate ?></span></h5>
 
                         <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i class="bi bi-currency-dollar"></i>
+                                <i class="bi bi-calendar"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>$3,264</h6>
-                                <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
+                                <h6><?= $isWorkingToday ?></h6>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-md-6">
                 <div class="card info-card sales-card">
                     <div class="card-body">
-                        <h5 class="card-title">Revenue <span>| This Month</span></h5>
+                        <h5 class="card-title">Status Pegawai <span>| Per hari ini</span></h5>
 
                         <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i class="bi bi-currency-dollar"></i>
+                                <i class="bi bi-calendar2"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>$3,264</h6>
-                                <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
+                                <h6><?= ucwords($_SESSION['status_pegawai']) ?></h6>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- calendar -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Jadwal Kerja <span>| Bulan ini</span></h5>
+
+                        <!-- Line Chart -->
+                        <div id="calendar"></div>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                var calendarEl = document.getElementById('calendar');
+                                var calendar = new FullCalendar.Calendar(calendarEl, {
+                                    initialView: 'dayGridMonth',
+                                    events: [<?= implode(',', $liburEventsThisMonth) ?>]
+                                });
+                                calendar.render();
+                            });
+                        </script>
+                        <!-- End Line Chart -->
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- chart -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Jumlah Pasien <span>/Bulan ini</span></h5>
+
+                        <!-- Line Chart -->
+                        <div id="reportsChart"></div>
+
+                        <script>
+                            document.addEventListener("DOMContentLoaded", () => {
+                                new ApexCharts(document.querySelector("#reportsChart"), {
+                                    series: [{
+                                        name: 'Sales',
+                                        data: [<?= implode(',', $pasienCountDailyOfMonth) ?>],
+                                    }],
+                                    chart: {
+                                        height: 350,
+                                        type: 'area',
+                                        toolbar: {
+                                            show: false
+                                        },
+                                    },
+                                    markers: {
+                                        size: 4
+                                    },
+                                    colors: ['#4154f1'],
+                                    fill: {
+                                        type: "gradient",
+                                        gradient: {
+                                            shadeIntensity: 1,
+                                            opacityFrom: 0.3,
+                                            opacityTo: 0.4,
+                                            stops: [0, 90, 100]
+                                        }
+                                    },
+                                    dataLabels: {
+                                        enabled: false
+                                    },
+                                    stroke: {
+                                        curve: 'smooth',
+                                        width: 2
+                                    },
+                                    xaxis: {
+                                        type: 'datetime',
+                                        categories: [<?= implode(',', $daysOfMonth) ?>]
+                                    },
+                                    tooltip: {
+                                        x: {
+                                            format: 'dd/MM/yy'
+                                        },
+                                    },
+                                    zoom: {
+                                        enabled: false
+                                    }
+                                }).render();
+                            });
+                        </script>
+                        <!-- End Line Chart -->
+
+                    </div>
+
+                </div>
+            </div>
+
 
         </div>
     </section>

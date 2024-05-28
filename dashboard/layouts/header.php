@@ -1,6 +1,6 @@
 <?php
 
-if (!isset($_SESSION['username']) || $_SESSION['role'] === 'pasien') {
+if (!isset($_SESSION['id_user']) || $_SESSION['role'] === 'pasien') {
   redirect('/dashboard/login.php');
 }
 

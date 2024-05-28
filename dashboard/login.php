@@ -116,6 +116,15 @@ if (isset($_POST) && isset($_POST['submit'])) {
                                         <p class="text-center small">Log in untuk mengakses sistem.</p>
                                     </div>
 
+                                    <?php if ($isError) : ?>
+                                        <div class="mt-2">
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                NIP atau password salah.
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+
                                     <form action="" method="post" class="row g-3 needs-validation">
 
                                         <div class="col-12">

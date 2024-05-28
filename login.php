@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <?php include './layouts/header.php' ?>
 
 <main id="main">
@@ -23,16 +29,26 @@
                 <div class="card-body">
                     <h2 class="card-title">Rumah Sakit Umum Daerah OKI</h2>
                     <p>Isi Email dan password untuk log in.</p>
-                    <form action="" method="post">
+
+                    <?php if (isset($_SESSION['errorMsg'])) : ?>
+                        <div class="mt-2">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <?= $_SESSION['errorMsg']; ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <form action="./actions/login.php" method="post">
                         <div class="form-group position-relative has-icon-left mb-4">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" name="email" class="form-control form-control-xl" placeholder="Username" required />
+                            <input type="email" id="email" name="email" class="form-control form-control-xl" placeholder="Email" required />
                         </div>
                         <div class="form-group position-relative has-icon-left">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" id="password" name="password" class="form-control form-control-xl" placeholder="Password" required />
                         </div>
-                        <button class="btn btn-primary btn-block shadow-lg mt-4">
+                        <button type="submit" name="submit" class="btn btn-primary btn-block shadow-lg mt-4">
                             Log in
                         </button>
                     </form>
@@ -44,3 +60,19 @@
 </main><!-- End #main -->
 
 <?php include './layouts/footer.php' ?>
+
+<?php
+
+if (isset($_SESSION['successMsg'])) {
+    unset($_SESSION['successMsg']);
+}
+
+if (isset($_SESSION['errorMsg'])) {
+    unset($_SESSION['errorMsg']);
+}
+
+if (isset($_SESSION['warningMsg'])) {
+    unset($_SESSION['warningMsg']);
+}
+
+?>

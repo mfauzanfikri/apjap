@@ -4,7 +4,7 @@
     <div class="d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
             <img src="assets/img/logo.png" alt="">
-            <span class="d-none d-lg-block">NiceAdmin</span>
+            <span class="d-none d-lg-block">APJAP</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -96,7 +96,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="/dashboard/logout.php">
+                        <a class="dropdown-item d-flex align-items-center" href="/pasien/logout.php">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Log Out</span>
                         </a>

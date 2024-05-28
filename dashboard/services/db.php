@@ -64,6 +64,12 @@ function getUserByUsername(string $username) {
     return $user;
 }
 
+function getUserByEmail(string $email) {
+    $user = fetch('SELECT * FROM user WHERE email = :email', ['email' => $email]);
+
+    return $user;
+}
+
 function getUserById(string|int $id) {
     $user = fetch('SELECT * FROM user WHERE id_user = :id_user', ['id_user' => ((string) $id)]);
 
@@ -774,6 +780,12 @@ function editJadwalOperasi($data, $id) {
 // pasien
 function getPasien() {
     $pasien = fetchAll('SELECT a.id_pasien,a.id_user,a.nama,a.alamat,a.no_telepon,b.username,b.email,b.role FROM pasien a LEFT JOIN user b ON a.id_user = b.id_user');
+
+    return $pasien;
+}
+
+function getPasienByUserId($id) {
+    $pasien = fetch('SELECT a.id_pasien,a.id_user,a.nama,a.alamat,a.no_telepon,b.username,b.email,b.role FROM pasien a LEFT JOIN user b ON a.id_user = b.id_user WHERE a.id_user = :id_user', ['id_user' => $id]);
 
     return $pasien;
 }

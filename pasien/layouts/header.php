@@ -1,20 +1,10 @@
 <?php
 
-session_start();
-
-if (!isset($_SESSION['username'])) {
-  header('Location: /');
+if (!isset($_SESSION['id_user']) || $_SESSION['role'] !== 'pasien') {
+  redirect('/');
 }
 
-$currentUser = [
-  'id' => $_SESSION['id_user'],
-  'username' => $_SESSION['username'],
-  'email' => $_SESSION['email'],
-  'role' => $_SESSION['role']
-];
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

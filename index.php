@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <?php include './layouts/header.php'; ?>
 
 <main id="main">

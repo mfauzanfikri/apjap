@@ -2,14 +2,14 @@
 
 require 'db.php';
 
-function verifyUser(string $username, string $password) {
-    $user = getUserByUsername($username);
+function verifyUser(string $email, string $password) {
+    $user = getUserByEmail($email);
 
     if (!$user) {
         return false;
     }
 
-    if ($user['username'] !== $username) {
+    if ($user['email'] !== $email) {
         return false;
     }
 

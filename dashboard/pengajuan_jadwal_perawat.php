@@ -95,7 +95,7 @@ $jadwalPerawat = getJadwalPerawat();
                                                         <td><?= $jp['waktu_mulai']; ?> - <?= $jp['waktu_selesai']; ?> WIB</td>
                                                         <td><?= $jp['shift'] ?></td>
                                                         <td><?= $jp['poli']; ?></td>
-                                                        <td class="d-flex justify-content-center gap-2">
+                                                        <td class="d-flex justify-content-center gap-2 text-start">
                                                             <!-- button terima -->
                                                             <form action="/dashboard/actions/pengajuan_jadwal_perawat.php" method="post">
                                                                 <input type="hidden" name="jenis" value="terima">

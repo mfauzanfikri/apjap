@@ -117,7 +117,7 @@ $users = getUsers();
                                                 <td><?= $user['username']; ?></td>
                                                 <td><?= $user['email']; ?></td>
                                                 <td><?= ucfirst($user['role']); ?></td>
-                                                <td class="d-flex justify-content-center gap-2">
+                                                <td class="d-flex justify-content-center gap-2 text-start">
                                                     <!-- button edit -->
                                                     <div>
                                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-user-" . $user['id_user']; ?>>

@@ -128,7 +128,7 @@ $pegawai = getPegawai();
                                                 <td><?= $c['nip']; ?></td>
                                                 <td><?= $c['tanggal_mulai']; ?> - <?= $c['tanggal_selesai']; ?></td>
                                                 <td><span class="badge text-bg-<?= getStatusColor($c['status']); ?>"><?= $c['status'] ?></span></td>
-                                                <td class="d-flex justify-content-center">
+                                                <td class="d-flex justify-content-center gap-2 text-start">
                                                     <!-- button hapus -->
                                                     <div>
                                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=<?= "#hapus-cuti-" . $c['id_cuti']; ?>>
@@ -146,7 +146,7 @@ $pegawai = getPegawai();
                                                                         <input type="hidden" name="jenis" value="delete">
                                                                         <input type="hidden" name="id_cuti" value="<?= $c['id_cuti'] ?>">
                                                                         <div class="modal-body">
-                                                                            <p>Apakah Anda yakin ingin menghapus <b>cuti</b> dengan nama <b><?= $c['nama']; ?></b> dan NIP <b><?= $c['nip']; ?></b> tanggal <b><?= $c['tanggal'] ?></b> jam <b><?= $c['waktu_mulai'] ?> - <?= $c['waktu_selesai'] ?></b>?</p>
+                                                                            <p>Apakah Anda yakin ingin menghapus <b>cuti</b> dengan nama <b><?= $c['nama']; ?></b> dan NIP <b><?= $c['nip']; ?></b> tanggal<b><?= $c['tanggal_mulai'] ?> - <?= $c['tanggal_selesai'] ?></b>?</p>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>

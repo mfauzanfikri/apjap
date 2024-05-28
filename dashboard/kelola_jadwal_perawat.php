@@ -151,7 +151,7 @@ $jadwalPerawat = getJadwalPerawat();
                                                 <td><?= $jp['shift'] ?></td>
                                                 <td><?= $jp['poli']; ?></td>
                                                 <td><span class="badge text-bg-<?= getStatusColor($jp['status']); ?>"><?= $jp['status']; ?></span></td>
-                                                <td class="d-flex justify-content-center gap-2">
+                                                <td class="d-flex justify-content-center gap-2 text-start">
                                                     <!-- button edit -->
                                                     <div>
                                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-jp-" . $jp['id_jadwal_perawat']; ?>>
@@ -174,7 +174,7 @@ $jadwalPerawat = getJadwalPerawat();
                                                                             </div>
                                                                             <div class="row gap-3">
                                                                                 <div class="col-12">
-                                                                                    <label for="tanggal">Tanggal</label>
+                                                                                    <label for="tanggal" class="form-label">Tanggal</label>
                                                                                     <input id="tanggal" class="form-control" type="date" name="tanggal" />
                                                                                 </div>
                                                                                 <div class="col-12">

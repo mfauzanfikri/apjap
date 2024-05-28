@@ -97,7 +97,7 @@ $ruanganSelect = getRuangan();
                                                             <td><?= $jo['nama_pengaju']; ?>/<?= $jo['nip_pengaju']; ?></td>
                                                             <td><?= $jo['nama_dokter']; ?>/<?= $jo['nip_dokter']; ?></td>
                                                             <td><?= $jo['nama_ruangan']; ?></td>
-                                                            <td class="d-flex justify-content-center gap-2">
+                                                            <td class="d-flex justify-content-center gap-2 text-start">
                                                                 <!-- button terima -->
                                                                 <form action="/dashboard/actions/pengajuan_jadwal_operasi.php" method="post">
                                                                     <input type="hidden" name="jenis" value="terima">

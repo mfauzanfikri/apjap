@@ -88,7 +88,7 @@ $cuti = getCuti();
                                                             <td><?= $c['nama']; ?></td>
                                                             <td><?= $c['nip']; ?></td>
                                                             <td><?= $c['tanggal_mulai']; ?> s.d. <?= $c['tanggal_selesai'] ?></td>
-                                                            <td class="d-flex justify-content-center gap-2">
+                                                            <td class="d-flex justify-content-center gap-2 text-start">
                                                                 <!-- button terima -->
                                                                 <form action="/dashboard/actions/pengajuan_jadwal_cuti.php" method="post">
                                                                     <input type="hidden" name="jenis" value="terima">

@@ -109,7 +109,7 @@ foreach ($liburThisMonth as $key => $value) {
             </div>
 
             <!-- calendar -->
-            <div class="col-12">
+            <div class="col-12 col-lg-5">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Jadwal Kerja <span>| Bulan ini</span></h5>
@@ -135,7 +135,7 @@ foreach ($liburThisMonth as $key => $value) {
             </div>
 
             <!-- chart -->
-            <div class="col-12">
+            <div class="col-12 col-lg-7">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Jumlah Pasien <span>/Bulan ini</span></h5>

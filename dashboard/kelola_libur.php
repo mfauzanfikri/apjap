@@ -122,7 +122,7 @@ $pegawai = getPegawai();
                                                 <td><?= $l['nama']; ?></td>
                                                 <td><?= $l['nip']; ?></td>
                                                 <td><?= $l['tanggal']; ?></td>
-                                                <td class="d-flex justify-content-center gap-2">
+                                                <td class="d-flex justify-content-center gap-2 text-start">
                                                     <!-- button edit -->
                                                     <div>
                                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-libur-" . $l['id_libur']; ?>>
@@ -176,7 +176,7 @@ $pegawai = getPegawai();
                                                                         <input type="hidden" name="jenis" value="delete">
                                                                         <input type="hidden" name="id_libur" value="<?= $l['id_libur'] ?>">
                                                                         <div class="modal-body">
-                                                                            <p>Apakah Anda yakin ingin menghapus <b>libur</b> dengan nama <b><?= $l['nama']; ?></b> dan NIP <b><?= $l['nip']; ?></b> tanggal <b><?= $l['tanggal'] ?></b> jam <b><?= $l['waktu_mulai'] ?> - <?= $l['waktu_selesai'] ?></b>?</p>
+                                                                            <p>Apakah Anda yakin ingin menghapus <b>libur</b> dengan nama <b><?= $l['nama']; ?></b> dan NIP <b><?= $l['nip']; ?></b> tanggal <b><?= $l['tanggal'] ?>?</p>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>

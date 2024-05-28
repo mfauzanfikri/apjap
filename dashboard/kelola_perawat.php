@@ -117,7 +117,7 @@ $pegawaiSelect = getPegawaiWithNoPerawat();
                                                 <td><?= $perawat['nama']; ?></td>
                                                 <td><?= $perawat['nip']; ?></td>
                                                 <td><?= $perawat['no_sip']; ?></td>
-                                                <td class="d-flex justify-content-center gap-2">
+                                                <td class="d-flex justify-content-center gap-2 text-start">
                                                     <!-- button edit -->
                                                     <div>
                                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-perawat-" . $perawat['id_perawat']; ?>>

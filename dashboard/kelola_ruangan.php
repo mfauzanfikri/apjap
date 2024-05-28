@@ -102,7 +102,7 @@ $ruangan = getRuangan();
                                             <tr>
                                                 <td></td>
                                                 <td><?= $ruangan['nama']; ?></td>
-                                                <td class="d-flex justify-content-center gap-2">
+                                                <td class="d-flex justify-content-center gap-2 text-start">
                                                     <!-- button edit -->
                                                     <div>
                                                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-ruangan-" . $ruangan['id_ruangan']; ?>>

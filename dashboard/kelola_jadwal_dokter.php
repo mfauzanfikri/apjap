@@ -189,7 +189,7 @@ $jadwalDokter = getJadwalDokter();
                                                         <td><?= $jd['nip']; ?></td>
                                                         <td><?= $jd['tanggal']; ?></td>
                                                         <td><?= $jd['waktu_mulai']; ?> - <?= $jd['waktu_selesai']; ?> WIB</td>
-                                                        <td class="d-flex justify-content-center gap-2">
+                                                        <td class="d-flex justify-content-center gap-2 text-start">
                                                             <!-- button edit -->
                                                             <div>
                                                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-jdg-" . $jd['id_jadwal_dokter']; ?>>
@@ -408,7 +408,7 @@ $jadwalDokter = getJadwalDokter();
                                                         <td><?= $jd['nip']; ?></td>
                                                         <td><?= $jd['tanggal']; ?></td>
                                                         <td><?= $jd['waktu_mulai']; ?> - <?= $jd['waktu_selesai']; ?> WIB</td>
-                                                        <td class="d-flex justify-content-center gap-2">
+                                                        <td class="d-flex justify-content-center gap-2 text-start">
                                                             <!-- button edit -->
                                                             <div>
                                                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-jdt-" . $jd['id_jadwal_dokter']; ?>>
@@ -627,7 +627,7 @@ $jadwalDokter = getJadwalDokter();
                                                         <td><?= $jd['nip']; ?></td>
                                                         <td><?= $jd['tanggal']; ?></td>
                                                         <td><?= $jd['waktu_mulai']; ?> - <?= $jd['waktu_selesai']; ?> WIB</td>
-                                                        <td class="d-flex justify-content-center gap-2">
+                                                        <td class="d-flex justify-content-center gap-2 text-start">
                                                             <!-- button edit -->
                                                             <div>
                                                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-jdp-" . $jd['id_jadwal_dokter']; ?>>
@@ -846,7 +846,7 @@ $jadwalDokter = getJadwalDokter();
                                                         <td><?= $jd['nip']; ?></td>
                                                         <td><?= $jd['tanggal']; ?></td>
                                                         <td><?= $jd['waktu_mulai']; ?> - <?= $jd['waktu_selesai']; ?> WIB</td>
-                                                        <td class="d-flex justify-content-center gap-2">
+                                                        <td class="d-flex justify-content-center gap-2 text-start">
                                                             <!-- button edit -->
                                                             <div>
                                                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-jda-" . $jd['id_jadwal_dokter']; ?>>
@@ -1065,7 +1065,7 @@ $jadwalDokter = getJadwalDokter();
                                                         <td><?= $jd['nip']; ?></td>
                                                         <td><?= $jd['tanggal']; ?></td>
                                                         <td><?= $jd['waktu_mulai']; ?> - <?= $jd['waktu_selesai']; ?> WIB</td>
-                                                        <td class="d-flex justify-content-center gap-2">
+                                                        <td class="d-flex justify-content-center gap-2 text-start">
                                                             <!-- button edit -->
                                                             <div>
                                                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-jds-" . $jd['id_jadwal_dokter']; ?>>
@@ -1284,7 +1284,7 @@ $jadwalDokter = getJadwalDokter();
                                                         <td><?= $jd['nip']; ?></td>
                                                         <td><?= $jd['tanggal']; ?></td>
                                                         <td><?= $jd['waktu_mulai']; ?> - <?= $jd['waktu_selesai']; ?> WIB</td>
-                                                        <td class="d-flex justify-content-center gap-2">
+                                                        <td class="d-flex justify-content-center gap-2 text-start">
                                                             <!-- button edit -->
                                                             <div>
                                                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-jdm-" . $jd['id_jadwal_dokter']; ?>>

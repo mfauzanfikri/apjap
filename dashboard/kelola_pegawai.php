@@ -5,6 +5,14 @@ session_start();
 require_once './services/db.php';
 require_once './utils/utils.php';
 
+$isAuthorized = authorization([
+    'role' => Role::ADMIN
+]);
+
+if (!$isAuthorized) {
+    redirect('/dashboard');
+}
+
 $pegawai = getPegawai();
 
 $userSelect = getUsersWithNoPegawai();

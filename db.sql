@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS `antrian_pasien` (
   `id_antrian_pasien` int NOT NULL AUTO_INCREMENT,
   `id_jadwal_pemeriksaan` int NOT NULL,
   `no_antrian` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `tanggal` date NOT NULL,
+  `shift` enum('pagi','siang','malam') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   PRIMARY KEY (`id_antrian_pasien`),
   KEY `id_jadwal_pemeriksaan` (`id_jadwal_pemeriksaan`),
   CONSTRAINT `FK__antrian_pasien_jadwal_pemeriksaan` FOREIGN KEY (`id_jadwal_pemeriksaan`) REFERENCES `jadwal_pemeriksaan` (`id_jadwal_pemeriksaan`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -41,10 +43,11 @@ CREATE TABLE IF NOT EXISTS `cuti` (
   CONSTRAINT `FK_cuti_pegawai` FOREIGN KEY (`id_validator`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
--- Dumping data for table apkjadwal.cuti: ~1 rows (approximately)
-INSERT IGNORE INTO `cuti` (`id_cuti`, `id_pegawai`, `id_validator`, `tanggal_mulai`, `tanggal_selesai`, `status`) VALUES
+-- Dumping data for table apkjadwal.cuti: ~3 rows (approximately)
+REPLACE INTO `cuti` (`id_cuti`, `id_pegawai`, `id_validator`, `tanggal_mulai`, `tanggal_selesai`, `status`) VALUES
 	(1, 2, 1, '2024-05-25', '2024-05-27', 'disetujui'),
-	(2, 1, NULL, '2024-05-26', '2024-05-29', 'proses');
+	(2, 1, NULL, '2024-05-26', '2024-05-29', 'proses'),
+	(3, 1, 1, '2024-05-28', '2024-06-05', 'disetujui');
 
 -- Dumping structure for table apkjadwal.dokter
 CREATE TABLE IF NOT EXISTS `dokter` (
@@ -60,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `dokter` (
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- Dumping data for table apkjadwal.dokter: ~7 rows (approximately)
-INSERT IGNORE INTO `dokter` (`id_dokter`, `id_pegawai`, `spesialisasi`, `poli`, `no_sip`) VALUES
+REPLACE INTO `dokter` (`id_dokter`, `id_pegawai`, `spesialisasi`, `poli`, `no_sip`) VALUES
 	(1, 2, 'THT\r\n', 'THT', '002'),
 	(2, 5, 'Gigi', 'Gigi', '003'),
 	(3, 6, 'Gigi', 'Gigi', '004'),
@@ -84,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `jadwal_dokter` (
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- Dumping data for table apkjadwal.jadwal_dokter: ~9 rows (approximately)
-INSERT IGNORE INTO `jadwal_dokter` (`id_jadwal_dokter`, `id_dokter`, `tanggal`, `waktu_mulai`, `waktu_selesai`, `shift`, `notifikasi`) VALUES
+REPLACE INTO `jadwal_dokter` (`id_jadwal_dokter`, `id_dokter`, `tanggal`, `waktu_mulai`, `waktu_selesai`, `shift`, `notifikasi`) VALUES
 	(2, 3, '2024-05-22', '14:00:00', '16:00:00', 'siang', 0),
 	(3, 4, '2024-05-22', '19:00:00', '21:00:00', 'malam', 0),
 	(4, 2, '2024-05-22', '08:00:00', '10:00:00', 'pagi', 0),
@@ -119,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `jadwal_operasi` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- Dumping data for table apkjadwal.jadwal_operasi: ~2 rows (approximately)
-INSERT IGNORE INTO `jadwal_operasi` (`id_jadwal_operasi`, `id_pasien`, `id_dokter`, `id_pengaju`, `id_validator`, `id_ruangan`, `tanggal`, `status`) VALUES
+REPLACE INTO `jadwal_operasi` (`id_jadwal_operasi`, `id_pasien`, `id_dokter`, `id_pengaju`, `id_validator`, `id_ruangan`, `tanggal`, `status`) VALUES
 	(1, 1, 2, 4, 1, 1, '2024-06-01', 'disetujui'),
 	(2, 1, 1, 1, NULL, 1, '2024-05-28', 'proses');
 
@@ -130,6 +133,7 @@ CREATE TABLE IF NOT EXISTS `jadwal_pemeriksaan` (
   `id_dokter` int NOT NULL,
   `id_ruangan` int NOT NULL,
   `tanggal` date NOT NULL,
+  `waktu` time DEFAULT NULL,
   `poli` enum('Gigi','THT','PDL','Anak','Saraf','Mata') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   PRIMARY KEY (`id_jadwal_pemeriksaan`),
   KEY `id_pasien` (`id_pasien`),
@@ -141,9 +145,9 @@ CREATE TABLE IF NOT EXISTS `jadwal_pemeriksaan` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- Dumping data for table apkjadwal.jadwal_pemeriksaan: ~2 rows (approximately)
-INSERT IGNORE INTO `jadwal_pemeriksaan` (`id_jadwal_pemeriksaan`, `id_pasien`, `id_dokter`, `id_ruangan`, `tanggal`, `poli`) VALUES
-	(1, 1, 1, 1, '2024-05-27', 'THT'),
-	(2, 1, 2, 1, '2024-05-27', 'Gigi');
+REPLACE INTO `jadwal_pemeriksaan` (`id_jadwal_pemeriksaan`, `id_pasien`, `id_dokter`, `id_ruangan`, `tanggal`, `waktu`, `poli`) VALUES
+	(1, 1, 1, 1, '2024-05-27', '13:00:00', 'THT'),
+	(2, 1, 2, 1, '2024-05-27', '08:00:00', 'Gigi');
 
 -- Dumping structure for table apkjadwal.jadwal_perawat
 CREATE TABLE IF NOT EXISTS `jadwal_perawat` (
@@ -165,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `jadwal_perawat` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- Dumping data for table apkjadwal.jadwal_perawat: ~3 rows (approximately)
-INSERT IGNORE INTO `jadwal_perawat` (`id_jadwal_perawat`, `id_perawat`, `id_validator`, `tanggal`, `waktu_mulai`, `waktu_selesai`, `shift`, `poli`, `status`, `notifikasi`) VALUES
+REPLACE INTO `jadwal_perawat` (`id_jadwal_perawat`, `id_perawat`, `id_validator`, `tanggal`, `waktu_mulai`, `waktu_selesai`, `shift`, `poli`, `status`, `notifikasi`) VALUES
 	(2, 1, 1, '2024-05-23', '07:00:00', '14:00:00', '1', 'THT', 'disetujui', 0),
 	(3, 1, NULL, '2024-05-23', '07:00:00', '14:00:00', '1', 'PDL', 'proses', 0),
 	(4, 1, NULL, '2024-05-23', '07:00:00', '14:00:00', '1', 'Gigi', 'proses', 0);
@@ -178,11 +182,15 @@ CREATE TABLE IF NOT EXISTS `libur` (
   PRIMARY KEY (`id_libur`),
   KEY `id_pegawai` (`id_pegawai`),
   CONSTRAINT `FK_libur_pegawai` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
--- Dumping data for table apkjadwal.libur: ~0 rows (approximately)
-INSERT IGNORE INTO `libur` (`id_libur`, `id_pegawai`, `tanggal`) VALUES
-	(1, 5, '2024-05-25');
+-- Dumping data for table apkjadwal.libur: ~5 rows (approximately)
+REPLACE INTO `libur` (`id_libur`, `id_pegawai`, `tanggal`) VALUES
+	(1, 5, '2024-05-25'),
+	(2, 1, '2024-05-26'),
+	(3, 1, '2024-05-30'),
+	(4, 1, '2024-06-02'),
+	(5, 1, '2024-05-28');
 
 -- Dumping structure for table apkjadwal.pasien
 CREATE TABLE IF NOT EXISTS `pasien` (
@@ -196,8 +204,8 @@ CREATE TABLE IF NOT EXISTS `pasien` (
   CONSTRAINT `FK__pasien_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
--- Dumping data for table apkjadwal.pasien: ~0 rows (approximately)
-INSERT IGNORE INTO `pasien` (`id_pasien`, `id_user`, `nama`, `alamat`, `no_telepon`) VALUES
+-- Dumping data for table apkjadwal.pasien: ~1 rows (approximately)
+REPLACE INTO `pasien` (`id_pasien`, `id_user`, `nama`, `alamat`, `no_telepon`) VALUES
 	(1, 8, 'Pasien', 'jl. abc', '08xx');
 
 -- Dumping structure for table apkjadwal.pegawai
@@ -217,8 +225,8 @@ CREATE TABLE IF NOT EXISTS `pegawai` (
   CONSTRAINT `FK__pegawai_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
--- Dumping data for table apkjadwal.pegawai: ~9 rows (approximately)
-INSERT IGNORE INTO `pegawai` (`id_pegawai`, `id_user`, `nip`, `nama`, `alamat`, `no_telepon`, `jabatan`, `status_pegawai`) VALUES
+-- Dumping data for table apkjadwal.pegawai: ~10 rows (approximately)
+REPLACE INTO `pegawai` (`id_pegawai`, `id_user`, `nip`, `nama`, `alamat`, `no_telepon`, `jabatan`, `status_pegawai`) VALUES
 	(1, 1, '001', 'Admin', 'jl. abc', '08130001', 'staff', 'aktif'),
 	(2, 5, '002', 'Dokter', 'jl. abc', '0813xxx', 'staff', 'aktif'),
 	(4, 6, '003', 'Perawat', 'jl. abc', '0813xxxx', 'staff', 'aktif'),
@@ -240,8 +248,8 @@ CREATE TABLE IF NOT EXISTS `perawat` (
   CONSTRAINT `FK__perawat_pegawai` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
--- Dumping data for table apkjadwal.perawat: ~0 rows (approximately)
-INSERT IGNORE INTO `perawat` (`id_perawat`, `id_pegawai`, `no_sip`) VALUES
+-- Dumping data for table apkjadwal.perawat: ~1 rows (approximately)
+REPLACE INTO `perawat` (`id_perawat`, `id_pegawai`, `no_sip`) VALUES
 	(1, 4, '001');
 
 -- Dumping structure for table apkjadwal.ruangan
@@ -251,8 +259,8 @@ CREATE TABLE IF NOT EXISTS `ruangan` (
   PRIMARY KEY (`id_ruangan`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
--- Dumping data for table apkjadwal.ruangan: ~2 rows (approximately)
-INSERT IGNORE INTO `ruangan` (`id_ruangan`, `nama`) VALUES
+-- Dumping data for table apkjadwal.ruangan: ~1 rows (approximately)
+REPLACE INTO `ruangan` (`id_ruangan`, `nama`) VALUES
 	(1, 'Ruangan');
 
 -- Dumping structure for table apkjadwal.user
@@ -268,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- Dumping data for table apkjadwal.user: ~14 rows (approximately)
-INSERT IGNORE INTO `user` (`id_user`, `username`, `email`, `password`, `role`) VALUES
+REPLACE INTO `user` (`id_user`, `username`, `email`, `password`, `role`) VALUES
 	(1, 'admin', 'admin@gmail.com', '3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2', 'admin'),
 	(2, 'kabid', 'kabid@gmail.com', '9459f6f78a7c23eb79428d0b0b37710b51017edda33f22ba69db1d9f587fd462', 'user'),
 	(3, 'direktur', 'direktur@gmail.com', '0197f965f8efadc659be3877b94c0794fd9e86c5e2b3f6fc8f241fa43015210b', 'user'),

@@ -44,16 +44,20 @@ foreach ($period as $day) {
     $pasienCountDailyOfMonth[] = (getJadwalPemeriksaanCountByDate($date))['count'];
 }
 
-// dd([$firstDay, $lastDay, $daysOfMonth, $pasienCountDailyOfMonth]);
-
 $liburThisMonth = getLiburThisMonthByPegawaiId($_SESSION['id_pegawai']);
-$liburEventsThisMonth = [];
+$cutiThisMonth = getCutiThisMonthByPegawaiId($_SESSION['id_pegawai']);
+
+$eventsThisMonth = [];
 foreach ($liburThisMonth as $key => $value) {
     $date = $value['tanggal'];
-    $liburEventsThisMonth[] = "{id:'$key',title:'libur',start:'$date'}";
+    $eventsThisMonth[] = "{id:'libur_$key',title:'libur',start:'$date'}";
 }
 
-// dd([$liburThisMonth, implode(',', $liburEventsThisMonth)]);
+foreach ($cutiThisMonth as $key => $value) {
+    $start = $value['tanggal_mulai'];
+    $end = $value['tanggal_selesai'];
+    $eventsThisMonth[] = "{id:'cuti_$key',title:'cuti',start:'$start',end:'$end',backgroundColor:'#adb5bd'}";
+}
 
 ?>
 
@@ -122,7 +126,7 @@ foreach ($liburThisMonth as $key => $value) {
                                 var calendarEl = document.getElementById('calendar');
                                 var calendar = new FullCalendar.Calendar(calendarEl, {
                                     initialView: 'dayGridMonth',
-                                    events: [<?= implode(',', $liburEventsThisMonth) ?>]
+                                    events: [<?= implode(',', $eventsThisMonth) ?>]
                                 });
                                 calendar.render();
                             });

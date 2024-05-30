@@ -35,7 +35,7 @@ $jadwalDokter = getJadwalDokter();
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item active">Jadwal Praktek Dokter</li>
+                <li class="breadcrumb-item active">Jadwal Dokter</li>
             </ol>
         </nav>
     </section><!-- End Page Title -->
@@ -45,7 +45,7 @@ $jadwalDokter = getJadwalDokter();
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Jadwal Praktek Dokter</h5>
+                        <h5 class="card-title">Jadwal Dokter</h5>
 
                         <?php if (isset($_SESSION['successMsg'])) : ?>
                             <div class="mt-2">
@@ -80,7 +80,8 @@ $jadwalDokter = getJadwalDokter();
                                     </thead>
                                     <tbody>
                                         <?php foreach ($jadwalDokter as $jd) : ?>
-                                            <?php if ($jd['nip'] !== $_SESSION['nip']) continue; ?>
+                                            <?php if ($jd['nip'] !== $_SESSION['nip']) continue;
+                                            ?>
                                             <tr>
                                                 <td></td>
                                                 <td><?= $jd['nama']; ?></td>

@@ -5,6 +5,16 @@ session_start();
 require_once './services/db.php';
 require_once './utils/utils.php';
 
+$isAuthorized = authorization([
+    'role' => Role::ADMIN
+]) || authorization([
+    'jabatan' => Jabatan::KEPALA_BIDANG
+]);
+
+if (!$isAuthorized) {
+    redirect('/dashboard');
+}
+
 $ruangan = getRuangan();
 
 $jadwalDokter = getJadwalDokter();

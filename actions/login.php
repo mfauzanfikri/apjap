@@ -27,5 +27,5 @@ if (isset($_POST['submit'])) {
     $_SESSION['email'] = $pasien['email'];
     $_SESSION['role'] = $pasien['role'];
 
-    redirect('../pasien/');
+    redirect('/pasien');
 }

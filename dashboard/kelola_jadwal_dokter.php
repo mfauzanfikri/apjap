@@ -5,6 +5,14 @@ session_start();
 require_once './services/db.php';
 require_once './utils/utils.php';
 
+$isAuthorized = authorization([
+    'role' => Role::ADMIN
+]);
+
+if (!$isAuthorized) {
+    redirect('/dashboard');
+}
+
 $dokter = getDokter();
 
 $jadwalDokter = getJadwalDokter();
@@ -103,7 +111,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_1" class="form-select" name="id_dokter_1">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Gigi') {
+                                                                                <?php if ($d['poli'] !== 'Gigi' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
@@ -115,7 +123,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_2" class="form-select" name="id_dokter_2">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Gigi') {
+                                                                                <?php if ($d['poli'] !== 'Gigi' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
@@ -127,7 +135,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_3" class="form-select" name="id_dokter_3">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Gigi') {
+                                                                                <?php if ($d['poli'] !== 'Gigi' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
@@ -322,7 +330,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_1" class="form-select" name="id_dokter_1">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'THT') {
+                                                                                <?php if ($d['poli'] !== 'THT' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
@@ -334,7 +342,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_2" class="form-select" name="id_dokter_2">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'THT') {
+                                                                                <?php if ($d['poli'] !== 'THT' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
@@ -346,7 +354,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_3" class="form-select" name="id_dokter_3">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'THT') {
+                                                                                <?php if ($d['poli'] !== 'THT' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
@@ -541,7 +549,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_1" class="form-select" name="id_dokter_1">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'PDL') {
+                                                                                <?php if ($d['poli'] !== 'PDL' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
@@ -553,7 +561,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_2" class="form-select" name="id_dokter_2">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'PDL') {
+                                                                                <?php if ($d['poli'] !== 'PDL' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
@@ -565,7 +573,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_3" class="form-select" name="id_dokter_3">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'PDL') {
+                                                                                <?php if ($d['poli'] !== 'PDL' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
@@ -760,7 +768,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_1" class="form-select" name="id_dokter_1">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Anak') {
+                                                                                <?php if ($d['poli'] !== 'Anak' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
@@ -772,7 +780,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_2" class="form-select" name="id_dokter_2">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Anak') {
+                                                                                <?php if ($d['poli'] !== 'Anak' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
@@ -784,7 +792,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_3" class="form-select" name="id_dokter_3">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Anak') {
+                                                                                <?php if ($d['poli'] !== 'Anak' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
@@ -1198,7 +1206,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_1" class="form-select" name="id_dokter_1">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Mata') {
+                                                                                <?php if ($d['poli'] !== 'Mata' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
@@ -1210,7 +1218,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_2" class="form-select" name="id_dokter_2">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Mata') {
+                                                                                <?php if ($d['poli'] !== 'Mata' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
@@ -1222,7 +1230,7 @@ $jadwalDokter = getJadwalDokter();
                                                                         <select id="id_dokter_3" class="form-select" name="id_dokter_3">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Mata') {
+                                                                                <?php if ($d['poli'] !== 'Mata' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
                                                                                     continue;
                                                                                 } ?>
                                                                                 <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>

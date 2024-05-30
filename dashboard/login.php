@@ -6,7 +6,23 @@ require './services/auth.php';
 require './utils/utils.php';
 
 if (isset($_SESSION['username'])) {
-    header('Location: /dashboard/logout.php');
+    redirect('/dashboard/logout.php');
+}
+
+$pegawaiWithCutiStatus = getPegawaiWithCutiStatus();
+foreach ($pegawaiWithCutiStatus as $pegawai) {
+    $isCuti = getPegawaiCutiToday($pegawai['id_pegawai']);
+
+    if ($isCuti === false) {
+        editPegawai(['status_pegawai' => 'aktif'], $pegawai['id_pegawai']);
+    }
+}
+
+$pegawaiCuti = getPegawaiCutiToday();
+foreach ($pegawaiCuti as $pegawai) {
+    if ($pegawai['status_pegawai'] !== 'cuti') {
+        editPegawai(['status_pegawai' => 'cuti'], $pegawai['id_pegawai']);
+    }
 }
 
 $isError = false;
@@ -112,7 +128,7 @@ if (isset($_POST) && isset($_POST['submit'])) {
                             <div class="card mb-3 pb-2">
                                 <div class="card-body">
                                     <div class="pt-4 pb-2">
-                                        <h1 class="card-title text-center pb-0 fs-4">Aplikasi Jadwal dan Penjadwalan Rumah Sakit Umum Daerah Ogan Komering Ilir (APJAP)</h1>
+                                        <h1 class="card-title text-center pb-0 fs-4">Aplikasi Jadwal dan Penjadwalan Rumah Sakit Umum Daerah Ogan Ilir (APJAP)</h1>
                                         <p class="text-center small">Log in untuk mengakses sistem.</p>
                                     </div>
 

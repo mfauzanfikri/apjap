@@ -5,6 +5,15 @@ session_start();
 require_once './services/db.php';
 require_once './utils/utils.php';
 
+$isAuthorized = authorization([
+    'jabatan' => Jabatan::KEPALA_BIDANG
+]) || authorization([
+    'role' => Role::ADMIN
+]);
+
+if (!$isAuthorized) {
+    redirect('/dashboard');
+}
 
 $jadwalOperasi = getJadwalOperasi();
 $dokterSelect = getDokter();
@@ -33,7 +42,7 @@ $ruanganSelect = getRuangan();
     </section><!-- End Page Title -->
 
     <!-- admin dan kepala bidang saja -->
-    <?php if (authorization(['role' => [Role::ADMIN]]) || authorization(['jabatan' => [Jabatan::KEPALA_BIDANG]])) : ?>
+    <?php if (authorization(['jabatan' => [Jabatan::KEPALA_BIDANG]])) : ?>
         <section class="section">
             <div class="row">
                 <div class="col">
@@ -53,7 +62,7 @@ $ruanganSelect = getRuangan();
                             <div class="tab-content pt-2" id="pengajuan-jo-content">
                                 <!-- pengajuan content -->
                                 <div class="tab-pane fade show active" id="pengajuan" role="tabpanel" aria-labelledby="pengajuan-tab">
-                                    <h5 class="card-title">Tabel Pengajuan Jadwal Operasi</h5>
+                                    <h5 class="card-title">Tabel Pengajuan Jadwal Operasi oleh Pegawai</h5>
                                     <?php if (isset($_SESSION['successMsg'])) : ?>
                                         <div class="mt-2">
                                             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -129,7 +138,7 @@ $ruanganSelect = getRuangan();
 
                                 <!-- selesai content -->
                                 <div class="tab-pane fade show" id="selesai" role="tabpanel" aria-labelledby="selesai-tab">
-                                    <h5 class="card-title">Tabel Jadwal Operasi</h5>
+                                    <h5 class="card-title">Tabel Jadwal Operasi oleh Pegawai</h5>
                                     <?php if (isset($_SESSION['successMsg'])) : ?>
                                         <div class="mt-2">
                                             <div class="alert alert-success alert-dismissible fade show" role="alert">

@@ -10,7 +10,7 @@ session_start();
 <main id="main" class="main">
 
     <section class="pagetitle">
-        <h1>Selamat Datang di Area Pasien RSU OKI</h1>
+        <h1>Selamat Datang di Area Pasien RSUD Ogan Ilir</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>

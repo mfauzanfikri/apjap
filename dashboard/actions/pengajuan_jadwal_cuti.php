@@ -54,8 +54,7 @@ if (isset($_POST['submit'])) {
 
             if (!isset($_POST['id_cuti'])) {
                 $_SESSION['errorMsg'] = "id_cuti tidak ada.";
-                header('Location: /dashboard/pengajuan_jadwal_cuti.php');
-                die();
+                redirect('/dashboard/pengajuan_jadwal_cuti.php');
             }
 
             foreach ($editFields as $field) {
@@ -65,8 +64,7 @@ if (isset($_POST['submit'])) {
             }
 
             if (empty($data)) {
-                header('Location: /dashboard/pengajuan_jadwal_cuti.php');
-                die();
+                redirect('/dashboard/pengajuan_jadwal_cuti.php');
             }
 
             editCuti($data, $_POST['id_cuti']);
@@ -80,8 +78,7 @@ if (isset($_POST['submit'])) {
 
             if (!isset($_POST['id_cuti'])) {
                 $_SESSION['errorMsg'] = "id_cuti tidak ada.";
-                header('Location: /dashboard/pengajuan_jadwal_cuti.php');
-                die();
+                redirect('/dashboard/pengajuan_jadwal_cuti.php');
             }
 
             foreach ($editFields as $field) {
@@ -91,8 +88,7 @@ if (isset($_POST['submit'])) {
             }
 
             if (empty($data)) {
-                header('Location: /dashboard/pengajuan_jadwal_cuti.php');
-                die();
+                redirect('/dashboard/pengajuan_jadwal_cuti.php');
             }
 
             editCuti($data, $_POST['id_cuti']);

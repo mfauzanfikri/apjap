@@ -81,7 +81,9 @@ $jadwalPerawat = getJadwalPerawat();
                                                     <th>Waktu</th>
                                                     <th>Shift</th>
                                                     <th>Poli</th>
-                                                    <th>Aksi</th>
+                                                    <?php if (authorization(['jabatan' => Jabatan::KEPALA_BIDANG])) : ?>
+                                                        <th>Aksi</th>
+                                                    <?php endif; ?>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -95,28 +97,30 @@ $jadwalPerawat = getJadwalPerawat();
                                                         <td><?= $jp['waktu_mulai']; ?> - <?= $jp['waktu_selesai']; ?> WIB</td>
                                                         <td><?= $jp['shift'] ?></td>
                                                         <td><?= $jp['poli']; ?></td>
-                                                        <td class="d-flex justify-content-center gap-2 text-start">
-                                                            <!-- button terima -->
-                                                            <form action="/dashboard/actions/pengajuan_jadwal_perawat.php" method="post">
-                                                                <input type="hidden" name="jenis" value="terima">
-                                                                <input type="hidden" name="status" value="disetujui">
-                                                                <input type="hidden" name="id_validator" value="<?= $_SESSION['id_pegawai']; ?>">
-                                                                <input type="hidden" name="id_jadwal_perawat" value="<?= $jp['id_jadwal_perawat']; ?>">
-                                                                <button type="submit" name="submit" value="" class="btn btn-success">
-                                                                    Terima
-                                                                </button>
-                                                            </form>
-                                                            <!-- button tolak -->
-                                                            <form action="/dashboard/actions/pengajuan_jadwal_perawat.php" method="post">
-                                                                <input type="hidden" name="jenis" value="tolak">
-                                                                <input type="hidden" name="status" value="ditolak">
-                                                                <input type="hidden" name="id_validator" value="<?= $_SESSION['id_pegawai']; ?>">
-                                                                <input type="hidden" name="id_jadwal_perawat" value="<?= $jp['id_jadwal_perawat']; ?>">
-                                                                <button type="submit" name="submit" value="" class="btn btn-danger">
-                                                                    Tolak
-                                                                </button>
-                                                            </form>
-                                                        </td>
+                                                        <?php if (authorization(['jabatan' => Jabatan::KEPALA_BIDANG])) : ?>
+                                                            <td class="d-flex justify-content-center gap-2 text-start">
+                                                                <!-- button terima -->
+                                                                <form action="/dashboard/actions/pengajuan_jadwal_perawat.php" method="post">
+                                                                    <input type="hidden" name="jenis" value="terima">
+                                                                    <input type="hidden" name="status" value="disetujui">
+                                                                    <input type="hidden" name="id_validator" value="<?= $_SESSION['id_pegawai']; ?>">
+                                                                    <input type="hidden" name="id_jadwal_perawat" value="<?= $jp['id_jadwal_perawat']; ?>">
+                                                                    <button type="submit" name="submit" class="btn btn-success">
+                                                                        Terima
+                                                                    </button>
+                                                                </form>
+                                                                <!-- button tolak -->
+                                                                <form action="/dashboard/actions/pengajuan_jadwal_perawat.php" method="post">
+                                                                    <input type="hidden" name="jenis" value="tolak">
+                                                                    <input type="hidden" name="status" value="ditolak">
+                                                                    <input type="hidden" name="id_validator" value="<?= $_SESSION['id_pegawai']; ?>">
+                                                                    <input type="hidden" name="id_jadwal_perawat" value="<?= $jp['id_jadwal_perawat']; ?>">
+                                                                    <button type="submit" name="submit" class="btn btn-danger">
+                                                                        Tolak
+                                                                    </button>
+                                                                </form>
+                                                            </td>
+                                                        <?php endif; ?>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

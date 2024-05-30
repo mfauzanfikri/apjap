@@ -27,8 +27,17 @@ session_start();
         <div class="container">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title">Rumah Sakit Umum Daerah OKI</h2>
+                    <h2 class="card-title">Rumah Sakit Umum Daerah OGAN ILIR</h2>
                     <p>Isi Email dan password untuk log in.</p>
+
+                    <?php if (isset($_SESSION['successMsg'])) : ?>
+                        <div class="mt-2">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $_SESSION['successMsg']; ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    <?php endif; ?>
 
                     <?php if (isset($_SESSION['errorMsg'])) : ?>
                         <div class="mt-2">

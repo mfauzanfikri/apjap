@@ -5,6 +5,14 @@ session_start();
 require_once './services/db.php';
 require_once './utils/utils.php';
 
+$isAuthorized = authorization([
+    'role' => Role::ADMIN
+]);
+
+if (!$isAuthorized) {
+    redirect('/dashboard');
+}
+
 $perawat = getPerawat();
 
 $jadwalPerawat = getJadwalPerawat();
@@ -66,6 +74,7 @@ $jadwalPerawat = getJadwalPerawat();
                                                                 <select id="id_perawat" class="form-select" name="id_perawat" required>
                                                                     <option selected disabled value="0">Pilih Perawat</option>
                                                                     <?php foreach ($perawat as $p) : ?>
+                                                                        <?php if ($p['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($p['id_pegawai']) !== false) ?>
                                                                         <option value="<?= $p['id_perawat'] ?>"><?= $p['nama'] ?>/<?= $p['nip'] ?></option>
                                                                     <?php endforeach; ?>
                                                                 </select>

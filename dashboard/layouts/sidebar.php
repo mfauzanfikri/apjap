@@ -6,7 +6,7 @@
 
         <!-- dashboard -->
         <li class="nav-item">
-            <a class="nav-link <?= $url === '/dashboard' || $url === '/dashboard/'  ? '' : 'collapsed' ?>" href="/dashboard">
+            <a class="nav-link <?= $url === '/dashboard' || $url === '/dashboard/' || $url === '/apkjadwal/dashboard' || $url === '/apkjadwal/dashboard/index.php' || $url === '/apkjadwal/dashboard/' ? '' : 'collapsed' ?>" href="./">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
@@ -17,7 +17,7 @@
 
             <!-- kelola user -->
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/kelola_user.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_user.php">
+                <a class="nav-link <?= $url === '/dashboard/kelola_user.php' || $url === '/apkjadwal/dashboard/kelola_user.php' ? '' : 'collapsed' ?>" href="kelola_user.php">
                     <i class="bi bi-person"></i>
                     <span>Kelola User</span>
                 </a>
@@ -25,7 +25,7 @@
 
             <!-- kelola pegawai -->
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/kelola_pegawai.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_pegawai.php">
+                <a class="nav-link <?= $url === '/dashboard/kelola_pegawai.php' || $url === '/apkjadwal/dashboard/kelola_pegawai.php' ? '' : 'collapsed' ?>" href="kelola_pegawai.php">
                     <i class="bi bi-people"></i>
                     <span>Kelola Pegawai</span>
                 </a>
@@ -33,7 +33,7 @@
 
             <!-- kelola dokter -->
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/kelola_dokter.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_dokter.php">
+                <a class="nav-link <?= $url === '/dashboard/kelola_dokter.php' || $url === '/apkjadwal/dashboard/kelola_dokter.php' ? '' : 'collapsed' ?>" href="kelola_dokter.php">
                     <i class="bi bi-person-badge"></i>
                     <span>Kelola Dokter</span>
                 </a>
@@ -41,7 +41,7 @@
 
             <!-- kelola perawat -->
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/kelola_perawat.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_perawat.php">
+                <a class="nav-link <?= $url === '/dashboard/kelola_perawat.php' || $url === '/apkjadwal/dashboard/kelola_perawat.php' ? '' : 'collapsed' ?>" href="kelola_perawat.php">
                     <i class="bi bi-person-badge-fill"></i>
                     <span>Kelola Perawat</span>
                 </a>
@@ -49,7 +49,7 @@
 
             <!-- kelola ruangan -->
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/kelola_ruangan.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_ruangan.php">
+                <a class="nav-link <?= $url === '/dashboard/kelola_ruangan.php' || $url === '/apkjadwal/dashboard/kelola_ruangan.php' ? '' : 'collapsed' ?>" href="kelola_ruangan.php">
                     <i class="bi bi-hospital"></i>
                     <span>Kelola Ruangan</span>
                 </a>
@@ -59,7 +59,7 @@
 
             <!-- kelola jadwal dokter -->
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/kelola_jadwal_dokter.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_jadwal_dokter.php">
+                <a class="nav-link <?= $url === '/dashboard/kelola_jadwal_dokter.php' || $url === '/apkjadwal/dashboard/kelola_jadwal_dokter.php' ? '' : 'collapsed' ?>" href="kelola_jadwal_dokter.php">
                     <i class="bi bi-calendar"></i>
                     <span>Kelola Jadwal Dokter</span>
                 </a>
@@ -67,7 +67,7 @@
 
             <!-- kelola jadwal perawat -->
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/kelola_jadwal_perawat.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_jadwal_perawat.php">
+                <a class="nav-link <?= $url === '/dashboard/kelola_jadwal_perawat.php' || $url === '/apkjadwal/dashboard/kelola_jadwal_perawat.php' ? '' : 'collapsed' ?>" href="kelola_jadwal_perawat.php">
                     <i class="bi bi-calendar-fill"></i>
                     <span>Kelola Jadwal Perawat</span>
                 </a>
@@ -76,7 +76,7 @@
 
             <!-- kelola jadwal libur -->
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/kelola_libur.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_libur.php">
+                <a class="nav-link <?= $url === '/dashboard/kelola_libur.php' || $url === '/apkjadwal/dashboard/kelola_libur.php' ? '' : 'collapsed' ?>" href="kelola_libur.php">
                     <i class="bi bi-calendar-check"></i>
                     <span>Kelola Jadwal Libur</span>
                 </a>
@@ -84,7 +84,7 @@
 
             <!-- kelola jadwal cuti -->
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/kelola_cuti.php' ? '' : 'collapsed' ?>" href="/dashboard/kelola_cuti.php">
+                <a class="nav-link <?= $url === '/dashboard/kelola_cuti.php' || $url === '/apkjadwal/dashboard/kelola_cuti.php' ? '' : 'collapsed' ?>" href="kelola_cuti.php">
                     <i class="bi bi-calendar-check-fill"></i>
                     <span>Kelola Jadwal Cuti</span>
                 </a>
@@ -92,13 +92,13 @@
 
         <?php endif; ?>
 
-        <?php if (!authorization(['jabatan' => Jabatan::KEPALA_BIDANG])) : ?>
+        <?php if (!authorization(['jabatan' => Jabatan::KEPALA_BIDANG]) || authorization(['profesi' => [Profesi::DOKTER, Profesi::PERAWAT]])) : ?>
             <li class="nav-heading">Jadwal Kerja</li>
         <?php endif; ?>
 
         <?php if (authorization(['role' => Role::ADMIN]) || authorization(['profesi' => Profesi::DOKTER])) : ?>
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/jadwal_dokter.php' ? '' : 'collapsed' ?>" href="/dashboard/jadwal_dokter.php">
+                <a class="nav-link <?= $url === '/dashboard/jadwal_dokter.php' || $url === '/apkjadwal/dashboard/jadwal_dokter.php' ? '' : 'collapsed' ?>" href="jadwal_dokter.php">
                     <i class="bi bi-calendar-plus"></i>
                     <span>Jadwal Dokter</span>
                 </a>
@@ -107,7 +107,7 @@
 
         <?php if (authorization(['role' => Role::ADMIN]) || authorization(['profesi' => Profesi::PERAWAT])) : ?>
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/jadwal_perawat.php' ? '' : 'collapsed' ?>" href="/dashboard/jadwal_perawat.php">
+                <a class="nav-link <?= $url === '/dashboard/jadwal_perawat.php' || $url === '/apkjadwal/dashboard/jadwal_perawat.php' ? '' : 'collapsed' ?>" href="jadwal_perawat.php">
                     <i class="bi bi-calendar-plus-fill"></i>
                     <span>Jadwal Perawat</span>
                 </a>
@@ -116,14 +116,14 @@
 
         <?php if (authorization(['role' => Role::ADMIN]) || authorization(['profesi' => Profesi::DOKTER])) : ?>
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/jadwal_pemeriksaan_pasien.php' ? '' : 'collapsed' ?>" href="/dashboard/jadwal_pemeriksaan_pasien.php">
+                <a class="nav-link <?= $url === '/dashboard/jadwal_pemeriksaan_pasien.php' || $url === '/apkjadwal/dashboard/jadwal_pemeriksaan_pasien.php' ? '' : 'collapsed' ?>" href="jadwal_pemeriksaan_pasien.php">
                     <i class="bi bi-calendar3-event"></i>
                     <span>Jadwal Pemeriksaan Pasien</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/jadwal_operasi_pasien.php' ? '' : 'collapsed' ?>" href="/dashboard/jadwal_operasi_pasien.php">
+                <a class="nav-link <?= $url === '/dashboard/jadwal_operasi_pasien.php' || $url === '/apkjadwal/dashboard/jadwal_operasi_pasien.php' ? '' : 'collapsed' ?>" href="jadwal_operasi_pasien.php">
                     <i class="bi bi-calendar3-event-fill"></i>
                     <span>Jadwal Operasi Pasien</span>
                 </a>
@@ -134,7 +134,7 @@
 
         <?php if (authorization(['role' => Role::ADMIN])) : ?>
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/pengajuan_jadwal_perawat.php' ? '' : 'collapsed' ?>" href="/dashboard/pengajuan_jadwal_perawat.php">
+                <a class="nav-link <?= $url === '/dashboard/pengajuan_jadwal_perawat.php' || $url === '/apkjadwal/dashboard/pengajuan_jadwal_perawat.php' ? '' : 'collapsed' ?>" href="pengajuan_jadwal_perawat.php">
                     <i class="bi bi-calendar2"></i>
                     <span>Pengajuan Jadwal Perawat</span>
                 </a>
@@ -142,14 +142,14 @@
         <?php endif; ?>
 
         <li class="nav-item">
-            <a class="nav-link <?= $url === '/dashboard/pengajuan_jadwal_cuti.php' ? '' : 'collapsed' ?>" href="/dashboard/pengajuan_jadwal_cuti.php">
+            <a class="nav-link <?= $url === '/dashboard/pengajuan_jadwal_cuti.php' || $url === '/apkjadwal/dashboard/pengajuan_jadwal_cuti.php' ? '' : 'collapsed' ?>" href="pengajuan_jadwal_cuti.php">
                 <i class="bi bi-calendar2-event-fill"></i>
                 <span>Pengajuan Jadwal Cuti</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link <?= $url === '/dashboard/pengajuan_jadwal_operasi.php' ? '' : 'collapsed' ?>" href="/dashboard/pengajuan_jadwal_operasi.php">
+            <a class="nav-link <?= $url === '/dashboard/pengajuan_jadwal_operasi.php' || $url === '/apkjadwal/dashboard/pengajuan_jadwal_operasi.php' ? '' : 'collapsed' ?>" href="pengajuan_jadwal_operasi.php">
                 <i class="bi bi-calendar2-heart"></i>
                 <span>Pengajuan Jadwal Operasi</span>
             </a>
@@ -160,7 +160,7 @@
 
             <!-- laporan jadwal kerja -->
             <li class="nav-item">
-                <a class="nav-link <?= $url === '/dashboard/laporan_jadwal_kerja.php' ? '' : 'collapsed' ?>" href="/dashboard/laporan_jadwal_kerja.php">
+                <a class="nav-link <?= $url === '/dashboard/laporan_jadwal_kerja.php' || $url === '/apkjadwal/dashboard/laporan_jadwal_kerja.php' ? '' : 'collapsed' ?>" href="laporan_jadwal_kerja.php">
                     <i class="bi bi-file-earmark-zip"></i>
                     <span>Laporan Jadwal kerja</span>
                 </a>
@@ -171,7 +171,7 @@
 
         <!-- profil -->
         <li class="nav-item">
-            <a class="nav-link <?= $url === '/dashboard/profil.php' ? '' : 'collapsed' ?>" href="/dashboard/profil.php">
+            <a class="nav-link <?= $url === '/dashboard/profil.php' || $url === '/apkjadwal/dashboard/profil.php' ? '' : 'collapsed' ?>" href="profil.php">
                 <i class="bi bi-person-square"></i>
                 <span>Profil</span>
             </a>
@@ -179,7 +179,7 @@
 
         <!-- logout -->
         <li class="nav-item">
-            <a class="nav-link <?= $url === '/dashboard/logout.php' ? '' : 'collapsed' ?>" href="/dashboard/logout.php">
+            <a class="nav-link" href="logout.php">
                 <i class="bi bi-box-arrow-left"></i>
                 <span>Logout</span>
             </a>

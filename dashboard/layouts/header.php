@@ -1,7 +1,7 @@
 <?php
 
 if (!isset($_SESSION['id_user']) || $_SESSION['role'] === 'pasien') {
-  redirect('/dashboard/login.php');
+  redirect('login.php');
 }
 
 ?>

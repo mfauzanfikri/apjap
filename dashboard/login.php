@@ -33,7 +33,7 @@ if (isset($_POST) && isset($_POST['submit'])) {
     $password = $_POST['password'];
 
     $loggedInUser = getUserByNip($nip);
-    if (!$loggedInUser) {
+    if ($loggedInUser === false) {
         global $isError;
 
         $isError = true;
@@ -77,7 +77,7 @@ if (isset($_POST) && isset($_POST['submit'])) {
                 $_SESSION['profesi'] = 'Perawat';
             }
 
-            redirect('/dashboard');
+            redirect('../');
         }
     }
 }

@@ -2,6 +2,8 @@
 
 session_start();
 
+require_once '../dashboard/utils/utils.php';
+
 ?>
 
 <?php include './layouts/header.php'; ?>

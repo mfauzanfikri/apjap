@@ -5,4 +5,4 @@ require_once './utils/utils.php';
 
 session_destroy();
 
-redirect('/dashboard/login.php');
+redirect('login.php');

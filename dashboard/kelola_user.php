@@ -56,7 +56,7 @@ $users = getUsers();
                                                     <h5 class="modal-title">Tambah user</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form action="/dashboard/actions/kelola_user.php" method="post">
+                                                <form action="./actions/kelola_user.php" method="post">
                                                     <input type="hidden" value="tambah" name="jenis">
                                                     <div class="modal-body">
                                                         <div class="row gap-3">
@@ -139,7 +139,7 @@ $users = getUsers();
                                                                         <h5 class="modal-title">Edit user</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_user.php" method="post">
+                                                                    <form action="./actions/kelola_user.php" method="post">
                                                                         <input type="hidden" name="jenis" value="edit">
                                                                         <input type="hidden" name="id_user" value=<?= (string) $user['id_user'] ?>>
                                                                         <div class="modal-body">
@@ -185,7 +185,7 @@ $users = getUsers();
                                                                         <h5 class="modal-title">Hapus user</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_user.php" method="post">
+                                                                    <form action="./actions/kelola_user.php" method="post">
                                                                         <input type="hidden" name="jenis" value="delete">
                                                                         <input type="hidden" name="id_user" value="<?= $user['id_user'] ?>">
                                                                         <div class="modal-body">

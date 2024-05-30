@@ -58,7 +58,7 @@ $pegawaiSelect = getPegawaiWithNoPerawat();
                                                     <h5 class="modal-title">Tambah perawat</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form action="/dashboard/actions/kelola_perawat.php" method="post">
+                                                <form action="./actions/kelola_perawat.php" method="post">
                                                     <input type="hidden" value="tambah" name="jenis">
                                                     <div class="modal-body">
                                                         <div class="row gap-3">
@@ -139,7 +139,7 @@ $pegawaiSelect = getPegawaiWithNoPerawat();
                                                                         <h5 class="modal-title">Edit perawat</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_perawat.php" method="post">
+                                                                    <form action="./actions/kelola_perawat.php" method="post">
                                                                         <input type="hidden" name="jenis" value="edit">
                                                                         <input type="hidden" name="id_perawat" value=<?= (string) $perawat['id_perawat'] ?>>
                                                                         <div class="modal-body">
@@ -189,7 +189,7 @@ $pegawaiSelect = getPegawaiWithNoPerawat();
                                                                         <h5 class="modal-title">Hapus perawat</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_perawat.php" method="post">
+                                                                    <form action="./actions/kelola_perawat.php" method="post">
                                                                         <input type="hidden" name="jenis" value="delete">
                                                                         <input type="hidden" name="id_perawat" value="<?= $perawat['id_perawat'] ?>">
                                                                         <div class="modal-body">

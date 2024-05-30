@@ -61,7 +61,7 @@ $pegawai = getPegawai();
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <!-- tambah libur  form -->
-                                                <form action="/dashboard/actions/kelola_libur.php" method="post">
+                                                <form action="./actions/kelola_libur.php" method="post">
                                                     <input type="hidden" value="tambah" name="jenis">
                                                     <div class="modal-body">
                                                         <div class="row gap-3">
@@ -144,7 +144,7 @@ $pegawai = getPegawai();
                                                                         <h5 class="modal-title">Edit libur</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_libur.php" method="post">
+                                                                    <form action="./actions/kelola_libur.php" method="post">
                                                                         <input type="hidden" name="jenis" value="edit">
                                                                         <input type="hidden" name="id_libur" value=<?= (string) $l['id_libur'] ?>>
                                                                         <div class="modal-body">
@@ -180,7 +180,7 @@ $pegawai = getPegawai();
                                                                         <h5 class="modal-title">Hapus libur</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_libur.php" method="post">
+                                                                    <form action="./actions/kelola_libur.php" method="post">
                                                                         <input type="hidden" name="jenis" value="delete">
                                                                         <input type="hidden" name="id_libur" value="<?= $l['id_libur'] ?>">
                                                                         <div class="modal-body">

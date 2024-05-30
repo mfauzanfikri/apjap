@@ -90,7 +90,7 @@ $cuti = getCuti();
                                                             <td><?= $c['tanggal_mulai']; ?> s.d. <?= $c['tanggal_selesai'] ?></td>
                                                             <td class="d-flex justify-content-center gap-2 text-start">
                                                                 <!-- button terima -->
-                                                                <form action="/dashboard/actions/pengajuan_jadwal_cuti.php" method="post">
+                                                                <form action="./actions/pengajuan_jadwal_cuti.php" method="post">
                                                                     <input type="hidden" name="jenis" value="terima">
                                                                     <input type="hidden" name="status" value="disetujui">
                                                                     <input type="hidden" name="id_validator" value="<?= $_SESSION['id_pegawai']; ?>">
@@ -100,7 +100,7 @@ $cuti = getCuti();
                                                                     </button>
                                                                 </form>
                                                                 <!-- button tolak -->
-                                                                <form action="/dashboard/actions/pengajuan_jadwal_cuti.php" method="post">
+                                                                <form action="./actions/pengajuan_jadwal_cuti.php" method="post">
                                                                     <input type="hidden" name="jenis" value="tolak">
                                                                     <input type="hidden" name="status" value="ditolak">
                                                                     <input type="hidden" name="id_validator" value="<?= $_SESSION['id_pegawai']; ?>">
@@ -214,7 +214,7 @@ $cuti = getCuti();
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <!-- pengajuan jadwal operasi  form -->
-                                                        <form action="/dashboard/actions/pengajuan_jadwal_cuti.php" method="post">
+                                                        <form action="./actions/pengajuan_jadwal_cuti.php" method="post">
                                                             <input type="hidden" name="jenis" value="tambah">
                                                             <input type="hidden" name="id_pegawai" value="<?= $_SESSION['id_pegawai']; ?>">
                                                             <div class="modal-body">

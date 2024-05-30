@@ -100,7 +100,7 @@ $jadwalPerawat = getJadwalPerawat();
                                                         <?php if (authorization(['jabatan' => Jabatan::KEPALA_BIDANG])) : ?>
                                                             <td class="d-flex justify-content-center gap-2 text-start">
                                                                 <!-- button terima -->
-                                                                <form action="/dashboard/actions/pengajuan_jadwal_perawat.php" method="post">
+                                                                <form action="./actions/pengajuan_jadwal_perawat.php" method="post">
                                                                     <input type="hidden" name="jenis" value="terima">
                                                                     <input type="hidden" name="status" value="disetujui">
                                                                     <input type="hidden" name="id_validator" value="<?= $_SESSION['id_pegawai']; ?>">
@@ -110,7 +110,7 @@ $jadwalPerawat = getJadwalPerawat();
                                                                     </button>
                                                                 </form>
                                                                 <!-- button tolak -->
-                                                                <form action="/dashboard/actions/pengajuan_jadwal_perawat.php" method="post">
+                                                                <form action="./actions/pengajuan_jadwal_perawat.php" method="post">
                                                                     <input type="hidden" name="jenis" value="tolak">
                                                                     <input type="hidden" name="status" value="ditolak">
                                                                     <input type="hidden" name="id_validator" value="<?= $_SESSION['id_pegawai']; ?>">

@@ -210,8 +210,8 @@ session_start();
             </div>
 
             <div class="d-flex justify-content-center gap-1">
-                <a href="/login.php" class="btn btn-primary">Login</button></a>
-                <a href="/register.php"><button class="btn btn-outline-primary">Register</button></a>
+                <a href="login.php" class="btn btn-primary">Login</button></a>
+                <a href="register.php"><button class="btn btn-outline-primary">Register</button></a>
             </div>
 
         </div>

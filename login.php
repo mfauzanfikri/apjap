@@ -2,6 +2,12 @@
 
 session_start();
 
+require_once './dashboard/utils/utils.php';
+
+if (isset($_SESSION['username'])) {
+    redirect('./pasien/logout.php');
+}
+
 ?>
 
 <?php include './layouts/header.php' ?>

@@ -58,7 +58,7 @@ $userSelect = getUsersWithNoPegawai();
                                                     <h5 class="modal-title">Tambah pegawai</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form action="/dashboard/actions/kelola_pegawai.php" method="post">
+                                                <form action="./actions/kelola_pegawai.php" method="post">
                                                     <input type="hidden" value="tambah" name="jenis">
                                                     <div class="modal-body">
                                                         <div class="row gap-3">
@@ -176,7 +176,7 @@ $userSelect = getUsersWithNoPegawai();
                                                                         <h5 class="modal-title">Edit pegawai</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_pegawai.php" method="post">
+                                                                    <form action="./actions/kelola_pegawai.php" method="post">
                                                                         <input type="hidden" name="jenis" value="edit">
                                                                         <input type="hidden" name="id_pegawai" value=<?= (string) $pegawai['id_pegawai'] ?>>
                                                                         <div class="modal-body">
@@ -255,7 +255,7 @@ $userSelect = getUsersWithNoPegawai();
                                                                         <h5 class="modal-title">Hapus pegawai</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_pegawai.php" method="post">
+                                                                    <form action="./actions/kelola_pegawai.php" method="post">
                                                                         <input type="hidden" name="jenis" value="delete">
                                                                         <input type="hidden" name="id_pegawai" value="<?= $pegawai['id_pegawai'] ?>">
                                                                         <div class="modal-body">

@@ -59,7 +59,7 @@ $jadwalPemeriksaan = getJadwalPemeriksaan();
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <!-- buat jadwal pemeriksaan form -->
-                                                <form action="/pasien/actions/jadwal_pemeriksaan.php" method="post">
+                                                <form action="./actions/jadwal_pemeriksaan.php" method="post">
                                                     <input type="hidden" name="id_pasien" value="<?= $_SESSION['id_pasien']; ?>">
                                                     <div class="modal-body">
                                                         <div class="row gap-3">

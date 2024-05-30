@@ -59,7 +59,7 @@ $poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
                                                     <h5 class="modal-title">Tambah dokter</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form action="/dashboard/actions/kelola_dokter.php" method="post">
+                                                <form action="./actions/kelola_dokter.php" method="post">
                                                     <input type="hidden" value="tambah" name="jenis">
                                                     <div class="modal-body">
                                                         <div class="row gap-3">
@@ -157,7 +157,7 @@ $poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
                                                                         <h5 class="modal-title">Edit dokter</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_dokter.php" method="post">
+                                                                    <form action="./actions/kelola_dokter.php" method="post">
                                                                         <input type="hidden" name="jenis" value="edit">
                                                                         <input type="hidden" name="id_dokter" value=<?= (string) $dokter['id_dokter'] ?>>
                                                                         <div class="modal-body">
@@ -220,7 +220,7 @@ $poliSelect = ['Gigi', 'THT', 'PDL', 'Anak', 'Saraf', 'Mata'];
                                                                         <h5 class="modal-title">Hapus dokter</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_dokter.php" method="post">
+                                                                    <form action="./actions/kelola_dokter.php" method="post">
                                                                         <input type="hidden" name="jenis" value="delete">
                                                                         <input type="hidden" name="id_dokter" value="<?= $dokter['id_dokter'] ?>">
                                                                         <div class="modal-body">

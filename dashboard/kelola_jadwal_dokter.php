@@ -94,7 +94,7 @@ $jadwalDokter = getJadwalDokter();
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <!-- tambah jadwal dokter poli gigi form -->
-                                                        <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                        <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                             <input type="hidden" value="tambah" name="jenis">
                                                             <div class="modal-body">
                                                                 <div class="alert alert-warning" role="alert">
@@ -211,7 +211,7 @@ $jadwalDokter = getJadwalDokter();
                                                                                 <h5 class="modal-title">Edit jadwal dokter</h5>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
-                                                                            <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                                            <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                                                 <input type="hidden" name="jenis" value="edit">
                                                                                 <input type="hidden" name="id_jadwal_dokter" value=<?= (string) $jd['id_jadwal_dokter'] ?>>
                                                                                 <div class="modal-body">
@@ -270,7 +270,7 @@ $jadwalDokter = getJadwalDokter();
                                                                                 <h5 class="modal-title">Hapus jadwal dokter</h5>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
-                                                                            <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                                            <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                                                 <input type="hidden" name="jenis" value="delete">
                                                                                 <input type="hidden" name="id_jadwal_dokter" value="<?= $jd['id_jadwal_dokter'] ?>">
                                                                                 <div class="modal-body">
@@ -313,7 +313,7 @@ $jadwalDokter = getJadwalDokter();
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <!-- tambah jadwal dokter poli tht form -->
-                                                        <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                        <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                             <input type="hidden" value="tambah" name="jenis">
                                                             <div class="modal-body">
                                                                 <div class="alert alert-warning" role="alert">
@@ -430,7 +430,7 @@ $jadwalDokter = getJadwalDokter();
                                                                                 <h5 class="modal-title">Edit jadwal dokter</h5>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
-                                                                            <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                                            <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                                                 <input type="hidden" name="jenis" value="edit">
                                                                                 <input type="hidden" name="id_jadwal_dokter" value=<?= (string) $jd['id_jadwal_dokter'] ?>>
                                                                                 <div class="modal-body">
@@ -489,7 +489,7 @@ $jadwalDokter = getJadwalDokter();
                                                                                 <h5 class="modal-title">Hapus jadwal dokter</h5>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
-                                                                            <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                                            <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                                                 <input type="hidden" name="jenis" value="delete">
                                                                                 <input type="hidden" name="id_jadwal_dokter" value="<?= $jd['id_jadwal_dokter'] ?>">
                                                                                 <div class="modal-body">
@@ -532,7 +532,7 @@ $jadwalDokter = getJadwalDokter();
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <!-- tambah jadwal dokter poli pdl form -->
-                                                        <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                        <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                             <input type="hidden" value="tambah" name="jenis">
                                                             <div class="modal-body">
                                                                 <div class="alert alert-warning" role="alert">
@@ -649,7 +649,7 @@ $jadwalDokter = getJadwalDokter();
                                                                                 <h5 class="modal-title">Edit jadwal dokter</h5>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
-                                                                            <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                                            <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                                                 <input type="hidden" name="jenis" value="edit">
                                                                                 <input type="hidden" name="id_jadwal_dokter" value=<?= (string) $jd['id_jadwal_dokter'] ?>>
                                                                                 <div class="modal-body">
@@ -708,7 +708,7 @@ $jadwalDokter = getJadwalDokter();
                                                                                 <h5 class="modal-title">Hapus jadwal dokter</h5>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
-                                                                            <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                                            <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                                                 <input type="hidden" name="jenis" value="delete">
                                                                                 <input type="hidden" name="id_jadwal_dokter" value="<?= $jd['id_jadwal_dokter'] ?>">
                                                                                 <div class="modal-body">
@@ -751,7 +751,7 @@ $jadwalDokter = getJadwalDokter();
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <!-- tambah jadwal dokter poli anak form -->
-                                                        <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                        <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                             <input type="hidden" value="tambah" name="jenis">
                                                             <div class="modal-body">
                                                                 <div class="alert alert-warning" role="alert">
@@ -868,7 +868,7 @@ $jadwalDokter = getJadwalDokter();
                                                                                 <h5 class="modal-title">Edit jadwal dokter</h5>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
-                                                                            <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                                            <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                                                 <input type="hidden" name="jenis" value="edit">
                                                                                 <input type="hidden" name="id_jadwal_dokter" value=<?= (string) $jd['id_jadwal_dokter'] ?>>
                                                                                 <div class="modal-body">
@@ -927,7 +927,7 @@ $jadwalDokter = getJadwalDokter();
                                                                                 <h5 class="modal-title">Hapus jadwal dokter</h5>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
-                                                                            <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                                            <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                                                 <input type="hidden" name="jenis" value="delete">
                                                                                 <input type="hidden" name="id_jadwal_dokter" value="<?= $jd['id_jadwal_dokter'] ?>">
                                                                                 <div class="modal-body">
@@ -970,7 +970,7 @@ $jadwalDokter = getJadwalDokter();
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <!-- tambah jadwal dokter poli saraf form -->
-                                                        <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                        <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                             <input type="hidden" value="tambah" name="jenis">
                                                             <div class="modal-body">
                                                                 <div class="alert alert-warning" role="alert">
@@ -1087,7 +1087,7 @@ $jadwalDokter = getJadwalDokter();
                                                                                 <h5 class="modal-title">Edit jadwal dokter</h5>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
-                                                                            <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                                            <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                                                 <input type="hidden" name="jenis" value="edit">
                                                                                 <input type="hidden" name="id_jadwal_dokter" value=<?= (string) $jd['id_jadwal_dokter'] ?>>
                                                                                 <div class="modal-body">
@@ -1146,7 +1146,7 @@ $jadwalDokter = getJadwalDokter();
                                                                                 <h5 class="modal-title">Hapus jadwal dokter</h5>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
-                                                                            <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                                            <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                                                 <input type="hidden" name="jenis" value="delete">
                                                                                 <input type="hidden" name="id_jadwal_dokter" value="<?= $jd['id_jadwal_dokter'] ?>">
                                                                                 <div class="modal-body">
@@ -1189,7 +1189,7 @@ $jadwalDokter = getJadwalDokter();
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <!-- tambah jadwal dokter poli mata form -->
-                                                        <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                        <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                             <input type="hidden" value="tambah" name="jenis">
                                                             <div class="modal-body">
                                                                 <div class="alert alert-warning" role="alert">
@@ -1306,7 +1306,7 @@ $jadwalDokter = getJadwalDokter();
                                                                                 <h5 class="modal-title">Edit jadwal dokter</h5>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
-                                                                            <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                                            <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                                                 <input type="hidden" name="jenis" value="edit">
                                                                                 <input type="hidden" name="id_jadwal_dokter" value=<?= (string) $jd['id_jadwal_dokter'] ?>>
                                                                                 <div class="modal-body">
@@ -1365,7 +1365,7 @@ $jadwalDokter = getJadwalDokter();
                                                                                 <h5 class="modal-title">Hapus jadwal dokter</h5>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                             </div>
-                                                                            <form action="/dashboard/actions/kelola_jadwal_dokter.php" method="post">
+                                                                            <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                                                 <input type="hidden" name="jenis" value="delete">
                                                                                 <input type="hidden" name="id_jadwal_dokter" value="<?= $jd['id_jadwal_dokter'] ?>">
                                                                                 <div class="modal-body">

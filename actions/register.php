@@ -33,5 +33,5 @@ if (isset($_POST['submit'])) {
 
     $_SESSION['successMsg'] = 'Akun berhasil dibuat. Silahkan login untuk masuk area pasien.';
 
-    redirect('/login.php');
+    redirect('../login.php');
 }

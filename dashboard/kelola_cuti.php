@@ -61,7 +61,7 @@ $pegawai = getPegawai();
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <!-- tambah cuti  form -->
-                                                <form action="/dashboard/actions/kelola_cuti.php" method="post">
+                                                <form action="./actions/kelola_cuti.php" method="post">
                                                     <input type="hidden" value="tambah" name="jenis">
                                                     <div class="modal-body">
                                                         <div class="row gap-3">
@@ -150,7 +150,7 @@ $pegawai = getPegawai();
                                                                         <h5 class="modal-title">Hapus cuti</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form action="/dashboard/actions/kelola_cuti.php" method="post">
+                                                                    <form action="./actions/kelola_cuti.php" method="post">
                                                                         <input type="hidden" name="jenis" value="delete">
                                                                         <input type="hidden" name="id_cuti" value="<?= $c['id_cuti'] ?>">
                                                                         <div class="modal-body">

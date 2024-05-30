@@ -6,7 +6,7 @@
 
         <!-- pasien -->
         <li class="nav-item">
-            <a class="nav-link <?= $url === '/pasien' || $url === '/pasien/'  ? '' : 'collapsed' ?>" href="/pasien">
+            <a class="nav-link <?= $url === '/pasien' || $url === '/pasien/' || $url === '/apkjadwal/pasien' || $url === '/apkjadwal/pasien/' || $url === '/apkjadwal/pasien/index.php' ? '' : 'collapsed' ?>" href="/pasien">
                 <i class="bi bi-grid"></i>
                 <span>Home</span>
             </a>
@@ -16,7 +16,7 @@
 
         <!-- jadwal pemeriksaan -->
         <li class="nav-item">
-            <a class="nav-link <?= $url === '/pasien/jadwal_pemeriksaan.php' ? '' : 'collapsed' ?>" href="/pasien/jadwal_pemeriksaan.php">
+            <a class="nav-link <?= $url === '/pasien/jadwal_pemeriksaan.php' || $url === '/apkjadwal/pasien/jadwal_pemeriksaan.php' ? '' : 'collapsed' ?>" href="/pasien/jadwal_pemeriksaan.php">
                 <i class="bi bi-clipboard2-pulse"></i>
                 <span>Jadwal Pemeriksaan</span>
             </a>
@@ -24,7 +24,7 @@
 
         <!-- jadwal operasi -->
         <li class="nav-item">
-            <a class="nav-link <?= $url === '/pasien/jadwal_operasi.php' ? '' : 'collapsed' ?>" href="/pasien/jadwal_operasi.php">
+            <a class="nav-link <?= $url === '/pasien/jadwal_operasi.php' || $url === '/apkjadwal/pasien/jadwal_operasi.php' ? '' : 'collapsed' ?>" href="/pasien/jadwal_operasi.php">
                 <i class="bi bi-file-medical-fill"></i>
                 <span>Jadwal Operasi</span>
             </a>

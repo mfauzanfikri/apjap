@@ -8,7 +8,7 @@ require_once './utils/utils.php';
 $isAuthorized = authorization([
     'role' => Role::ADMIN
 ]) || authorization([
-    'jabatan' => Jabatan::KEPALA_BIDANG
+    'jabatan' => Jabatan::ATASAN
 ]);
 
 if (!$isAuthorized) {

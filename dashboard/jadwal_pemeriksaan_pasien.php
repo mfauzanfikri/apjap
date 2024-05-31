@@ -73,7 +73,6 @@ $jadwalPemeriksaan = getJadwalPemeriksaan();
                                             <th>Nama Pasien/No. Telp</th>
                                             <th>Tanggal Pemeriksaan</th>
                                             <th>Nama Dokter</th>
-                                            <th>Ruangan</th>
                                             <th>Poli</th>
                                         </tr>
                                     </thead>
@@ -85,7 +84,6 @@ $jadwalPemeriksaan = getJadwalPemeriksaan();
                                                 <td><?= $jp['nama_pasien']; ?>/<?= $jp['no_telepon_pasien']; ?></td>
                                                 <td><?= $jp['tanggal']; ?></td>
                                                 <td><?= $jp['nama_dokter']; ?>/<?= $jp['nip_dokter']; ?></td>
-                                                <td><?= $jp['nama_ruangan']; ?></td>
                                                 <td><?= $jp['poli']; ?></td>
                                             </tr>
                                         <?php endforeach; ?>

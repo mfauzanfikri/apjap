@@ -102,8 +102,7 @@ class Role {
 }
 
 class Jabatan {
-    const KEPALA_BIDANG = 'kepala bidang';
-    const KEPALA_SEKSI = 'kepala seksi';
+    const ATASAN = 'atasan';
     const STAFF = 'staff';
 }
 

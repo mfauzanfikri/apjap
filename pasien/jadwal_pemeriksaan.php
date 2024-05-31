@@ -81,8 +81,8 @@ $jadwalPemeriksaan = getJadwalPemeriksaan();
                                                             </div>
 
                                                             <div class="col-12">
-                                                                <label for="waktu" class="form-label">Waktu</label>
-                                                                <select id="waktu" class="form-select" name="waktu" required>
+                                                                <label for="shift" class="form-label">Waktu</label>
+                                                                <select id="shift" class="form-select" name="shift" required>
                                                                     <option selected disabled value="0">Pilih Waktu</option>
                                                                     <option value="pagi">08:00 WIB</option>
                                                                     <option value="siang">14:00 WIB</option>
@@ -112,6 +112,15 @@ $jadwalPemeriksaan = getJadwalPemeriksaan();
                             </div>
                         <?php endif; ?>
 
+                        <?php if (isset($_SESSION['warningMsg'])) : ?>
+                            <div class="mt-2">
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <?= $_SESSION['warningMsg']; ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
                         <?php if (isset($_SESSION['errorMsg'])) : ?>
                             <div class="mt-2">
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -131,7 +140,6 @@ $jadwalPemeriksaan = getJadwalPemeriksaan();
                                             <th>Tanggal Pemeriksaan</th>
                                             <th>Waktu</th>
                                             <th>Nama Dokter</th>
-                                            <th>Ruangan</th>
                                             <th>Poli</th>
                                         </tr>
                                     </thead>
@@ -143,7 +151,6 @@ $jadwalPemeriksaan = getJadwalPemeriksaan();
                                                 <td><?= $jp['tanggal']; ?></td>
                                                 <td><?= $jp['waktu']; ?></td>
                                                 <td><?= $jp['nama_dokter']; ?>/<?= $jp['nip_dokter']; ?></td>
-                                                <td><?= $jp['nama_ruangan']; ?></td>
                                                 <td><?= $jp['poli']; ?></td>
                                             </tr>
                                         <?php endforeach; ?>

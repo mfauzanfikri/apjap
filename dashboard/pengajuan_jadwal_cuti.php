@@ -28,7 +28,7 @@ $cuti = getCuti();
         </nav>
     </section><!-- End Page Title -->
     <!-- admin dan kepala bidang saja -->
-    <?php if (authorization(['jabatan' => [Jabatan::KEPALA_BIDANG]])) : ?>
+    <?php if (authorization(['jabatan' => [Jabatan::ATASAN]])) : ?>
         <section class="section">
             <div class="row">
                 <div class="col">

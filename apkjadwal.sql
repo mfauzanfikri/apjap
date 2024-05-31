@@ -19,8 +19,6 @@ CREATE TABLE IF NOT EXISTS `antrian_pasien` (
   `id_antrian_pasien` int NOT NULL AUTO_INCREMENT,
   `id_jadwal_pemeriksaan` int NOT NULL,
   `no_antrian` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `tanggal` date NOT NULL,
-  `shift` enum('pagi','siang','malam') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   PRIMARY KEY (`id_antrian_pasien`),
   KEY `id_jadwal_pemeriksaan` (`id_jadwal_pemeriksaan`),
   CONSTRAINT `FK__antrian_pasien_jadwal_pemeriksaan` FOREIGN KEY (`id_jadwal_pemeriksaan`) REFERENCES `jadwal_pemeriksaan` (`id_jadwal_pemeriksaan`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -41,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `cuti` (
   KEY `id_validator` (`id_validator`),
   CONSTRAINT `FK__pegawai_cuti` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE CASCADE,
   CONSTRAINT `FK_cuti_pegawai` FOREIGN KEY (`id_validator`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- Dumping data for table apkjadwal.cuti: ~3 rows (approximately)
 REPLACE INTO `cuti` (`id_cuti`, `id_pegawai`, `id_validator`, `tanggal_mulai`, `tanggal_selesai`, `status`) VALUES
@@ -131,23 +129,20 @@ CREATE TABLE IF NOT EXISTS `jadwal_pemeriksaan` (
   `id_jadwal_pemeriksaan` int NOT NULL AUTO_INCREMENT,
   `id_pasien` int NOT NULL,
   `id_dokter` int NOT NULL,
-  `id_ruangan` int NOT NULL,
   `tanggal` date NOT NULL,
   `waktu` time DEFAULT NULL,
   `poli` enum('Gigi','THT','PDL','Anak','Saraf','Mata') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   PRIMARY KEY (`id_jadwal_pemeriksaan`),
   KEY `id_pasien` (`id_pasien`),
   KEY `id_dokter` (`id_dokter`),
-  KEY `id_ruangan` (`id_ruangan`),
   CONSTRAINT `FK__jadwal_pemeriksaan_dokter` FOREIGN KEY (`id_dokter`) REFERENCES `dokter` (`id_dokter`) ON DELETE CASCADE,
-  CONSTRAINT `FK__jadwal_pemeriksaan_pasien` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`) ON DELETE CASCADE,
-  CONSTRAINT `FK__jadwal_pemeriksaan_ruangan` FOREIGN KEY (`id_ruangan`) REFERENCES `ruangan` (`id_ruangan`) ON DELETE CASCADE
+  CONSTRAINT `FK__jadwal_pemeriksaan_pasien` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- Dumping data for table apkjadwal.jadwal_pemeriksaan: ~2 rows (approximately)
-REPLACE INTO `jadwal_pemeriksaan` (`id_jadwal_pemeriksaan`, `id_pasien`, `id_dokter`, `id_ruangan`, `tanggal`, `waktu`, `poli`) VALUES
-	(1, 1, 1, 1, '2024-05-27', '13:00:00', 'THT'),
-	(2, 1, 2, 1, '2024-05-27', '08:00:00', 'Gigi');
+REPLACE INTO `jadwal_pemeriksaan` (`id_jadwal_pemeriksaan`, `id_pasien`, `id_dokter`, `tanggal`, `waktu`, `poli`) VALUES
+	(1, 1, 1, '2024-05-27', '13:00:00', 'THT'),
+	(2, 1, 2, '2024-05-27', '08:00:00', 'Gigi');
 
 -- Dumping structure for table apkjadwal.jadwal_perawat
 CREATE TABLE IF NOT EXISTS `jadwal_perawat` (
@@ -202,11 +197,13 @@ CREATE TABLE IF NOT EXISTS `pasien` (
   PRIMARY KEY (`id_pasien`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `FK__pasien_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
--- Dumping data for table apkjadwal.pasien: ~1 rows (approximately)
+-- Dumping data for table apkjadwal.pasien: ~3 rows (approximately)
 REPLACE INTO `pasien` (`id_pasien`, `id_user`, `nama`, `alamat`, `no_telepon`) VALUES
-	(1, 8, 'Pasien', 'jl. abc', '08xx');
+	(1, 8, 'Pasien', 'jl. abc', '08xx'),
+	(2, 15, 'Fauzan', 'Jl. DI Panjaitan', 'Fauzan'),
+	(3, 16, 'Atikah', 'Jl. Demak', 'Atikah');
 
 -- Dumping structure for table apkjadwal.pegawai
 CREATE TABLE IF NOT EXISTS `pegawai` (
@@ -225,9 +222,9 @@ CREATE TABLE IF NOT EXISTS `pegawai` (
   CONSTRAINT `FK__pegawai_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
--- Dumping data for table apkjadwal.pegawai: ~10 rows (approximately)
+-- Dumping data for table apkjadwal.pegawai: ~9 rows (approximately)
 REPLACE INTO `pegawai` (`id_pegawai`, `id_user`, `nip`, `nama`, `alamat`, `no_telepon`, `jabatan`, `status_pegawai`) VALUES
-	(1, 1, '001', 'Admin', 'jl. abc', '08130001', 'staff', 'aktif'),
+	(1, 1, '001', 'Admin', 'jl. abc', '08130001', 'staff', 'cuti'),
 	(2, 5, '002', 'Dokter', 'jl. abc', '0813xxx', 'staff', 'aktif'),
 	(4, 6, '003', 'Perawat', 'jl. abc', '0813xxxx', 'staff', 'aktif'),
 	(5, 9, '004', 'Dokter Gigi 1', 'jl. xx', '08xx', 'staff', 'aktif'),
@@ -248,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `perawat` (
   CONSTRAINT `FK__perawat_pegawai` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id_pegawai`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
--- Dumping data for table apkjadwal.perawat: ~1 rows (approximately)
+-- Dumping data for table apkjadwal.perawat: ~0 rows (approximately)
 REPLACE INTO `perawat` (`id_perawat`, `id_pegawai`, `no_sip`) VALUES
 	(1, 4, '001');
 
@@ -259,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `ruangan` (
   PRIMARY KEY (`id_ruangan`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
--- Dumping data for table apkjadwal.ruangan: ~1 rows (approximately)
+-- Dumping data for table apkjadwal.ruangan: ~2 rows (approximately)
 REPLACE INTO `ruangan` (`id_ruangan`, `nama`) VALUES
 	(1, 'Ruangan');
 
@@ -273,13 +270,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
--- Dumping data for table apkjadwal.user: ~14 rows (approximately)
+-- Dumping data for table apkjadwal.user: ~15 rows (approximately)
 REPLACE INTO `user` (`id_user`, `username`, `email`, `password`, `role`) VALUES
 	(1, 'admin', 'admin@gmail.com', '3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2', 'admin'),
 	(2, 'kabid', 'kabid@gmail.com', '9459f6f78a7c23eb79428d0b0b37710b51017edda33f22ba69db1d9f587fd462', 'user'),
-	(3, 'direktur', 'direktur@gmail.com', '0197f965f8efadc659be3877b94c0794fd9e86c5e2b3f6fc8f241fa43015210b', 'user'),
 	(4, 'kasi', 'kasi@gmail.com', '4f9827d1801b8570b09457d46aa04ea2cb4c2065dd72d6ba0d063074efa246a5', 'user'),
 	(5, 'dokter', 'dokter@gmail.com', '98d8632e2d368ebf0f8116f2a81c313be21056ac5d25b8430ec5320e8b2e708a', 'user'),
 	(6, 'perawat', 'perawat@gmail.com', '27ae02afb7286d4564a330d32a2aad249d243456507c25a67fea10fadb5ee9ce', 'user'),
@@ -290,7 +286,9 @@ REPLACE INTO `user` (`id_user`, `username`, `email`, `password`, `role`) VALUES
 	(11, 'doktertht1', 'dt1@gmail.com', '2e861119124e5a7e89bcd836e441dfe4626c78d5572cc0f7037efe5a3c922a9e', 'user'),
 	(12, 'doktertht2', 'dt2@gmail.com', 'a321c24927fed60906c1d41e52b16a8869345c109dad6fd2e4ea21881c1fa054', 'user'),
 	(13, 'doktertht3', 'dt3@gmail.com', '5a83ee9798dd0fa348ff0c54e64b54935b377ea701629f33019d41d26c992d27', 'user'),
-	(14, 'doktergigi3', 'dg3@gmail.com', 'df88d8d6b2e72ba3962abe6b31afa75eb81800c3adea9425dcc39167ed45d91e', 'user');
+	(14, 'doktergigi3', 'dg3@gmail.com', 'df88d8d6b2e72ba3962abe6b31afa75eb81800c3adea9425dcc39167ed45d91e', 'user'),
+	(15, 'fauzan', 'fauzan@gmail.com', 'cf9689e2009c168c8d7294b0ff24314271bb4560cdf17b8529503cc48d2183bb', 'pasien'),
+	(16, 'atikah', 'atikah@gmail.com', '4f1b860016d0c89c94d9bda3192b30a02880283f349bf49957d8cd3168a83233', 'pasien');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

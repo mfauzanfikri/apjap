@@ -213,7 +213,6 @@ CREATE TABLE IF NOT EXISTS `pegawai` (
   `nama` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `alamat` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `no_telepon` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `jabatan` enum('kepala bidang','kepala seksi','staff') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'staff',
   `status_pegawai` enum('aktif','cuti') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'aktif',
   PRIMARY KEY (`id_pegawai`),
   UNIQUE KEY `nip` (`nip`),
@@ -223,17 +222,17 @@ CREATE TABLE IF NOT EXISTS `pegawai` (
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- Dumping data for table apkjadwal.pegawai: ~9 rows (approximately)
-REPLACE INTO `pegawai` (`id_pegawai`, `id_user`, `nip`, `nama`, `alamat`, `no_telepon`, `jabatan`, `status_pegawai`) VALUES
-	(1, 1, '001', 'Admin', 'jl. abc', '08130001', 'staff', 'cuti'),
-	(2, 5, '002', 'Dokter', 'jl. abc', '0813xxx', 'staff', 'aktif'),
-	(4, 6, '003', 'Perawat', 'jl. abc', '0813xxxx', 'staff', 'aktif'),
-	(5, 9, '004', 'Dokter Gigi 1', 'jl. xx', '08xx', 'staff', 'aktif'),
-	(6, 10, '005', 'Dokter Gigi 2', 'jl. xx', '08xx', 'staff', 'aktif'),
-	(7, 14, '006', 'Dokter Gigi 3', 'jl. xx', '08xx', 'staff', 'aktif'),
-	(8, 11, '007', 'Dokter THT 1', 'jl. xx', '08xx', 'staff', 'aktif'),
-	(9, 12, '008', 'Dokter THT 2', 'jl. xx', '08xx', 'staff', 'aktif'),
-	(10, 13, '009', 'Dokter THT 3', 'jl. xx', '08xx', 'staff', 'aktif'),
-	(11, 2, '010', 'Kepala Bidang', 'jl. abc', '08xx', 'kepala bidang', 'aktif');
+REPLACE INTO `pegawai` (`id_pegawai`, `id_user`, `nip`, `nama`, `alamat`, `no_telepon`, `status_pegawai`) VALUES
+	(1, 1, '001', 'Admin', 'jl. abc', '08130001', 'cuti'),
+	(2, 5, '002', 'Dokter', 'jl. abc', '0813xxx', 'aktif'),
+	(4, 6, '003', 'Perawat', 'jl. abc', '0813xxxx', 'aktif'),
+	(5, 9, '004', 'Dokter Gigi 1', 'jl. xx', '08xx', 'aktif'),
+	(6, 10, '005', 'Dokter Gigi 2', 'jl. xx', '08xx', 'aktif'),
+	(7, 14, '006', 'Dokter Gigi 3', 'jl. xx', '08xx', 'aktif'),
+	(8, 11, '007', 'Dokter THT 1', 'jl. xx', '08xx', 'aktif'),
+	(9, 12, '008', 'Dokter THT 2', 'jl. xx', '08xx', 'aktif'),
+	(10, 13, '009', 'Dokter THT 3', 'jl. xx', '08xx', 'aktif'),
+	(11, 2, '010', 'Kepala Bidang', 'jl. abc', '08xx', 'aktif');
 
 -- Dumping structure for table apkjadwal.perawat
 CREATE TABLE IF NOT EXISTS `perawat` (
@@ -266,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `role` enum('user','admin','pasien') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'user',
+  `role` enum('pegawai','atasan','admin','pasien') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'pegawai',
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
@@ -275,18 +274,18 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table apkjadwal.user: ~15 rows (approximately)
 REPLACE INTO `user` (`id_user`, `username`, `email`, `password`, `role`) VALUES
 	(1, 'admin', 'admin@gmail.com', '3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2', 'admin'),
-	(2, 'kabid', 'kabid@gmail.com', '9459f6f78a7c23eb79428d0b0b37710b51017edda33f22ba69db1d9f587fd462', 'user'),
-	(4, 'kasi', 'kasi@gmail.com', '4f9827d1801b8570b09457d46aa04ea2cb4c2065dd72d6ba0d063074efa246a5', 'user'),
-	(5, 'dokter', 'dokter@gmail.com', '98d8632e2d368ebf0f8116f2a81c313be21056ac5d25b8430ec5320e8b2e708a', 'user'),
-	(6, 'perawat', 'perawat@gmail.com', '27ae02afb7286d4564a330d32a2aad249d243456507c25a67fea10fadb5ee9ce', 'user'),
-	(7, 'user', 'user@gmail.com', 'a61a8adf60038792a2cb88e670b20540a9d6c2ca204ab754fc768950e79e7d36', 'user'),
-	(8, 'pasien', 'pasien@gmail.com', '87347be37ea9f5663a9f7cc0aabb1d2f3afe0102a0eef5fdb5cd77f7aadf6a9b', 'pasien'),
-	(9, 'doktergigi1', 'dg1@gmail.com', 'dd5da8821a7e373cc7e4be340614b030bbb3119795296fce3225cefd7d9e82bd', 'user'),
-	(10, 'doktergigi2', 'dg2@gmail.com', 'cc179080bbb4428f66b06b3672afadfc8717a4af481d08cdc5d30ff032f69435', 'user'),
-	(11, 'doktertht1', 'dt1@gmail.com', '2e861119124e5a7e89bcd836e441dfe4626c78d5572cc0f7037efe5a3c922a9e', 'user'),
-	(12, 'doktertht2', 'dt2@gmail.com', 'a321c24927fed60906c1d41e52b16a8869345c109dad6fd2e4ea21881c1fa054', 'user'),
-	(13, 'doktertht3', 'dt3@gmail.com', '5a83ee9798dd0fa348ff0c54e64b54935b377ea701629f33019d41d26c992d27', 'user'),
-	(14, 'doktergigi3', 'dg3@gmail.com', 'df88d8d6b2e72ba3962abe6b31afa75eb81800c3adea9425dcc39167ed45d91e', 'user'),
+	(2, 'kabid', 'kabid@gmail.com', '9459f6f78a7c23eb79428d0b0b37710b51017edda33f22ba69db1d9f587fd462', 'atasan'),
+	(4, 'kasi', 'kasi@gmail.com', '4f9827d1801b8570b09457d46aa04ea2cb4c2065dd72d6ba0d063074efa246a5', 'atasan'),
+	(5, 'dokter', 'dokter@gmail.com', '98d8632e2d368ebf0f8116f2a81c313be21056ac5d25b8430ec5320e8b2e708a', 'pegawai'),
+	(6, 'perawat', 'perawat@gmail.com', '27ae02afb7286d4564a330d32a2aad249d243456507c25a67fea10fadb5ee9ce', 'pegawai'),
+	(7, 'user', 'user@gmail.com', 'a61a8adf60038792a2cb88e670b20540a9d6c2ca204ab754fc768950e79e7d36', 'pegawai'),
+	(8, 'pasien', 'pasien@gmail.com', '87347be37ea9f5663a9f7cc0aabb1d2f3afe0102a0eef5fdb5cd77f7aadf6a9b', 'pegawai'),
+	(9, 'doktergigi1', 'dg1@gmail.com', 'dd5da8821a7e373cc7e4be340614b030bbb3119795296fce3225cefd7d9e82bd', 'pegawai'),
+	(10, 'doktergigi2', 'dg2@gmail.com', 'cc179080bbb4428f66b06b3672afadfc8717a4af481d08cdc5d30ff032f69435', 'pegawai'),
+	(11, 'doktertht1', 'dt1@gmail.com', '2e861119124e5a7e89bcd836e441dfe4626c78d5572cc0f7037efe5a3c922a9e', 'pegawai'),
+	(12, 'doktertht2', 'dt2@gmail.com', 'a321c24927fed60906c1d41e52b16a8869345c109dad6fd2e4ea21881c1fa054', 'pegawai'),
+	(13, 'doktertht3', 'dt3@gmail.com', '5a83ee9798dd0fa348ff0c54e64b54935b377ea701629f33019d41d26c992d27', 'pegawai'),
+	(14, 'doktergigi3', 'dg3@gmail.com', 'df88d8d6b2e72ba3962abe6b31afa75eb81800c3adea9425dcc39167ed45d91e', 'pegawai'),
 	(15, 'fauzan', 'fauzan@gmail.com', 'cf9689e2009c168c8d7294b0ff24314271bb4560cdf17b8529503cc48d2183bb', 'pasien'),
 	(16, 'atikah', 'atikah@gmail.com', '4f1b860016d0c89c94d9bda3192b30a02880283f349bf49957d8cd3168a83233', 'pasien');
 

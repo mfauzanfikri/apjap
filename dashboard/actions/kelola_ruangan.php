@@ -23,8 +23,7 @@ if (isset($_POST['submit'])) {
 
         case 'edit':
             if (empty($_POST['nama']) && empty($_POST['id_ruangan'])) {
-                header('Location: /dashboard/kelola_ruangan.php');
-                die();
+                redirect('../kelola_ruangan.php');
             }
 
             $ruanganData = ['nama' => $_POST['nama']];
@@ -56,6 +55,5 @@ if (isset($_POST['submit'])) {
             break;
     }
 
-    header('Location: /dashboard/kelola_ruangan.php');
-    die();
+    redirect('../kelola_ruangan.php');
 }

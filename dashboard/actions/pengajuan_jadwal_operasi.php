@@ -31,8 +31,7 @@ if (isset($_POST['submit'])) {
 
             if (!$isValid) {
                 $_SESSION['errorMsg'] = 'Semua kolom harus diisi.';
-                header('Location: /dashboard/pengajuan_jadwal_operasi.php');
-                die();
+                redirect('../pengajuan_jadwal_operasi.php');
             }
 
             $isSuccess = addJadwalOperasi($data);
@@ -48,8 +47,7 @@ if (isset($_POST['submit'])) {
 
             if (!isset($_POST['id_jadwal_operasi'])) {
                 $_SESSION['errorMsg'] = "id_jadwal_operasi tidak ada.";
-                header('Location: /dashboard/pengajuan_jadwal_operasi.php');
-                die();
+                redirect('../pengajuan_jadwal_operasi.php');
             }
 
             foreach ($editFields as $field) {
@@ -59,8 +57,7 @@ if (isset($_POST['submit'])) {
             }
 
             if (empty($data)) {
-                header('Location: /dashboard/pengajuan_jadwal_operasi.php');
-                die();
+                redirect('../pengajuan_jadwal_operasi.php');
             }
 
             editJadwalOperasi($data, $_POST['id_jadwal_operasi']);
@@ -74,8 +71,7 @@ if (isset($_POST['submit'])) {
 
             if (!isset($_POST['id_jadwal_operasi'])) {
                 $_SESSION['errorMsg'] = "id_jadwal_operasi tidak ada.";
-                header('Location: /dashboard/pengajuan_jadwal_operasi.php');
-                die();
+                redirect('../pengajuan_jadwal_operasi.php');
             }
 
             foreach ($editFields as $field) {
@@ -85,8 +81,7 @@ if (isset($_POST['submit'])) {
             }
 
             if (empty($data)) {
-                header('Location: /dashboard/pengajuan_jadwal_operasi.php');
-                die();
+                redirect('../pengajuan_jadwal_operasi.php');
             }
 
             editJadwalOperasi($data, $_POST['id_jadwal_operasi']);
@@ -97,6 +92,5 @@ if (isset($_POST['submit'])) {
             break;
     }
 
-    header('Location: /dashboard/pengajuan_jadwal_operasi.php');
-    die();
+    redirect('../pengajuan_jadwal_operasi.php');
 }

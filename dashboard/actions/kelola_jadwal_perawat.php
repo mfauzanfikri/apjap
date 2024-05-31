@@ -35,8 +35,7 @@ if (isset($_POST['submit'])) {
 
             if (!$isValid) {
                 $_SESSION['errorMsg'] = 'Semua kolom harus diisi.';
-                header('Location: /dashboard/kelola_jadwal_perawat.php');
-                die();
+                redirect('../kelola_jadwal_perawat.php');
             }
 
             switch ($data['shift']) {
@@ -70,8 +69,7 @@ if (isset($_POST['submit'])) {
         case 'edit':
             if (!isset($_POST['id_jadwal_perawat'])) {
                 $_SESSION['errorMsg'] = "id_jadwal_perawat tidak ada.";
-                header('Location: /dashboard/kelola_jadwal_perawat.php');
-                die();
+                redirect('../kelola_jadwal_perawat.php');
             }
 
             foreach ($allowedFields as $field) {
@@ -81,8 +79,7 @@ if (isset($_POST['submit'])) {
             }
 
             if (empty($data)) {
-                header('Location: /dashboard/kelola_jadwal_perawat.php');
-                die();
+                redirect('../kelola_jadwal_perawat.php');
             }
 
             $data['status'] = 'proses';
@@ -110,6 +107,5 @@ if (isset($_POST['submit'])) {
             break;
     }
 
-    header('Location: /dashboard/kelola_jadwal_perawat.php');
-    die();
+    redirect('../kelola_jadwal_perawat.php');
 }

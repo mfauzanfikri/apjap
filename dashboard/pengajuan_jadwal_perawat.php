@@ -81,7 +81,7 @@ $jadwalPerawat = getJadwalPerawat();
                                                     <th>Waktu</th>
                                                     <th>Shift</th>
                                                     <th>Poli</th>
-                                                    <?php if (authorization(['jabatan' => Jabatan::ATASAN])) : ?>
+                                                    <?php if (authorization(['role' => Role::ATASAN])) : ?>
                                                         <th>Aksi</th>
                                                     <?php endif; ?>
                                                 </tr>
@@ -97,7 +97,7 @@ $jadwalPerawat = getJadwalPerawat();
                                                         <td><?= $jp['waktu_mulai']; ?> - <?= $jp['waktu_selesai']; ?> WIB</td>
                                                         <td><?= $jp['shift'] ?></td>
                                                         <td><?= $jp['poli']; ?></td>
-                                                        <?php if (authorization(['jabatan' => Jabatan::ATASAN])) : ?>
+                                                        <?php if (authorization(['role' => Role::ATASAN])) : ?>
                                                             <td class="d-flex justify-content-center gap-2 text-start">
                                                                 <!-- button terima -->
                                                                 <form action="./actions/pengajuan_jadwal_perawat.php" method="post">

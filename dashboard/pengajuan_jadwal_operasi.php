@@ -6,9 +6,7 @@ require_once './services/db.php';
 require_once './utils/utils.php';
 
 $isAuthorized = authorization([
-    'jabatan' => Jabatan::ATASAN
-]) || authorization([
-    'role' => Role::ADMIN
+    'role' => [Role::ADMIN, Role::ATASAN]
 ]);
 
 if (!$isAuthorized) {
@@ -42,7 +40,7 @@ $ruanganSelect = getRuangan();
     </section><!-- End Page Title -->
 
     <!-- admin dan kepala bidang saja -->
-    <?php if (authorization(['jabatan' => [Jabatan::ATASAN]])) : ?>
+    <?php if (authorization(['role' => Role::ATASAN])) : ?>
         <section class="section">
             <div class="row">
                 <div class="col">

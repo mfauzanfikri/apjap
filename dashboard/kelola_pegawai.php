@@ -79,15 +79,6 @@ $userSelect = getUsersWithNoPegawai();
                                                                 <input type="text" class="form-control" id="no_telepon" name="no_telepon" autocomplete="off" required>
                                                             </div>
                                                             <div class="col-12">
-                                                                <label for="jabatan" class="form-label">Jabatan</label>
-                                                                <select id="jabatan" class="form-select" name="jabatan" required>
-                                                                    <option selected disabled value="0">Pilih Jabatan</option>
-                                                                    <option value="kepala bidang">Kepala Bidang</option>
-                                                                    <option value="kepala seksi">Kepala Seksi</option>
-                                                                    <option value="staff">Staff</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-12">
                                                                 <label for="status_pegawai" class="form-label">Status Pegawai</label>
                                                                 <select id="status_pegawai" class="form-select" name="status_pegawai" required>
                                                                     <option disabled value="0">Pilih Status Pegawai</option>
@@ -144,7 +135,6 @@ $userSelect = getUsersWithNoPegawai();
                                             <th>Nama</th>
                                             <th>NIP</th>
                                             <th>Username</th>
-                                            <th>Jabatan</th>
                                             <th>Status</th>
                                             <th>Alamat</th>
                                             <th>No. Telepon</th>
@@ -158,7 +148,6 @@ $userSelect = getUsersWithNoPegawai();
                                                 <td><?= $pegawai['nama']; ?></td>
                                                 <td><?= $pegawai['nip']; ?></td>
                                                 <td><?= $pegawai['username']; ?></td>
-                                                <td><?= ucwords($pegawai['jabatan']); ?></td>
                                                 <td><?= $pegawai['status_pegawai']; ?></td>
                                                 <td><?= $pegawai['alamat']; ?></td>
                                                 <td><?= $pegawai['no_telepon']; ?></td>
@@ -200,15 +189,6 @@ $userSelect = getUsersWithNoPegawai();
                                                                                 <div class="col-12">
                                                                                     <label for="no_telepon" class="form-label">No. Telepon</label>
                                                                                     <input type="text" class="form-control" id="no_telepon" name="no_telepon" placeholder="<?= $pegawai['no_telepon'] ?>" autocomplete="off">
-                                                                                </div>
-                                                                                <div class="col-12">
-                                                                                    <label for="jabatan" class="form-label">Jabatan</label>
-                                                                                    <select id="jabatan" class="form-select" name="jabatan">
-                                                                                        <option selected disabled value="0">Pilih Jabatan</option>
-                                                                                        <option value="kepala bidang">Kepala Bidang</option>
-                                                                                        <option value="kepala seksi">Kepala Seksi</option>
-                                                                                        <option value="staff">Staff</option>
-                                                                                    </select>
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <label for="status_pegawai" class="form-label">Status Pegawai</label>

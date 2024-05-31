@@ -29,8 +29,7 @@ if (isset($_POST['submit'])) {
 
             if (!$isValid) {
                 $_SESSION['errorMsg'] = 'Semua kolom harus diisi.';
-                header('Location: /dashboard/kelola_dokter.php');
-                die();
+                redirect('../kelola_dokter.php');
             }
 
             $isSuccess = addDokter($data);
@@ -49,8 +48,7 @@ if (isset($_POST['submit'])) {
 
             if (!isset($_POST['id_dokter'])) {
                 $_SESSION['errorMsg'] = "id_dokter tidak ada.";
-                header('Location: /dashboard/kelola_dokter.php');
-                die();
+                redirect('../kelola_dokter.php');
             }
 
             foreach ($allowedFields as $field) {
@@ -60,8 +58,7 @@ if (isset($_POST['submit'])) {
             }
 
             if (empty($data)) {
-                header('Location: /dashboard/kelola_dokter.php');
-                die();
+                redirect('../kelola_dokter.php');
             }
 
             $isSuccess = editDokter($data, $_POST['id_dokter']);
@@ -91,6 +88,5 @@ if (isset($_POST['submit'])) {
             break;
     }
 
-    header('Location: /dashboard/kelola_dokter.php');
-    die();
+    redirect('../kelola_dokter.php');
 }

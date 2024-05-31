@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
 
             if (!$isValid) {
                 $_SESSION['errorMsg'] = 'Semua kolom harus diisi.';
-                redirect('/dashboard/pengajuan_jadwal_cuti.php');
+                redirect('../pengajuan_jadwal_cuti.php');
             }
 
             $isSuccess = addCuti($data);
@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
 
             if (!isset($_POST['id_cuti'])) {
                 $_SESSION['errorMsg'] = "id_cuti tidak ada.";
-                redirect('/dashboard/pengajuan_jadwal_cuti.php');
+                redirect('../pengajuan_jadwal_cuti.php');
             }
 
             foreach ($editFields as $field) {
@@ -64,7 +64,7 @@ if (isset($_POST['submit'])) {
             }
 
             if (empty($data)) {
-                redirect('/dashboard/pengajuan_jadwal_cuti.php');
+                redirect('../pengajuan_jadwal_cuti.php');
             }
 
             editCuti($data, $_POST['id_cuti']);
@@ -78,7 +78,7 @@ if (isset($_POST['submit'])) {
 
             if (!isset($_POST['id_cuti'])) {
                 $_SESSION['errorMsg'] = "id_cuti tidak ada.";
-                redirect('/dashboard/pengajuan_jadwal_cuti.php');
+                redirect('../pengajuan_jadwal_cuti.php');
             }
 
             foreach ($editFields as $field) {
@@ -88,7 +88,7 @@ if (isset($_POST['submit'])) {
             }
 
             if (empty($data)) {
-                redirect('/dashboard/pengajuan_jadwal_cuti.php');
+                redirect('../pengajuan_jadwal_cuti.php');
             }
 
             editCuti($data, $_POST['id_cuti']);
@@ -99,6 +99,5 @@ if (isset($_POST['submit'])) {
             break;
     }
 
-    header('Location: /dashboard/pengajuan_jadwal_cuti.php');
-    die();
+    redirect('../pengajuan_jadwal_cuti.php');
 }

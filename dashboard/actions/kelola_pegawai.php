@@ -5,7 +5,7 @@ session_start();
 require_once '../services/db.php';
 require_once '../utils/utils.php';
 
-$allowedFields = ['id_user', 'nip', 'nama', 'alamat', 'no_telepon', 'jabatan', 'status_pegawai'];
+$allowedFields = ['id_user', 'nip', 'nama', 'alamat', 'no_telepon', 'status_pegawai'];
 
 if (isset($_POST['submit'])) {
     switch ($_POST['jenis']) {
@@ -29,8 +29,7 @@ if (isset($_POST['submit'])) {
 
             if (!$isValid) {
                 $_SESSION['errorMsg'] = 'Semua kolom harus diisi.';
-                header('Location: /dashboard/kelola_pegawai.php');
-                die();
+                redirect('../kelola_pegawai.php');
             }
 
             $isSuccess = addPegawai($data);
@@ -49,8 +48,7 @@ if (isset($_POST['submit'])) {
 
             if (!isset($_POST['id_pegawai'])) {
                 $_SESSION['errorMsg'] = "id_pegawai tidak ada.";
-                header('Location: /dashboard/kelola_pegawai.php');
-                die();
+                redirect('../kelola_pegawai.php');
             }
 
             foreach ($allowedFields as $field) {
@@ -60,8 +58,7 @@ if (isset($_POST['submit'])) {
             }
 
             if (empty($data)) {
-                header('Location: /dashboard/kelola_pegawai.php');
-                die();
+                redirect('../kelola_pegawai.php');
             }
 
             $isSuccess = editPegawai($data, $_POST['id_pegawai']);
@@ -92,6 +89,5 @@ if (isset($_POST['submit'])) {
             break;
     }
 
-    header('Location: /dashboard/kelola_pegawai.php');
-    die();
+    redirect('../kelola_pegawai.php');
 }

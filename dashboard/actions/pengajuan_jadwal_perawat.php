@@ -14,8 +14,7 @@ if (isset($_POST['submit'])) {
 
             if (!isset($_POST['id_jadwal_perawat'])) {
                 $_SESSION['errorMsg'] = "id_jadwal_perawat tidak ada.";
-                header('Location: /dashboard/pengajuan_jadwal_perawat.php');
-                die();
+                redirect('../pengajuan_jadwal_perawat.php');
             }
 
             foreach ($allowedFields as $field) {
@@ -25,8 +24,7 @@ if (isset($_POST['submit'])) {
             }
 
             if (empty($data)) {
-                header('Location: /dashboard/pengajuan_jadwal_perawat.php');
-                die();
+                redirect('../pengajuan_jadwal_perawat.php');
             }
 
             editJadwalPerawat($data, $_POST['id_jadwal_perawat']);
@@ -40,8 +38,7 @@ if (isset($_POST['submit'])) {
 
             if (!isset($_POST['id_jadwal_perawat'])) {
                 $_SESSION['errorMsg'] = "id_jadwal_perawat tidak ada.";
-                header('Location: /dashboard/pengajuan_jadwal_perawat.php');
-                die();
+                redirect('../pengajuan_jadwal_perawat.php');
             }
 
             foreach ($allowedFields as $field) {
@@ -51,8 +48,7 @@ if (isset($_POST['submit'])) {
             }
 
             if (empty($data)) {
-                header('Location: /dashboard/pengajuan_jadwal_perawat.php');
-                die();
+                redirect('../pengajuan_jadwal_perawat.php');
             }
 
             editJadwalPerawat($data, $_POST['id_jadwal_perawat']);
@@ -63,6 +59,5 @@ if (isset($_POST['submit'])) {
             break;
     }
 
-    header('Location: /dashboard/pengajuan_jadwal_perawat.php');
-    die();
+    redirect('../pengajuan_jadwal_perawat.php');
 }

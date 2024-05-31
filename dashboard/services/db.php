@@ -214,32 +214,32 @@ function deleteRuangan(string|int $ruanganId) {
 
 // pegawai
 function getPegawai() {
-    $pegawai = fetchAll('SELECT id_pegawai,p.id_user,username,nip,nama,alamat,no_telepon,jabatan,status_pegawai FROM pegawai p LEFT JOIN user u ON p.id_user = u.id_user');
+    $pegawai = fetchAll('SELECT id_pegawai,p.id_user,username,nip,nama,alamat,no_telepon,status_pegawai FROM pegawai p LEFT JOIN user u ON p.id_user = u.id_user');
 
     return $pegawai;
 }
 
 function getPegawaiById(string|int $pegawaiId): array|false {
-    $pegawai = fetch('SELECT id_pegawai,p.id_user,username,nip,nama,alamat,no_telepon,jabatan,status_pegawai FROM pegawai p LEFT JOIN user u ON p.id_user = u.id_user WHERE id_pegawai = :id_pegawai', ['id_pegawai' => $pegawaiId]);
+    $pegawai = fetch('SELECT id_pegawai,p.id_user,username,nip,nama,alamat,no_telepon,status_pegawai FROM pegawai p LEFT JOIN user u ON p.id_user = u.id_user WHERE id_pegawai = :id_pegawai', ['id_pegawai' => $pegawaiId]);
 
     return $pegawai;
 }
 
 function getPegawaiByUserId(string|int $userId): array|false {
-    $pegawai = fetch('SELECT id_pegawai,p.id_user,username,nip,nama,alamat,no_telepon,jabatan,status_pegawai FROM pegawai p LEFT JOIN user u ON p.id_user = u.id_user WHERE p.id_user = :id_user', ['id_user' => $userId]);
+    $pegawai = fetch('SELECT id_pegawai,p.id_user,username,nip,nama,alamat,no_telepon,status_pegawai FROM pegawai p LEFT JOIN user u ON p.id_user = u.id_user WHERE p.id_user = :id_user', ['id_user' => $userId]);
 
     return $pegawai;
 }
 
 function getPegawaiWithCutiStatus() {
-    $pegawai = fetchAll('SELECT id_pegawai,p.id_user,username,nip,nama,alamat,no_telepon,jabatan,status_pegawai FROM pegawai p LEFT JOIN user u ON p.id_user = u.id_user WHERE p.status_pegawai = :status', ['status' => 'cuti']);
+    $pegawai = fetchAll('SELECT id_pegawai,p.id_user,username,nip,nama,alamat,no_telepon,status_pegawai FROM pegawai p LEFT JOIN user u ON p.id_user = u.id_user WHERE p.status_pegawai = :status', ['status' => 'cuti']);
 
     return $pegawai;
 }
 
 function getPegawaiCutiToday() {
     $date = (new DateTime())->format('Y-m-d');
-    $query = "SELECT a.id_pegawai,a.id_user,a.nip,a.nama,a.alamat,a.no_telepon,a.jabatan,a.status_pegawai,b.id_cuti,b.id_validator,b.tanggal_mulai,b.tanggal_selesai,b.status FROM pegawai a LEFT JOIN cuti b ON a.id_pegawai = b.id_pegawai WHERE b.tanggal_mulai <= :tanggal AND b.tanggal_selesai >= :tanggal AND b.status = :status";
+    $query = "SELECT a.id_pegawai,a.id_user,a.nip,a.nama,a.alamat,a.no_telepon,a.status_pegawai,b.id_cuti,b.id_validator,b.tanggal_mulai,b.tanggal_selesai,b.status FROM pegawai a LEFT JOIN cuti b ON a.id_pegawai = b.id_pegawai WHERE b.tanggal_mulai <= :tanggal AND b.tanggal_selesai >= :tanggal AND b.status = :status";
 
     $pegawai = fetchAll($query, ['tanggal' => $date, 'status' => 'disetujui']);
 
@@ -248,7 +248,7 @@ function getPegawaiCutiToday() {
 
 function getPegawaiCutiTodayById($id) {
     $date = (new DateTime())->format('Y-m-d');
-    $query = "SELECT a.id_pegawai,a.id_user,a.nip,a.nama,a.alamat,a.no_telepon,a.jabatan,a.status_pegawai,b.id_cuti,b.id_validator,b.tanggal_mulai,b.tanggal_selesai,b.status FROM pegawai a LEFT JOIN cuti b ON a.id_pegawai = b.id_pegawai WHERE a.id_pegawai = :id AND b.tanggal_mulai <= :tanggal AND b.tanggal_selesai >= :tanggal AND b.status = :status";
+    $query = "SELECT a.id_pegawai,a.id_user,a.nip,a.nama,a.alamat,a.no_telepon,a.status_pegawai,b.id_cuti,b.id_validator,b.tanggal_mulai,b.tanggal_selesai,b.status FROM pegawai a LEFT JOIN cuti b ON a.id_pegawai = b.id_pegawai WHERE a.id_pegawai = :id AND b.tanggal_mulai <= :tanggal AND b.tanggal_selesai >= :tanggal AND b.status = :status";
 
     $pegawai = fetch($query, ['tanggal' => $date, 'id' => $id, 'status' => 'disetujui']);
 
@@ -268,7 +268,7 @@ function addPegawai($pegawaiData) {
         return false;
     }
 
-    query('INSERT INTO pegawai (id_user,nip,nama,alamat,no_telepon,jabatan,status_pegawai) VALUES (:id_user,:nip,:nama,:alamat,:no_telepon,:jabatan,:status_pegawai)', $pegawaiData);
+    query('INSERT INTO pegawai (id_user,nip,nama,alamat,no_telepon,status_pegawai) VALUES (:id_user,:nip,:nama,:alamat,:no_telepon,:status_pegawai)', $pegawaiData);
 
     return true;
 }
@@ -478,7 +478,7 @@ function getPegawaiWithNoPerawat() {
 // jadwal dokter
 function getJadwalDokter() {
     $subQuery = 'SELECT jd.id_jadwal_dokter,jd.id_dokter,jd.tanggal,jd.waktu_mulai,jd.waktu_selesai,jd.shift,d.id_pegawai,d.spesialisasi,d.poli,d.no_sip  FROM jadwal_dokter jd LEFT JOIN dokter d ON jd.id_dokter = d.id_dokter';
-    $jadwalDokter = fetchAll("SELECT a.id_jadwal_dokter,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.spesialisasi,a.poli,a.no_sip,b.nip,b.nama,b.jabatan,b.status_pegawai FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai");
+    $jadwalDokter = fetchAll("SELECT a.id_jadwal_dokter,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.spesialisasi,a.poli,a.no_sip,b.nip,b.nama,b.status_pegawai FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai");
 
     return $jadwalDokter;
 }
@@ -486,7 +486,7 @@ function getJadwalDokter() {
 function getJadwalDokterById($jdId) {
     $subQuery = 'SELECT jd.id_jadwal_dokter,jd.id_dokter,jd.tanggal,jd.waktu_mulai,jd.waktu_selesai,jd.shift,d.id_pegawai,d.spesialisasi,d.poli,d.no_sip  FROM jadwal_dokter jd LEFT JOIN dokter d ON jd.id_dokter = d.id_dokter';
 
-    $jadwalDokter = fetch("SELECT a.id_jadwal_dokter,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.spesialisasi,a.poli,a.no_sip,b.nip,b.nama,b.jabatan,b.status_pegawai FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai WHERE id_jadwal_dokter = $jdId");
+    $jadwalDokter = fetch("SELECT a.id_jadwal_dokter,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.spesialisasi,a.poli,a.no_sip,b.nip,b.nama,b.status_pegawai FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai WHERE id_jadwal_dokter = $jdId");
 
     return $jadwalDokter;
 }
@@ -494,7 +494,7 @@ function getJadwalDokterById($jdId) {
 function getSpecificJadwalDokter($tanggal, $poli, $shift) {
     $subQuery = 'SELECT jd.id_jadwal_dokter,jd.id_dokter,jd.tanggal,jd.waktu_mulai,jd.waktu_selesai,jd.shift,d.id_pegawai,d.spesialisasi,d.poli,d.no_sip  FROM jadwal_dokter jd LEFT JOIN dokter d ON jd.id_dokter = d.id_dokter';
 
-    $query = "SELECT a.id_jadwal_dokter,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.spesialisasi,a.poli,a.no_sip,b.nip,b.nama,b.jabatan,b.status_pegawai FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai WHERE a.tanggal = :tanggal AND a.poli = :poli AND a.shift = :shift";
+    $query = "SELECT a.id_jadwal_dokter,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.spesialisasi,a.poli,a.no_sip,b.nip,b.nama,b.status_pegawai FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai WHERE a.tanggal = :tanggal AND a.poli = :poli AND a.shift = :shift";
 
     $jadwalDokter = fetch($query, ['tanggal' => $tanggal, 'poli' => $poli, 'shift' => $shift]);
 
@@ -549,7 +549,7 @@ function deleteJadwalDokter(string|int $jdId) {
 function getJadwalPerawat() {
     $subQuery = 'SELECT jp.id_jadwal_perawat,jp.id_validator,jp.id_perawat,jp.tanggal,jp.waktu_mulai,jp.waktu_selesai,jp.shift,jp.poli,jp.status,p.id_pegawai,p.no_sip FROM jadwal_perawat jp LEFT JOIN perawat p ON jp.id_perawat = p.id_perawat';
     $subQuery2 = "SELECT a.id_jadwal_perawat,a.id_perawat,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.poli,a.status,a.id_pegawai,a.no_sip,b.nama nama_validator, b.nip nip_validator FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_validator = b.id_pegawai";
-    $jadwalPerawat = fetchAll("SELECT a.id_jadwal_perawat,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.poli,a.status,a.no_sip,b.nip,b.nama,b.jabatan,b.status_pegawai,a.nama_validator,a.nip_validator FROM ($subQuery2) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai");
+    $jadwalPerawat = fetchAll("SELECT a.id_jadwal_perawat,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.poli,a.status,a.no_sip,b.nip,b.nama,b.status_pegawai,a.nama_validator,a.nip_validator FROM ($subQuery2) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai");
 
     return $jadwalPerawat;
 }
@@ -557,7 +557,7 @@ function getJadwalPerawat() {
 function getJadwalPerawatById($jpId) {
     $subQuery = 'SELECT jp.id_jadwal_perawat,jp.id_validator,jp.id_perawat,jp.tanggal,jp.waktu_mulai,jp.waktu_selesai,jp.shift,jp.poli,jp.status,p.id_pegawai,p.no_sip FROM jadwal_perawat jp LEFT JOIN perawat p ON jp.id_perawat = p.id_perawat WHERE id_jadwal_perawat = $jpId';
     $subQuery2 = "SELECT a.id_jadwal_perawat,a.id_perawat,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.poli,a.status,a.id_pegawai,a.no_sip,b.nama nama_validator, b.nip nip_validator FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_validator = b.id_pegawai WHERE id_jadwal_perawat = $jpId";
-    $jadwalPerawat = fetch("SELECT a.id_jadwal_perawat,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.poli,a.status,a.no_sip,b.nip,b.nama,b.jabatan,b.status_pegawai FROM ($subQuery2) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai WHERE id_jadwal_perawat = $jpId");
+    $jadwalPerawat = fetch("SELECT a.id_jadwal_perawat,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.poli,a.status,a.no_sip,b.nip,b.nama,b.status_pegawai FROM ($subQuery2) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai WHERE id_jadwal_perawat = $jpId");
 
     return $jadwalPerawat;
 }
@@ -608,19 +608,19 @@ function deleteJadwalPerawat(string|int $jpId) {
 
 // libur
 function getLibur() {
-    $libur = fetchAll('SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai');
+    $libur = fetchAll('SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai');
 
     return $libur;
 }
 
 function getLiburById($id) {
-    $libur = fetch("SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai WHERE l.id_libur = $id");
+    $libur = fetch("SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai WHERE l.id_libur = $id");
 
     return $libur;
 }
 
 function getLiburByPegawaiId($id) {
-    $libur = fetchAll("SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai WHERE p.id_pegawai = :id", ['id' => $id]);
+    $libur = fetchAll("SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai WHERE p.id_pegawai = :id", ['id' => $id]);
 
     return $libur;
 }
@@ -629,7 +629,7 @@ function getLiburThisMonthByPegawaiId($id) {
     $firstDay = (new \DateTime('first day of this month 00:00:00'))->format('Y-m-d');
     $lastDay = (new \DateTime('last day of this month 00:00:00'))->format('Y-m-d');
 
-    $libur = fetchAll("SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai WHERE p.id_pegawai = :id AND l.tanggal >= :first_day AND l.tanggal <= :last_day", [
+    $libur = fetchAll("SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai WHERE p.id_pegawai = :id AND l.tanggal >= :first_day AND l.tanggal <= :last_day", [
         'id' => $id,
         'first_day' => $firstDay,
         'last_day' => $lastDay
@@ -641,7 +641,7 @@ function getLiburThisMonthByPegawaiId($id) {
 function getLiburTodayByPegawaiId($id) {
     $date = (new DateTime())->format('Y-m-d');
 
-    $libur = fetch("SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai WHERE p.id_pegawai = :id AND l.tanggal = :tanggal", ['id' => $id, 'tanggal' => $date]);
+    $libur = fetch("SELECT l.id_libur,l.tanggal,p.id_pegawai,p.nama,p.nip,p.status_pegawai FROM libur l LEFT JOIN pegawai p ON l.id_pegawai = p.id_pegawai WHERE p.id_pegawai = :id AND l.tanggal = :tanggal", ['id' => $id, 'tanggal' => $date]);
 
     return $libur;
 }
@@ -695,7 +695,7 @@ function deleteLibur(string|int $id) {
 function getCuti() {
     $subQuery = "SELECT c.id_cuti,c.id_pegawai,c.id_validator,p.nama nama_validator,p.nip nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status FROM cuti c LEFT JOIN pegawai p ON c.id_validator = p.id_pegawai";
 
-    $cuti = fetchAll("SELECT c.id_cuti,c.id_pegawai,c.id_validator,c.nama_validator,c.nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM ($subQuery) c LEFT JOIN pegawai p ON c.id_pegawai = p.id_pegawai");
+    $cuti = fetchAll("SELECT c.id_cuti,c.id_pegawai,c.id_validator,c.nama_validator,c.nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status,p.id_pegawai,p.nama,p.nip,p.status_pegawai FROM ($subQuery) c LEFT JOIN pegawai p ON c.id_pegawai = p.id_pegawai");
 
     return $cuti;
 }
@@ -703,7 +703,7 @@ function getCuti() {
 function getCutiById($id) {
     $subQuery = "SELECT c.id_cuti,c.id_validator,p.nama nama_validator,p.nip nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status FROM cuti c LEFT JOIN pegawai p ON c.id_validator = p.id_pegawai";
 
-    $cuti = fetch("SELECT c.id_cuti,c.id_validator,c.nama_validator,c.nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM ($subQuery) c LEFT JOIN pegawai p ON c.id_pegawai = p.id_pegawai WHERE c.id_libur = $id");
+    $cuti = fetch("SELECT c.id_cuti,c.id_validator,c.nama_validator,c.nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status,p.id_pegawai,p.nama,p.nip,p.status_pegawai FROM ($subQuery) c LEFT JOIN pegawai p ON c.id_pegawai = p.id_pegawai WHERE c.id_libur = $id");
 
     return $cuti;
 }
@@ -711,7 +711,7 @@ function getCutiById($id) {
 function getCutiByPegawaiId($id) {
     $subQuery = "SELECT c.id_cuti,c.id_pegawai,c.id_validator,p.nama nama_validator,p.nip nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status FROM cuti c LEFT JOIN pegawai p ON c.id_validator = p.id_pegawai";
 
-    $cuti = fetchAll("SELECT c.id_cuti,c.id_pegawai,c.id_validator,c.nama_validator,c.nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM ($subQuery) c LEFT JOIN pegawai p ON c.id_pegawai = p.id_pegawai WHERE p.id_pegawai = $id");
+    $cuti = fetchAll("SELECT c.id_cuti,c.id_pegawai,c.id_validator,c.nama_validator,c.nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status,p.id_pegawai,p.nama,p.nip,p.status_pegawai FROM ($subQuery) c LEFT JOIN pegawai p ON c.id_pegawai = p.id_pegawai WHERE p.id_pegawai = $id");
 
     return $cuti;
 }
@@ -722,7 +722,7 @@ function getCutiThisMonthByPegawaiId($id) {
 
     $subQuery = "SELECT c.id_cuti,c.id_pegawai,c.id_validator,p.nama nama_validator,p.nip nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status FROM cuti c LEFT JOIN pegawai p ON c.id_validator = p.id_pegawai AND c.tanggal_mulai >= :first_day AND c.tanggal_mulai <= :last_day";
 
-    $cuti = fetchAll("SELECT c.id_cuti,c.id_pegawai,c.id_validator,c.nama_validator,c.nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status,p.id_pegawai,p.nama,p.nip,p.jabatan,p.status_pegawai FROM ($subQuery) c LEFT JOIN pegawai p ON c.id_pegawai = p.id_pegawai WHERE p.id_pegawai = :id", ['id' => $id, 'first_day' => $firstDay, 'last_day' => $lastDay]);
+    $cuti = fetchAll("SELECT c.id_cuti,c.id_pegawai,c.id_validator,c.nama_validator,c.nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status,p.id_pegawai,p.nama,p.nip,p.status_pegawai FROM ($subQuery) c LEFT JOIN pegawai p ON c.id_pegawai = p.id_pegawai WHERE p.id_pegawai = :id", ['id' => $id, 'first_day' => $firstDay, 'last_day' => $lastDay]);
 
     return $cuti;
 }

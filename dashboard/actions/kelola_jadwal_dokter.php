@@ -16,14 +16,12 @@ if (isset($_POST['submit'])) {
             // validation
             if (!isset($_POST['tanggal'])) {
                 $_SESSION['errorMsg'] = 'Kolom tanggal harus diisi.';
-                header('Location: /dashboard/kelola_jadwal_dokter.php');
-                die();
+                redirect('../kelola_jadwal_dokter.php');
             }
 
             if (!isset($_POST['id_dokter_1']) && !isset($_POST['id_dokter_2']) && !isset($_POST['id_dokter_3'])) {
                 $_SESSION['errorMsg'] = 'Jadwal praktek dokter harus diisi minimal satu.';
-                header('Location: /dashboard/kelola_jadwal_dokter.php');
-                die();
+                redirect('../kelola_jadwal_dokter.php');
             }
 
             $data = [];
@@ -71,8 +69,7 @@ if (isset($_POST['submit'])) {
 
             if (!isset($_POST['id_jadwal_dokter'])) {
                 $_SESSION['errorMsg'] = "id_jadwal_dokter tidak ada.";
-                header('Location: /dashboard/kelola_jadwal_dokter.php');
-                die();
+                redirect('../kelola_jadwal_dokter.php');
             }
 
             if (isset($_POST['tanggal']) && !empty($_POST['tanggal'])) {
@@ -107,8 +104,7 @@ if (isset($_POST['submit'])) {
             }
 
             if (empty($data)) {
-                header('Location: /dashboard/kelola_jadwal_dokter.php');
-                die();
+                redirect('../kelola_jadwal_dokter.php');
             }
 
             $isSuccess = editJadwalDokter($data, $_POST['id_jadwal_dokter']);
@@ -138,6 +134,5 @@ if (isset($_POST['submit'])) {
             break;
     }
 
-    header('Location: /dashboard/kelola_jadwal_dokter.php');
-    die();
+    redirect('../kelola_jadwal_dokter.php');
 }

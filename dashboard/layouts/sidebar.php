@@ -92,7 +92,7 @@
 
         <?php endif; ?>
 
-        <?php if (!authorization(['jabatan' => Jabatan::ATASAN]) || authorization(['profesi' => [Profesi::DOKTER, Profesi::PERAWAT]])) : ?>
+        <?php if (!authorization(['role' => Role::ATASAN]) || authorization(['profesi' => [Profesi::DOKTER, Profesi::PERAWAT]])) : ?>
             <li class="nav-heading">Jadwal Kerja</li>
         <?php endif; ?>
 
@@ -155,7 +155,7 @@
             </a>
         </li>
 
-        <?php if (authorization(['role' => Role::ADMIN]) || authorization(['jabatan' => Jabatan::ATASAN])) : ?>
+        <?php if (authorization(['role' => [Role::ADMIN, Role::ATASAN]])) : ?>
             <li class="nav-heading">Laporan</li>
 
             <!-- laporan jadwal kerja -->

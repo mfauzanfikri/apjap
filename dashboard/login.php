@@ -6,7 +6,7 @@ require './services/auth.php';
 require './utils/utils.php';
 
 if (isset($_SESSION['username'])) {
-    redirect('/dashboard/logout.php');
+    redirect('logout.php');
 }
 
 $pegawaiWithCutiStatus = getPegawaiWithCutiStatus();
@@ -56,7 +56,6 @@ if (isset($_POST) && isset($_POST['submit'])) {
             $_SESSION['nama'] = $pegawai['nama'];
             $_SESSION['alamat'] = $pegawai['alamat'];
             $_SESSION['no_telepon'] = $pegawai['no_telepon'];
-            $_SESSION['jabatan'] = $pegawai['jabatan'];
             $_SESSION['status_pegawai'] = $pegawai['status_pegawai'];
 
             $dokter = getDokterByPegawaiId($pegawai['id_pegawai']);
@@ -77,7 +76,7 @@ if (isset($_POST) && isset($_POST['submit'])) {
                 $_SESSION['profesi'] = 'Perawat';
             }
 
-            redirect('../');
+            redirect('./');
         }
     }
 }

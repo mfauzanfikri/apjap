@@ -36,8 +36,7 @@ if (isset($_POST['submit'])) {
 
             if (!$isValid) {
                 $_SESSION['errorMsg'] = 'Semua kolom harus diisi.';
-                header('Location: /dashboard/kelola_dokter.php');
-                die();
+                redirect('../kelola_libur.php');
             }
 
             $isSuccess = addLibur($data);
@@ -56,13 +55,11 @@ if (isset($_POST['submit'])) {
         case 'edit':
             if (!isset($_POST['id_libur'])) {
                 $_SESSION['errorMsg'] = "id_libur tidak ada.";
-                header('Location: /dashboard/kelola_libur.php');
-                die();
+                redirect('../kelola_libur.php');
             }
 
             if (!isset($_POST['tanggal'])) {
-                header('Location: /dashboard/kelola_libur.php');
-                die();
+                redirect('../kelola_libur.php');
             }
 
             $data['tanggal'] = $_POST['tanggal'];
@@ -90,6 +87,5 @@ if (isset($_POST['submit'])) {
             break;
     }
 
-    header('Location: /dashboard/kelola_libur.php');
-    die();
+    redirect('../kelola_libur.php');
 }

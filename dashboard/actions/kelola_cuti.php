@@ -36,8 +36,7 @@ if (isset($_POST['submit'])) {
 
             if (!$isValid) {
                 $_SESSION['errorMsg'] = 'Semua kolom harus diisi.';
-                header('Location: /dashboard/kelola_cuti.php');
-                die();
+                redirect('../kelola_cuti.php');
             }
 
             $isSuccess = addCuti($data);
@@ -67,6 +66,5 @@ if (isset($_POST['submit'])) {
             break;
     }
 
-    header('Location: /dashboard/kelola_cuti.php');
-    die();
+    redirect('../kelola_cuti.php');
 }

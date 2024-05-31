@@ -12,6 +12,7 @@ if (isset($_POST['submit'])) {
                 'email' => $_POST['email'],
                 'username' => $_POST['username'],
                 'password' => $_POST['password'],
+                'role' => $_POST['user']
             ];
 
             $isSuccess = addUser($userData);
@@ -28,7 +29,7 @@ if (isset($_POST['submit'])) {
             $userData = [];
 
             if (empty($_POST['email']) && empty($_POST['username']) && empty($_POST['password'])) {
-                header('Location: /dashboard/kelola_user.php');
+                header('Location: ../kelola_user.php');
                 die();
             }
 
@@ -38,6 +39,9 @@ if (isset($_POST['submit'])) {
 
             if (!empty($_POST['username'])) {
                 $userData['username'] = $_POST['username'];
+            }
+            if (!empty($_POST['role']) || $_POST['role'] !== '0') {
+                $userData['role'] = $_POST['role'];
             }
 
             if (!empty($_POST['password'])) {
@@ -75,17 +79,17 @@ if (isset($_POST['submit'])) {
 
             if ($userPassword !== $password) {
                 $_SESSION['errorMsg'] = 'Password salah.';
-                redirect('/dashboard/profil.php');
+                redirect('../profil.php');
             }
 
             if ($userPassword === $newPassword) {
                 $_SESSION['errorMsg'] = 'Password baru tidak boleh sama dengan password sekarang.';
-                redirect('/dashboard/profil.php');
+                redirect('../profil.php');
             }
 
             if ($_POST['password_baru'] !== $_POST['password_konfirmasi']) {
                 $_SESSION['errorMsg'] = 'Password baru dan konfirmasi password tidak sama.';
-                redirect('/dashboard/profil.php');
+                redirect('../profil.php');
             }
 
             $data = [
@@ -96,7 +100,7 @@ if (isset($_POST['submit'])) {
 
             $_SESSION['successMsg'] = 'Password berhasil diganti.';
 
-            redirect('/dashboard/profil.php');
+            redirect('../profil.php');
 
             break;
 
@@ -104,6 +108,5 @@ if (isset($_POST['submit'])) {
             break;
     }
 
-    header('Location: /dashboard/kelola_user.php');
-    die();
+    redirect('../kelola_user.php');
 }

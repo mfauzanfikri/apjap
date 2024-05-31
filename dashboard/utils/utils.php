@@ -58,21 +58,21 @@ function authorization($rules) {
         }
     }
 
-    if (isset($rules['jabatan'])) {
-        $userJabatan = $_SESSION['jabatan'];
+    // if (isset($rules['jabatan'])) {
+    //     $userJabatan = $_SESSION['jabatan'];
 
-        if (is_array($rules['jabatan'])) {
-            $isAuthorized = array_search($userJabatan, $rules['jabatan']);
+    //     if (is_array($rules['jabatan'])) {
+    //         $isAuthorized = array_search($userJabatan, $rules['jabatan']);
 
-            if ($isAuthorized === false) {
-                return false;
-            }
-        } else {
-            if ($rules['jabatan'] !== $userJabatan) {
-                return false;
-            }
-        }
-    }
+    //         if ($isAuthorized === false) {
+    //             return false;
+    //         }
+    //     } else {
+    //         if ($rules['jabatan'] !== $userJabatan) {
+    //             return false;
+    //         }
+    //     }
+    // }
 
     if (isset($rules['profesi'])) {
         $userIsDokter = $_SESSION['isDokter'];
@@ -97,13 +97,9 @@ function authorization($rules) {
 
 class Role {
     const ADMIN = 'admin';
-    const USER = 'user';
     const PASIEN = 'pasien';
-}
-
-class Jabatan {
+    const PEGAWAI = 'pegawai';
     const ATASAN = 'atasan';
-    const STAFF = 'staff';
 }
 
 class Profesi {

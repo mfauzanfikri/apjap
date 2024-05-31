@@ -72,6 +72,14 @@ $users = getUsers();
                                                                 <label for="password" class="form-label">Password</label>
                                                                 <input type="text" class="form-control" id="password" name="password" autocomplete="off" required>
                                                             </div>
+                                                            <div class="col-12">
+                                                                <label for="role" class="form-label">Role</label>
+                                                                <select id="role" class="form-select" name="role" required>
+                                                                    <option selected disabled value="0">Pilih Role</option>
+                                                                    <option value="pegawai">Pegawai</option>
+                                                                    <option value="atasan">Atasan</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -159,6 +167,14 @@ $users = getUsers();
                                                                                 <div class="col-12">
                                                                                     <label for="password" class="form-label">Password</label>
                                                                                     <input type="text" class="form-control" id="password" name="password" autocomplete="off">
+                                                                                </div>
+                                                                                <div class="col-12">
+                                                                                    <label for="role" class="form-label">Role</label>
+                                                                                    <select id="role" class="form-select" name="role">
+                                                                                        <option selected value="0">Pilih Role</option>
+                                                                                        <option value="pegawai">Pegawai</option>
+                                                                                        <option value="atasan">Atasan</option>
+                                                                                    </select>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

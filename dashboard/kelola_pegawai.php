@@ -79,14 +79,6 @@ $userSelect = getUsersWithNoPegawai();
                                                                 <input type="text" class="form-control" id="no_telepon" name="no_telepon" autocomplete="off" required>
                                                             </div>
                                                             <div class="col-12">
-                                                                <label for="status_pegawai" class="form-label">Status Pegawai</label>
-                                                                <select id="status_pegawai" class="form-select" name="status_pegawai" required>
-                                                                    <option disabled value="0">Pilih Status Pegawai</option>
-                                                                    <option selected value="aktif">Aktif</option>
-                                                                    <option value="nonaktif">Nonaktif</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-12">
                                                                 <label for="id_user" class="form-label">User</label>
                                                                 <select id="id_user" class="form-select" name="id_user" required>
                                                                     <option selected disabled value="0">Pilih User</option>
@@ -135,7 +127,7 @@ $userSelect = getUsersWithNoPegawai();
                                             <th>Nama</th>
                                             <th>NIP</th>
                                             <th>Username</th>
-                                            <th>Status</th>
+                                            <th>Status Pegawai</th>
                                             <th>Alamat</th>
                                             <th>No. Telepon</th>
                                             <th>Aksi</th>
@@ -189,14 +181,6 @@ $userSelect = getUsersWithNoPegawai();
                                                                                 <div class="col-12">
                                                                                     <label for="no_telepon" class="form-label">No. Telepon</label>
                                                                                     <input type="text" class="form-control" id="no_telepon" name="no_telepon" placeholder="<?= $pegawai['no_telepon'] ?>" autocomplete="off">
-                                                                                </div>
-                                                                                <div class="col-12">
-                                                                                    <label for="status_pegawai" class="form-label">Status Pegawai</label>
-                                                                                    <select id="status_pegawai" class="form-select" name="status_pegawai">
-                                                                                        <option selected disabled value="0">Pilih Status Pegawai</option>
-                                                                                        <option value="aktif">Aktif</option>
-                                                                                        <option value="nonaktif">Nonaktif</option>
-                                                                                    </select>
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <label for="id_user" class="form-label">User</label>

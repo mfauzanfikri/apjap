@@ -5,7 +5,7 @@ session_start();
 require_once '../services/db.php';
 require_once '../utils/utils.php';
 
-$allowedFields = ['id_user', 'nip', 'nama', 'alamat', 'no_telepon', 'status_pegawai'];
+$allowedFields = ['id_user', 'nip', 'nama', 'alamat', 'no_telepon'];
 
 if (isset($_POST['submit'])) {
     switch ($_POST['jenis']) {

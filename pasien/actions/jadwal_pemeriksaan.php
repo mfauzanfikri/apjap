@@ -24,19 +24,31 @@ if ($jadwalDokter === false) {
     redirect('../jadwal_pemeriksaan.php');
 }
 
-addJadwalDokter(['id_pasien' => $pasienId, 'id_dokter' => $jadwalDokter['id_dokter'], 'tanggal' => $tanggal, 'waktu' => $waktu, 'poli' => $poli]);
+addJadwalPemeriksaan(['id_pasien' => $pasienId, 'id_dokter' => $jadwalDokter['id_dokter'], 'tanggal' => $tanggal, 'waktu' => $waktu, 'poli' => $poli]);
 
 $jadwalPemeriksaanId = (getSpecificJadwalPemeriksaan($pasienId, $tanggal, $waktu, $poli))['id_jadwal_pemeriksaan'];
 
-// TODO: logika antrian
-$lastNoAntrian = getLastNomorAntrianByJadwalPemeriksaan($poli, $waktu, $tanggal);
+$lastNoAntrian = (getLastNomorAntrianByJadwalPemeriksaan($poli, $waktu, $tanggal));
 
 if ($lastNoAntrian === false) {
     addAntrianPasien([
         'id_jadwal_pemeriksaan' => "$jadwalPemeriksaanId",
         'no_antrian' => '001'
     ]);
+} else {
+    $trimmedLastNoAntrian = (int) ltrim($lastNoAntrian['no_antrian'], '0');
+    $noAntrian = (string) ($trimmedLastNoAntrian + 1);
+    $lenght = strlen($noAntrian);
+
+    for ($i = 0; $i < 3 - $lenght; $i++) {
+        $noAntrian = '0' . $noAntrian;
+    }
+
+    addAntrianPasien([
+        'id_jadwal_pemeriksaan' => "$jadwalPemeriksaanId",
+        'no_antrian' => $noAntrian
+    ]);
 }
 
-// $_SESSION['successMsg'] = "Jadwal pemeriksaan berhasil dibuat.";
-// redirect('../jadwal_pemeriksaan.php');
+$_SESSION['successMsg'] = "Jadwal pemeriksaan berhasil dibuat.";
+redirect('../jadwal_pemeriksaan.php');

@@ -141,6 +141,7 @@ $jadwalPemeriksaan = getJadwalPemeriksaan();
                                             <th>Waktu</th>
                                             <th>Nama Dokter</th>
                                             <th>Poli</th>
+                                            <th>No. Antrian</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -152,6 +153,7 @@ $jadwalPemeriksaan = getJadwalPemeriksaan();
                                                 <td><?= $jp['waktu']; ?></td>
                                                 <td><?= $jp['nama_dokter']; ?>/<?= $jp['nip_dokter']; ?></td>
                                                 <td><?= $jp['poli']; ?></td>
+                                                <td><?= $jp['no_antrian']; ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>

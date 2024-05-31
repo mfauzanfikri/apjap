@@ -268,7 +268,20 @@ function addPegawai($pegawaiData) {
         return false;
     }
 
-    query('INSERT INTO pegawai (id_user,nip,nama,alamat,no_telepon,status_pegawai) VALUES (:id_user,:nip,:nama,:alamat,:no_telepon,:status_pegawai)', $pegawaiData);
+    $fieldsTemp = [];
+    $placeholdersTemp = [];
+
+    foreach ($pegawaiData as $key => $value) {
+        $fieldsTemp[] = $key;
+        $placeholdersTemp[] = ':' . $key;
+    }
+
+    $fields = implode(',', $fieldsTemp);
+    $placeholders = implode(',', $placeholdersTemp);
+
+    $query = "INSERT INTO jadwal_dokter ($fields) VALUES ($placeholders)";
+
+    query($query, $pegawaiData);
 
     return true;
 }
@@ -494,7 +507,7 @@ function getJadwalDokterById($jdId) {
 function getSpecificJadwalDokter($tanggal, $poli, $shift) {
     $subQuery = 'SELECT jd.id_jadwal_dokter,jd.id_dokter,jd.tanggal,jd.waktu_mulai,jd.waktu_selesai,jd.shift,d.id_pegawai,d.spesialisasi,d.poli,d.no_sip  FROM jadwal_dokter jd LEFT JOIN dokter d ON jd.id_dokter = d.id_dokter';
 
-    $query = "SELECT a.id_jadwal_dokter,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.spesialisasi,a.poli,a.no_sip,b.nip,b.nama,b.status_pegawai FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai WHERE a.tanggal = :tanggal AND a.poli = :poli AND a.shift = :shift";
+    $query = "SELECT a.id_jadwal_dokter,a.id_dokter,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.spesialisasi,a.poli,a.no_sip,b.nip,b.nama,b.status_pegawai FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai WHERE a.tanggal = :tanggal AND a.poli = :poli AND a.shift = :shift";
 
     $jadwalDokter = fetch($query, ['tanggal' => $tanggal, 'poli' => $poli, 'shift' => $shift]);
 
@@ -897,7 +910,9 @@ function getJadwalPemeriksaan() {
 
     $subSubQuery = 'SELECT id_dokter,p.id_pegawai,nama,nip,spesialisasi,poli,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai';
 
-    $query = "SELECT a.id_jadwal_pemeriksaan,a.id_pasien,a.id_dokter,a.tanggal,a.waktu,a.poli,a.nama_pasien,a.no_telepon_pasien,b.nama nama_dokter,b.nip nip_dokter FROM ($subQuery) a LEFT JOIN ($subSubQuery) b ON a.id_dokter = b.id_dokter";
+    $subQuery2 = "SELECT a.id_jadwal_pemeriksaan,a.id_pasien,a.id_dokter,a.tanggal,a.waktu,a.poli,a.nama_pasien,a.no_telepon_pasien,b.nama nama_dokter,b.nip nip_dokter FROM ($subQuery) a LEFT JOIN ($subSubQuery) b ON a.id_dokter = b.id_dokter";
+
+    $query = "SELECT a.id_jadwal_pemeriksaan,a.id_pasien,a.id_dokter,a.tanggal,a.waktu,a.poli,a.nama_pasien,a.no_telepon_pasien,a.nama_dokter,a.nip_dokter,b.no_antrian FROM ($subQuery2) a LEFT JOIN antrian_pasien b ON a.id_jadwal_pemeriksaan = b.id_jadwal_pemeriksaan";
 
     $jadwalPemeriksaan = fetchAll($query);
 
@@ -917,7 +932,7 @@ function getSpecificJadwalPemeriksaan($pasienId, $tanggal, $waktu, $poli) {
 
     $subSubQuery = 'SELECT id_dokter,p.id_pegawai,nama,nip,spesialisasi,poli,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai';
 
-    $query = "SELECT a.id_jadwal_pemeriksaan,a.id_pasien,a.id_dokter,a.tanggal,a.waktu,a.poli,a.nama_pasien,a.no_telepon_pasien,b.nama nama_dokter,b.nip nip_dokter FROM ($subQuery) a LEFT JOIN ($subSubQuery) b ON a.id_dokter = b.id_dokter WHERE id_pasien = :id_pasien AND tanggal = :tanggal AND waktu = :waktu AND poli = :poli";
+    $query = "SELECT a.id_jadwal_pemeriksaan,a.id_pasien,a.id_dokter,a.tanggal,a.waktu,a.poli,a.nama_pasien,a.no_telepon_pasien,b.nama nama_dokter,b.nip nip_dokter FROM ($subQuery) a LEFT JOIN ($subSubQuery) b ON a.id_dokter = b.id_dokter WHERE a.id_pasien = :id_pasien AND a.tanggal = :tanggal AND a.waktu = :waktu AND a.poli = :poli";
 
     $jadwalPemeriksaan = fetch($query, ['id_pasien' => $pasienId, 'tanggal' => $tanggal, 'waktu' => $waktu, 'poli' => $poli]);
 

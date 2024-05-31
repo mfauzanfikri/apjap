@@ -83,6 +83,7 @@ $userSelect = getUsersWithNoPegawai();
                                                                 <select id="id_user" class="form-select" name="id_user" required>
                                                                     <option selected disabled value="0">Pilih User</option>
                                                                     <?php foreach ($userSelect as $user) : ?>
+                                                                        <?php if ($user['role'] === Role::PASIEN) continue; ?>
                                                                         <option value="<?= $user['id_user'] ?>"><?= $user['username'] ?></option>
                                                                     <?php endforeach; ?>
                                                                 </select>

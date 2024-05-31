@@ -132,7 +132,7 @@
 
         <li class="nav-heading">Pengajuan Jadwal</li>
 
-        <?php if (authorization(['role' => Role::ADMIN])) : ?>
+        <?php if (authorization(['role' => [Role::ADMIN, Role::ATASAN]])) : ?>
             <li class="nav-item">
                 <a class="nav-link <?= $url === '/dashboard/pengajuan_jadwal_perawat.php' || $url === '/apkjadwal/dashboard/pengajuan_jadwal_perawat.php' ? '' : 'collapsed' ?>" href="pengajuan_jadwal_perawat.php">
                     <i class="bi bi-calendar2"></i>

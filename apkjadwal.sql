@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `jadwal_dokter` (
   PRIMARY KEY (`id_jadwal_dokter`),
   KEY `id_dokter` (`id_dokter`),
   CONSTRAINT `FK__jadwal_dokter_dokter` FOREIGN KEY (`id_dokter`) REFERENCES `dokter` (`id_dokter`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- Dumping data for table apkjadwal.jadwal_dokter: ~9 rows (approximately)
 REPLACE INTO `jadwal_dokter` (`id_jadwal_dokter`, `id_dokter`, `tanggal`, `waktu_mulai`, `waktu_selesai`, `shift`, `notifikasi`) VALUES
@@ -94,7 +94,10 @@ REPLACE INTO `jadwal_dokter` (`id_jadwal_dokter`, `id_dokter`, `tanggal`, `waktu
 	(7, 8, '2024-05-22', '19:00:00', '21:00:00', 'malam', 0),
 	(8, 3, '2024-05-24', '08:00:00', '10:00:00', 'pagi', 0),
 	(9, 4, '2024-05-24', '14:00:00', '16:00:00', 'siang', 0),
-	(10, 2, '2024-05-24', '19:00:00', '21:00:00', 'malam', 0);
+	(10, 2, '2024-05-24', '19:00:00', '21:00:00', 'malam', 0),
+	(11, 2, '2024-06-03', '08:00:00', '10:00:00', 'pagi', 0),
+	(12, 3, '2024-06-03', '14:00:00', '16:00:00', 'siang', 0),
+	(13, 4, '2024-06-03', '19:00:00', '21:00:00', 'malam', 0);
 
 -- Dumping structure for table apkjadwal.jadwal_operasi
 CREATE TABLE IF NOT EXISTS `jadwal_operasi` (
@@ -130,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `jadwal_pemeriksaan` (
   `id_pasien` int NOT NULL,
   `id_dokter` int NOT NULL,
   `tanggal` date NOT NULL,
-  `waktu` time DEFAULT NULL,
+  `waktu` time NOT NULL,
   `poli` enum('Gigi','THT','PDL','Anak','Saraf','Mata') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
   PRIMARY KEY (`id_jadwal_pemeriksaan`),
   KEY `id_pasien` (`id_pasien`),

@@ -912,6 +912,18 @@ function getJadwalPemeriksaanCountByDate($date) {
     return $jadwalPemeriksaan;
 }
 
+function getSpecificJadwalPemeriksaan($pasienId, $tanggal, $waktu, $poli) {
+    $subQuery = "SELECT a.id_jadwal_pemeriksaan,a.id_pasien,a.id_dokter,a.tanggal,a.waktu,a.poli,b.nama nama_pasien,b.no_telepon no_telepon_pasien FROM jadwal_pemeriksaan a LEFT JOIN pasien b ON a.id_pasien = b.id_pasien";
+
+    $subSubQuery = 'SELECT id_dokter,p.id_pegawai,nama,nip,spesialisasi,poli,no_sip FROM dokter p LEFT JOIN pegawai u ON p.id_pegawai = u.id_pegawai';
+
+    $query = "SELECT a.id_jadwal_pemeriksaan,a.id_pasien,a.id_dokter,a.tanggal,a.waktu,a.poli,a.nama_pasien,a.no_telepon_pasien,b.nama nama_dokter,b.nip nip_dokter FROM ($subQuery) a LEFT JOIN ($subSubQuery) b ON a.id_dokter = b.id_dokter WHERE id_pasien = :id_pasien AND tanggal = :tanggal AND waktu = :waktu AND poli = :poli";
+
+    $jadwalPemeriksaan = fetch($query, ['id_pasien' => $pasienId, 'tanggal' => $tanggal, 'waktu' => $waktu, 'poli' => $poli]);
+
+    return $jadwalPemeriksaan;
+}
+
 function addJadwalPemeriksaan($data) {
     $fieldsTemp = [];
     $placeholdersTemp = [];

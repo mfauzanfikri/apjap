@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
 
     if (!$user) {
         $_SESSION['errorMsg'] = 'Email atau password salah.';
-        redirect('/login.php');
+        redirect('../login.php');
     }
 
     $pasien = getPasienByUserId($user['id_user']);

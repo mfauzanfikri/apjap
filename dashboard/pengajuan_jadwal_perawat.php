@@ -7,6 +7,14 @@ require_once './utils/utils.php';
 
 checkNotifikasiJadwalPerawat();
 
+$isAuthorized = authorization([
+    'role' => [Role::ADMIN, Role::ATASAN]
+]);
+
+if (!$isAuthorized) {
+    redirect('./');
+}
+
 $perawat = getPerawat();
 
 $jadwalPerawat = getJadwalPerawat();

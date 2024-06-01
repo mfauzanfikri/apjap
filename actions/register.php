@@ -5,6 +5,7 @@ session_start();
 require_once '../dashboard/utils/utils.php';
 require_once '../dashboard/services/db.php';
 
+
 if (isset($_POST['submit'])) {
     // validation
     // email
@@ -12,7 +13,7 @@ if (isset($_POST['submit'])) {
 
     if ($isExist !== false) {
         $_SESSION['errorMsg'] = 'Email sudah dipakai.';
-        redirect('/register.php');
+        redirect('../register.php');
     }
 
     // username
@@ -20,13 +21,13 @@ if (isset($_POST['submit'])) {
 
     if ($isExist !== false) {
         $_SESSION['errorMsg'] = 'Username sudah dipakai.';
-        redirect('/register.php');
+        redirect('../register.php');
     }
 
     // password
     if ($_POST['password'] !== $_POST['konfirmasi_password']) {
         $_SESSION['errorMsg'] = 'Konfirmasi password salah.';
-        redirect('/register.php');
+        redirect('../register.php');
     }
 
     registerPasien($_POST);

@@ -10,7 +10,7 @@ $isAuthorized = authorization([
 ]);
 
 if (!$isAuthorized) {
-    redirect('/dashboard');
+    redirect('./');
 }
 
 $users = getUsers();

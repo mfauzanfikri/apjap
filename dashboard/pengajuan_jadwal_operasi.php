@@ -7,10 +7,10 @@ require_once './utils/utils.php';
 
 $isAuthorized = authorization([
     'role' => [Role::ADMIN, Role::ATASAN]
-]);
+]) || authorization(['profesi' => Profesi::DOKTER]);
 
 if (!$isAuthorized) {
-    redirect('/dashboard');
+    redirect('./');
 }
 
 $jadwalOperasi = getJadwalOperasi();

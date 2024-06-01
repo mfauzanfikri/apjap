@@ -14,7 +14,7 @@ $isAuthorized = authorization([
 ]);
 
 if (!$isAuthorized) {
-    redirect('/dashboard');
+    redirect('./');
 }
 
 $perawat = getPerawat();

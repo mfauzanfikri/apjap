@@ -12,7 +12,7 @@ $isAuthorized = authorization([
 ]);
 
 if (!$isAuthorized) {
-    redirect('/dashboard');
+    redirect('./');
 }
 
 $pegawai = getPegawai();

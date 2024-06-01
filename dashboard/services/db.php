@@ -279,7 +279,7 @@ function addPegawai($pegawaiData) {
     $fields = implode(',', $fieldsTemp);
     $placeholders = implode(',', $placeholdersTemp);
 
-    $query = "INSERT INTO jadwal_dokter ($fields) VALUES ($placeholders)";
+    $query = "INSERT INTO pegawai ($fields) VALUES ($placeholders)";
 
     query($query, $pegawaiData);
 

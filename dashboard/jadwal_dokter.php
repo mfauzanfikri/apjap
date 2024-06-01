@@ -82,8 +82,9 @@ $jadwalDokter = getJadwalDokter();
                                     </thead>
                                     <tbody>
                                         <?php foreach ($jadwalDokter as $jd) : ?>
-                                            <?php if ($jd['nip'] !== $_SESSION['nip']) continue;
-                                            ?>
+                                            <?php if ($_SESSION['role'] !== Role::ADMIN) : ?>
+                                                <?php if ($jd['nip'] !== $_SESSION['nip']) continue; ?>
+                                            <?php endif; ?>
                                             <tr>
                                                 <td></td>
                                                 <td><?= $jd['nama']; ?></td>

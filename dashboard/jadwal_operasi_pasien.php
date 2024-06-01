@@ -81,7 +81,9 @@ $jadwalOperasi = getJadwalOperasi();
                                     <tbody>
                                         <?php foreach ($jadwalOperasi as $jo) : ?>
                                             <?php if ($jo['status'] === 'proses') continue; ?>
-                                            <?php if ($jo['nip_dokter'] !== $_SESSION['nip']) continue; ?>
+                                            <?php if ($_SESSION['role'] !== Role::ADMIN) : ?>
+                                                <?php if ($jo['nip_dokter'] !== $_SESSION['nip']) continue; ?>
+                                            <?php endif; ?>
                                             <tr>
                                                 <td></td>
                                                 <td><?= $jo['nama_pasien']; ?>/<?= $jo['no_telepon_pasien']; ?></td>

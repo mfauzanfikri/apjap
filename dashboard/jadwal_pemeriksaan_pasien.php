@@ -78,7 +78,9 @@ $jadwalPemeriksaan = getJadwalPemeriksaan();
                                     </thead>
                                     <tbody>
                                         <?php foreach ($jadwalPemeriksaan as $jp) : ?>
-                                            <?php if ($jp['nip_dokter'] !== $_SESSION['nip']) continue; ?>
+                                            <?php if ($_SESSION['role'] !== Role::ADMIN) : ?>
+                                                <?php if ($jp['nip_dokter'] !== $_SESSION['nip']) continue; ?>
+                                            <?php endif; ?>
                                             <tr>
                                                 <td></td>
                                                 <td><?= $jp['nama_pasien']; ?>/<?= $jp['no_telepon_pasien']; ?></td>

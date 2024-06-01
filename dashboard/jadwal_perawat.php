@@ -86,7 +86,9 @@ $jadwalPerawat = getJadwalPerawat();
                                     <tbody>
                                         <?php foreach ($jadwalPerawat as $jp) : ?>
                                             <?php if ($jp['status'] === 'proses') continue; ?>
-                                            <?php if ($jp['nip'] !== $_SESSION['nip']) continue; ?>
+                                            <?php if ($_SESSION['role'] !== Role::ADMIN) : ?>
+                                                <?php if ($jp['nip'] !== $_SESSION['nip']) continue; ?>
+                                            <?php endif; ?>
                                             <tr>
                                                 <td></td>
                                                 <td><?= $jp['nama']; ?></td>

@@ -179,7 +179,7 @@
 
         <!-- logout -->
         <li class="nav-item">
-            <a class="nav-link" href="logout.php">
+            <a class="nav-link collapsed" href="logout.php">
                 <i class="bi bi-box-arrow-left"></i>
                 <span>Logout</span>
             </a>

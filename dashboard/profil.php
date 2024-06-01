@@ -96,8 +96,8 @@ require_once './utils/utils.php';
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label ">Posisi</div>
-                                    <div class="col-lg-9 col-md-8"><?= ucwords($_SESSION['jabatan']) ?></div>
+                                    <div class="col-lg-3 col-md-4 label ">Role</div>
+                                    <div class="col-lg-9 col-md-8"><?= ucwords($_SESSION['role']) ?></div>
                                 </div>
 
                                 <div class="row">

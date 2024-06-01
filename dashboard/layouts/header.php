@@ -4,6 +4,50 @@ if (!isset($_SESSION['id_user']) || $_SESSION['role'] === 'pasien') {
   redirect('login.php');
 }
 
+// // cek status cuti pegawai
+// $pegawaiWithCutiStatus = getPegawaiWithCutiStatus();
+// foreach ($pegawaiWithCutiStatus as $pwcs) {
+//   $isCuti = getPegawaiCutiToday($pwcs['id_pegawai']);
+
+//   if ($isCuti === false) {
+//     editPegawai(['status_pegawai' => 'aktif'], $pwcs['id_pegawai']);
+//   }
+// }
+
+// // cek status pegawai yang cuti hari ini
+// $pegawaiCuti = getPegawaiCutiToday();
+// foreach ($pegawaiCuti as $pc) {
+//   if ($pc['status_pegawai'] !== 'cuti') {
+//     editPegawai(['status_pegawai' => 'cuti'], $pc['id_pegawai']);
+//   }
+// }
+
+// // cek jadwal dokter yang belum dinotifikasi
+// $unnotifiedJadwalDokter = getUnnotifiedJadwalDokterToday();
+
+// foreach ($unnotifiedJadwalDokter as $ujd) {
+//   $target = $ujd['no_telepon'];
+//   $waktuMulai = $ujd['waktu_mulai'];
+//   $waktuSelesai = $ujd['waktu_selesai'];
+//   $tanggal = $ujd['tanggal'];
+//   $poli = $ujd['poli'];
+//   $nama = $ujd['nama'];
+//   $nip = $ujd['nip'];
+
+//   $message = "Anda memiliki jadwal praktek hari ini, dengan detail:\n
+//   Nama/NIP: $nama/$nip\n
+//   Poli: $poli\n
+//   Tanggal: $tanggal\n
+//   Waktu: $waktuMulai s.d. $waktuSelesai
+//   ";
+
+//   $response = sendMessage($target, $message);
+
+//   if ($response->status) {
+//     editJadwalDokter(['notifikasi' => 1], $ujd['id_jadwal_dokter']);
+//   }
+// }
+
 ?>
 
 

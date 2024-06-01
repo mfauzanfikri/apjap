@@ -9,21 +9,8 @@ if (isset($_SESSION['username'])) {
     redirect('logout.php');
 }
 
-$pegawaiWithCutiStatus = getPegawaiWithCutiStatus();
-foreach ($pegawaiWithCutiStatus as $pegawai) {
-    $isCuti = getPegawaiCutiToday($pegawai['id_pegawai']);
-
-    if ($isCuti === false) {
-        editPegawai(['status_pegawai' => 'aktif'], $pegawai['id_pegawai']);
-    }
-}
-
-$pegawaiCuti = getPegawaiCutiToday();
-foreach ($pegawaiCuti as $pegawai) {
-    if ($pegawai['status_pegawai'] !== 'cuti') {
-        editPegawai(['status_pegawai' => 'cuti'], $pegawai['id_pegawai']);
-    }
-}
+checkCutiStatus();
+checkNotifikasiJadwalDokter();
 
 $isError = false;
 

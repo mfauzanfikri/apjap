@@ -5,6 +5,10 @@ session_start();
 require_once './utils/utils.php';
 require_once './services/db.php';
 
+checkCutiStatus();
+checkNotifikasiJadwalDokter();
+checkNotifikasiJadwalPerawat();
+
 $date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
 $formatter = new IntlDateFormatter('id_ID', IntlDateFormatter::LONG, IntlDateFormatter::LONG, 'Asia/Jakarta');
 
@@ -24,10 +28,10 @@ $isDayOff = getLiburTodayByPegawaiId($_SESSION['id_pegawai']);
 
 $isWorkingToday = 'Bekerja';
 
-if ($isDayOff !== false) {
-    $isWorkingToday = 'Libur';
-} elseif ($_SESSION['status_pegawai'] === 'cuti') {
+if ($_SESSION['status_pegawai'] === 'cuti') {
     $isWorkingToday = 'Cuti';
+} elseif ($isDayOff !== false) {
+    $isWorkingToday = 'Libur';
 }
 
 $firstDay = (new \DateTime('first day of this month 00:00:00'));
@@ -151,7 +155,7 @@ foreach ($cutiThisMonth as $key => $value) {
                             document.addEventListener("DOMContentLoaded", () => {
                                 new ApexCharts(document.querySelector("#reportsChart"), {
                                     series: [{
-                                        name: 'Sales',
+                                        name: 'Jumlah Pasien',
                                         data: [<?= implode(',', $pasienCountDailyOfMonth) ?>],
                                     }],
                                     chart: {

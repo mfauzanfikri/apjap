@@ -5,6 +5,8 @@ session_start();
 require_once './services/db.php';
 require_once './utils/utils.php';
 
+checkCutiStatus();
+
 $isAuthorized = authorization([
     'role' => Role::ADMIN
 ]);
@@ -135,23 +137,23 @@ $userSelect = getUsersWithNoPegawai();
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($pegawai as $pegawai) : ?>
+                                        <?php foreach ($pegawai as $pe) : ?>
                                             <tr>
                                                 <td></td>
-                                                <td><?= $pegawai['nama']; ?></td>
-                                                <td><?= $pegawai['nip']; ?></td>
-                                                <td><?= $pegawai['username']; ?></td>
-                                                <td><?= $pegawai['status_pegawai']; ?></td>
-                                                <td><?= $pegawai['alamat']; ?></td>
-                                                <td><?= $pegawai['no_telepon']; ?></td>
+                                                <td><?= $pe['nama']; ?></td>
+                                                <td><?= $pe['nip']; ?></td>
+                                                <td><?= $pe['username']; ?></td>
+                                                <td><?= $pe['status_pegawai']; ?></td>
+                                                <td><?= $pe['alamat']; ?></td>
+                                                <td><?= $pe['no_telepon']; ?></td>
                                                 <td class="d-flex justify-content-center gap-2 text-start">
                                                     <!-- button edit -->
                                                     <div>
-                                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-pegawai-" . $pegawai['id_pegawai']; ?>>
+                                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=<?= "#edit-pegawai-" . $pe['id_pegawai']; ?>>
                                                             Edit
                                                         </button>
 
-                                                        <div class="modal fade" id=<?= "edit-pegawai-" . $pegawai['id_pegawai']; ?> tabindex="-1">
+                                                        <div class="modal fade" id=<?= "edit-pegawai-" . $pe['id_pegawai']; ?> tabindex="-1">
                                                             <div class="modal-dialog modal-dialog-centered">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
@@ -160,7 +162,7 @@ $userSelect = getUsersWithNoPegawai();
                                                                     </div>
                                                                     <form action="./actions/kelola_pegawai.php" method="post">
                                                                         <input type="hidden" name="jenis" value="edit">
-                                                                        <input type="hidden" name="id_pegawai" value=<?= (string) $pegawai['id_pegawai'] ?>>
+                                                                        <input type="hidden" name="id_pegawai" value=<?= (string) $pe['id_pegawai'] ?>>
                                                                         <div class="modal-body">
                                                                             <div class="alert alert-warning" role="alert">
                                                                                 Isi kolom yang hanya ingin diubah.
@@ -169,26 +171,26 @@ $userSelect = getUsersWithNoPegawai();
                                                                             <div class="row gap-3">
                                                                                 <div class="col-12">
                                                                                     <label for="nip" class="form-label">NIP</label>
-                                                                                    <input type="text" class="form-control" id="nip" name="nip" placeholder="<?= $pegawai['nip'] ?>" autocomplete="off">
+                                                                                    <input type="text" class="form-control" id="nip" name="nip" placeholder="<?= $pe['nip'] ?>" autocomplete="off">
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <label for="nama" class="form-label">Nama</label>
-                                                                                    <input type="text" class="form-control" id="nama" name="nama" placeholder="<?= $pegawai['nama'] ?>" autocomplete="off">
+                                                                                    <input type="text" class="form-control" id="nama" name="nama" placeholder="<?= $pe['nama'] ?>" autocomplete="off">
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <label for="alamat" class="form-label">Alamat</label>
-                                                                                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="<?= $pegawai['alamat'] ?>" autocomplete="off">
+                                                                                    <input type="text" class="form-control" id="alamat" name="alamat" placeholder="<?= $pe['alamat'] ?>" autocomplete="off">
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <label for="no_telepon" class="form-label">No. Telepon</label>
-                                                                                    <input type="text" class="form-control" id="no_telepon" name="no_telepon" placeholder="<?= $pegawai['no_telepon'] ?>" autocomplete="off">
+                                                                                    <input type="text" class="form-control" id="no_telepon" name="no_telepon" placeholder="<?= $pe['no_telepon'] ?>" autocomplete="off">
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <label for="id_user" class="form-label">User</label>
                                                                                     <select id="id_user" class="form-select" name="id_user">
                                                                                         <option selected disabled value="0">Pilih User</option>
                                                                                         <?php foreach ($userSelect as $user) : ?>
-                                                                                            <?php if ($user['username'] === $pegawai['username']) {
+                                                                                            <?php if ($user['username'] === $pe['username']) {
                                                                                                 continue;
                                                                                             } ?>
                                                                                             <option value="<?= $user['id_user'] ?>"><?= $user['username'] ?></option>
@@ -208,11 +210,11 @@ $userSelect = getUsersWithNoPegawai();
                                                     </div>
                                                     <!-- button hapus -->
                                                     <div>
-                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=<?= "#hapus-pegawai-" . $pegawai['id_pegawai']; ?>>
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=<?= "#hapus-pegawai-" . $pe['id_pegawai']; ?>>
                                                             Hapus
                                                         </button>
 
-                                                        <div class="modal fade" id=<?= "hapus-pegawai-" . $pegawai['id_pegawai']; ?> tabindex="-1">
+                                                        <div class="modal fade" id=<?= "hapus-pegawai-" . $pe['id_pegawai']; ?> tabindex="-1">
                                                             <div class="modal-dialog modal-dialog-centered">
                                                                 <div class="modal-content">
 
@@ -222,9 +224,9 @@ $userSelect = getUsersWithNoPegawai();
                                                                     </div>
                                                                     <form action="./actions/kelola_pegawai.php" method="post">
                                                                         <input type="hidden" name="jenis" value="delete">
-                                                                        <input type="hidden" name="id_pegawai" value="<?= $pegawai['id_pegawai'] ?>">
+                                                                        <input type="hidden" name="id_pegawai" value="<?= $pe['id_pegawai'] ?>">
                                                                         <div class="modal-body">
-                                                                            <p>Apakah Anda yakin ingin menghapus pegawai dengan nama <b><?= $pegawai['nama']; ?></b> dan NIP <b><?= $pegawai['nip'] ?></b>?</p>
+                                                                            <p>Apakah Anda yakin ingin menghapus pegawai dengan nama <b><?= $pe['nama']; ?></b> dan NIP <b><?= $pe['nip'] ?></b>?</p>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>

@@ -496,6 +496,19 @@ function getJadwalDokter() {
     return $jadwalDokter;
 }
 
+function getJadwalDokterThisMonth() {
+    $firstDay = (new \DateTime('first day of this month 00:00:00'))->format('Y-m-d');
+    $lastDay = (new \DateTime('last day of this month 00:00:00'))->format('Y-m-d');
+
+    $subQuery = 'SELECT jd.id_jadwal_dokter,jd.id_dokter,jd.tanggal,jd.waktu_mulai,jd.waktu_selesai,jd.shift,d.id_pegawai,d.spesialisasi,d.poli,d.no_sip  FROM jadwal_dokter jd LEFT JOIN dokter d ON jd.id_dokter = d.id_dokter';
+
+    $query = "SELECT a.id_jadwal_dokter,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.spesialisasi,a.poli,a.no_sip,b.nip,b.nama,b.status_pegawai FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai WHERE a.tanggal BETWEEN :firstDay AND :lastDay";
+
+    $jadwalDokter = fetchAll($query, ['firstDay' => $firstDay, 'lastDay' => $lastDay]);
+
+    return $jadwalDokter;
+}
+
 function getJadwalDokterById($jdId) {
     $subQuery = 'SELECT jd.id_jadwal_dokter,jd.id_dokter,jd.tanggal,jd.waktu_mulai,jd.waktu_selesai,jd.shift,d.id_pegawai,d.spesialisasi,d.poli,d.no_sip  FROM jadwal_dokter jd LEFT JOIN dokter d ON jd.id_dokter = d.id_dokter';
 

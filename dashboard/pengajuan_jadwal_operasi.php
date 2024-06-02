@@ -7,7 +7,7 @@ require_once './utils/utils.php';
 
 $isAuthorized = authorization([
     'role' => [Role::ADMIN, Role::ATASAN]
-]) || authorization(['profesi' => Profesi::DOKTER]);
+]) || authorization(['profesi' => [Profesi::DOKTER, Profesi::PERAWAT]]);
 
 if (!$isAuthorized) {
     redirect('./');

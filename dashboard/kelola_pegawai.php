@@ -78,7 +78,7 @@ $userSelect = getUsersWithNoPegawai();
                                                             </div>
                                                             <div class="col-12">
                                                                 <label for="no_telepon" class="form-label">No. Telepon</label>
-                                                                <input type="text" class="form-control" id="no_telepon" name="no_telepon" autocomplete="off" required>
+                                                                <input type="text" maxlength="13" class="form-control" id="no_telepon" name="no_telepon" autocomplete="off" required>
                                                             </div>
                                                             <div class="col-12">
                                                                 <label for="id_user" class="form-label">User</label>

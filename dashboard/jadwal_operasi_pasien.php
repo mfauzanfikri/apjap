@@ -8,7 +8,7 @@ require_once './utils/utils.php';
 $isAuthorized = authorization([
     'profesi' => Profesi::DOKTER
 ]) || authorization([
-    'role' => Role::ADMIN
+    'role' => [Role::ADMIN, Role::ATASAN]
 ]);
 
 if (!$isAuthorized) {
@@ -81,7 +81,7 @@ $jadwalOperasi = getJadwalOperasi();
                                     <tbody>
                                         <?php foreach ($jadwalOperasi as $jo) : ?>
                                             <?php if ($jo['status'] === 'proses') continue; ?>
-                                            <?php if ($_SESSION['role'] !== Role::ADMIN) : ?>
+                                            <?php if ($_SESSION['role'] !== Role::ADMIN && $_SESSION['role'] !== Role::ATASAN) : ?>
                                                 <?php if ($jo['nip_dokter'] !== $_SESSION['nip']) continue; ?>
                                             <?php endif; ?>
                                             <tr>

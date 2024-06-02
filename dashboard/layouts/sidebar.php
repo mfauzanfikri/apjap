@@ -92,11 +92,9 @@
 
         <?php endif; ?>
 
-        <?php if (!authorization(['role' => Role::ATASAN]) || authorization(['profesi' => [Profesi::DOKTER, Profesi::PERAWAT]])) : ?>
-            <li class="nav-heading">Jadwal Kerja</li>
-        <?php endif; ?>
+        <li class="nav-heading">Jadwal Kerja</li>
 
-        <?php if (authorization(['role' => Role::ADMIN]) || authorization(['profesi' => Profesi::DOKTER])) : ?>
+        <?php if (authorization(['role' => [Role::ADMIN, Role::ATASAN]]) || authorization(['profesi' => Profesi::DOKTER])) : ?>
             <li class="nav-item">
                 <a class="nav-link <?= $url === '/dashboard/jadwal_dokter.php' || $url === '/apkjadwal/dashboard/jadwal_dokter.php' ? '' : 'collapsed' ?>" href="jadwal_dokter.php">
                     <i class="bi bi-calendar-plus"></i>
@@ -105,7 +103,7 @@
             </li>
         <?php endif; ?>
 
-        <?php if (authorization(['role' => Role::ADMIN]) || authorization(['profesi' => Profesi::PERAWAT])) : ?>
+        <?php if (authorization(['role' => [Role::ADMIN, Role::ATASAN]]) || authorization(['profesi' => Profesi::PERAWAT])) : ?>
             <li class="nav-item">
                 <a class="nav-link <?= $url === '/dashboard/jadwal_perawat.php' || $url === '/apkjadwal/dashboard/jadwal_perawat.php' ? '' : 'collapsed' ?>" href="jadwal_perawat.php">
                     <i class="bi bi-calendar-plus-fill"></i>
@@ -114,7 +112,7 @@
             </li>
         <?php endif; ?>
 
-        <?php if (authorization(['role' => Role::ADMIN]) || authorization(['profesi' => Profesi::DOKTER])) : ?>
+        <?php if (authorization(['role' => [Role::ADMIN, Role::ATASAN]]) || authorization(['profesi' => Profesi::DOKTER])) : ?>
             <li class="nav-item">
                 <a class="nav-link <?= $url === '/dashboard/jadwal_pemeriksaan_pasien.php' || $url === '/apkjadwal/dashboard/jadwal_pemeriksaan_pasien.php' ? '' : 'collapsed' ?>" href="jadwal_pemeriksaan_pasien.php">
                     <i class="bi bi-calendar3-event"></i>

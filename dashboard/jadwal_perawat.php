@@ -10,7 +10,7 @@ checkNotifikasiJadwalPerawat();
 $isAuthorized = authorization([
     'profesi' => Profesi::PERAWAT
 ]) || authorization([
-    'role' => Role::ADMIN
+    'role' => [Role::ADMIN, Role::ATASAN]
 ]);
 
 if (!$isAuthorized) {
@@ -86,7 +86,7 @@ $jadwalPerawat = getJadwalPerawat();
                                     <tbody>
                                         <?php foreach ($jadwalPerawat as $jp) : ?>
                                             <?php if ($jp['status'] === 'proses') continue; ?>
-                                            <?php if ($_SESSION['role'] !== Role::ADMIN) : ?>
+                                            <?php if ($_SESSION['role'] !== Role::ADMIN && $_SESSION['role'] !== Role::ATASAN) : ?>
                                                 <?php if ($jp['nip'] !== $_SESSION['nip']) continue; ?>
                                             <?php endif; ?>
                                             <tr>

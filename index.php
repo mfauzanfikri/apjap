@@ -8,6 +8,15 @@ session_start();
 
 <main id="main">
 
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center" style="background-image: url('assets/img/hero-bg.png');">
+        <div class="container">
+            <h1>Selamat Datang di RSUD Ogan Ilir</h1>
+            <h2>Kami melayani pasien dengan sepenuh hati</h2>
+            <a href="#about" class="btn-get-started scrollto">Periksa Sekarang</a>
+        </div>
+    </section><!-- End Hero -->
+
     <!-- ======= Why Us Section ======= -->
     <section id="why-us" class="why-us">
         <div class="container">

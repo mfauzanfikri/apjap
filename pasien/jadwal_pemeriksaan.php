@@ -84,9 +84,10 @@ $jadwalPemeriksaan = getJadwalPemeriksaan();
                                                                 <label for="shift" class="form-label">Waktu</label>
                                                                 <select id="shift" class="form-select" name="shift" required>
                                                                     <option selected disabled value="0">Pilih Waktu</option>
-                                                                    <option value="pagi">08:00 WIB</option>
-                                                                    <option value="siang">14:00 WIB</option>
-                                                                    <option value="malam">19:00 WIB</option>
+                                                                    <option value="<?= ShiftDokter::JADWAL_SATU_SYMBOL ?>"><?= ShiftDokter::JADWAL_SATU['waktu_mulai'] ?> WIB</option>
+                                                                    <option value="<?= ShiftDokter::JADWAL_DUA_SYMBOL ?>"><?= ShiftDokter::JADWAL_DUA['waktu_mulai'] ?> WIB</option>
+                                                                    <option value="<?= ShiftDokter::JADWAL_TIGA_SYMBOL ?>"><?= ShiftDokter::JADWAL_SATU['waktu_mulai'] ?> WIB</option>
+                                                                    <option value="<?= ShiftDokter::JADWAL_EMPAT_SYMBOL ?>"><?= ShiftDokter::JADWAL_SATU['waktu_mulai'] ?> WIB</option>
                                                                 </select>
                                                             </div>
                                                         </div>

@@ -93,9 +93,13 @@ class Profesi {
 
 class ShiftDokter {
     const JADWAL_SATU = ['waktu_mulai' => '09:00', 'waktu_selesai' => '13:00'];
+    const JADWAL_SATU_SYMBOL = 'satu';
     const JADWAL_DUA = ['waktu_mulai' => '09:00', 'waktu_selesai' => '12:00'];
+    const JADWAL_DUA_SYMBOL = 'dua';
     const JADWAL_TIGA = ['waktu_mulai' => '10:30', 'waktu_selesai' => '13:00'];
+    const JADWAL_TIGA_SYMBOL = 'tiga';
     const JADWAL_EMPAT = ['waktu_mulai' => '13:00', 'waktu_selesai' => '16:00'];
+    const JADWAL_EMPAT_SYMBOL = 'empat';
 }
 
 class ShiftPerawat {

@@ -322,10 +322,10 @@ $jadwalDokter = getJadwalDokter();
                                                                         <label for="waktu" class="form-label">Waktu</label>
                                                                         <select id="waktu" class="form-select" name="waktu">
                                                                             <option selected disabled value="0">Pilih Waktu</option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_SATU ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_DUA ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_TIGA ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_EMPAT ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_SATU) ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_DUA) ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -524,10 +524,10 @@ $jadwalDokter = getJadwalDokter();
                                                                         <label for="waktu" class="form-label">Waktu</label>
                                                                         <select id="waktu" class="form-select" name="waktu">
                                                                             <option selected disabled value="0">Pilih Waktu</option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_SATU ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_DUA ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_TIGA ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_EMPAT ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_SATU) ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_DUA) ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -726,10 +726,10 @@ $jadwalDokter = getJadwalDokter();
                                                                         <label for="waktu" class="form-label">Waktu</label>
                                                                         <select id="waktu" class="form-select" name="waktu">
                                                                             <option selected disabled value="0">Pilih Waktu</option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_SATU ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_DUA ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_TIGA ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_EMPAT ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_SATU) ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_DUA) ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -928,10 +928,10 @@ $jadwalDokter = getJadwalDokter();
                                                                         <label for="waktu" class="form-label">Waktu</label>
                                                                         <select id="waktu" class="form-select" name="waktu">
                                                                             <option selected disabled value="0">Pilih Waktu</option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_SATU ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_DUA ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_TIGA ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_EMPAT ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_SATU) ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_DUA) ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -1130,10 +1130,10 @@ $jadwalDokter = getJadwalDokter();
                                                                         <label for="waktu" class="form-label">Waktu</label>
                                                                         <select id="waktu" class="form-select" name="waktu">
                                                                             <option selected disabled value="0">Pilih Waktu</option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_SATU ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_DUA ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_TIGA ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
-                                                                            <option value="<?= ShiftDokter::JADWAL_EMPAT ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_SATU) ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_DUA) ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                         </select>
                                                                     </div>
                                                                 </div>

@@ -15,7 +15,26 @@ foreach ($inputFields as $field) {
 }
 
 ['id_pasien' => $pasienId, 'poli' => $poli, 'tanggal' => $tanggal, 'shift' => $shift] = $_POST;
-$waktu = $shift === 'pagi' ? '08:00' : ($shift === 'siang' ? '14:00' : '19:00');
+
+$waktu = '09:00';
+
+switch ($shift) {
+    case ShiftDokter::JADWAL_SATU_SYMBOL:
+        $waktu = ShiftDokter::JADWAL_SATU['waktu_mulai'];
+        break;
+
+    case ShiftDokter::JADWAL_DUA_SYMBOL:
+        $waktu = ShiftDokter::JADWAL_DUA['waktu_mulai'];
+        break;
+
+    case ShiftDokter::JADWAL_TIGA_SYMBOL:
+        $waktu = ShiftDokter::JADWAL_TIGA['waktu_mulai'];
+        break;
+
+    case ShiftDokter::JADWAL_EMPAT_SYMBOL:
+        $waktu = ShiftDokter::JADWAL_EMPAT['waktu_mulai'];
+        break;
+}
 
 $jadwalDokter = getSpecificJadwalDokter($tanggal, $poli, $shift);
 

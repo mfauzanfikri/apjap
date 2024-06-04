@@ -99,18 +99,14 @@ $jadwalDokter = getJadwalDokter();
                                                         <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                             <input type="hidden" value="tambah" name="jenis">
                                                             <div class="modal-body">
-                                                                <div class="alert alert-warning" role="alert">
-                                                                    Kolom jadwal praktek dokter harus diisi minimal satu.
-                                                                </div>
-
                                                                 <div class="row gap-3">
                                                                     <div class="col-12">
-                                                                        <label for="tanggal">Tanggal</label>
+                                                                        <label for="tanggal" class="form-label">Tanggal</label>
                                                                         <input id="tanggal" class="form-control" type="date" name="tanggal" required />
                                                                     </div>
                                                                     <div class="col-12">
-                                                                        <label for="id_dokter_1" class="form-label">Dokter Praktek Pagi (08:00 - 10:00)</label>
-                                                                        <select id="id_dokter_1" class="form-select" name="id_dokter_1">
+                                                                        <label for="id_dokter" class="form-label">Dokter Praktek</label>
+                                                                        <select id="id_dokter" class="form-select" name="id_dokter">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
                                                                                 <?php if ($d['poli'] !== 'Gigi' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
@@ -121,27 +117,13 @@ $jadwalDokter = getJadwalDokter();
                                                                         </select>
                                                                     </div>
                                                                     <div class="col-12">
-                                                                        <label for="id_dokter_2" class="form-label">Dokter Praktek Siang (14:00 - 16:00)</label>
-                                                                        <select id="id_dokter_2" class="form-select" name="id_dokter_2">
-                                                                            <option selected disabled value="0">Pilih Dokter</option>
-                                                                            <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Gigi' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
-                                                                                    continue;
-                                                                                } ?>
-                                                                                <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
-                                                                            <?php endforeach; ?>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <label for="id_dokter_3" class="form-label">Dokter Praktek Malam (19:00 - 21:00)</label>
-                                                                        <select id="id_dokter_3" class="form-select" name="id_dokter_3">
-                                                                            <option selected disabled value="0">Pilih Dokter</option>
-                                                                            <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Gigi' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
-                                                                                    continue;
-                                                                                } ?>
-                                                                                <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
-                                                                            <?php endforeach; ?>
+                                                                        <label for="waktu" class="form-label">Waktu</label>
+                                                                        <select id="waktu" class="form-select" name="waktu">
+                                                                            <option selected disabled value="0">Pilih Waktu</option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_SATU) ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_DUA) ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                            <option value="<?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -223,7 +205,7 @@ $jadwalDokter = getJadwalDokter();
 
                                                                                     <div class="row gap-3">
                                                                                         <div class="col">
-                                                                                            <label for="tanggal" class="form-label">Tanggal</label>
+                                                                                            <label for="tanggal" class="form-label" class="form-label">Tanggal</label>
                                                                                             <input type="date" class="form-control" name="tanggal" id="tanggal">
                                                                                         </div>
                                                                                         <div class="col-12">
@@ -242,10 +224,11 @@ $jadwalDokter = getJadwalDokter();
                                                                                         <div class="col-12">
                                                                                             <label for="waktu" class="form-label">Waktu</label>
                                                                                             <select id="waktu" class="form-select" name="waktu">
-                                                                                                <option selected value="0">Pilih Waktu</option>
-                                                                                                <option value="pagi">Pagi 08:00 - 16:00 WIB</option>
-                                                                                                <option value="siang">Siang 14:00:00 - 16:00:00 WIB</option>
-                                                                                                <option value="malam">Malam 19:00:00 - 21:00:00 WIB</option>
+                                                                                                <option selected disabled value="0">Pilih Waktu</option>
+                                                                                                <option value="JADWAL_SATU"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                                                <option value="JADWAL_DUA"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                                                <option value="JADWAL_TIGA"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                                                <option value="JADWAL_EMPAT"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                                             </select>
                                                                                         </div>
                                                                                     </div>
@@ -318,18 +301,14 @@ $jadwalDokter = getJadwalDokter();
                                                         <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                             <input type="hidden" value="tambah" name="jenis">
                                                             <div class="modal-body">
-                                                                <div class="alert alert-warning" role="alert">
-                                                                    Kolom jadwal praktek dokter harus diisi minimal satu.
-                                                                </div>
-
                                                                 <div class="row gap-3">
                                                                     <div class="col-12">
-                                                                        <label for="tanggal">Tanggal</label>
+                                                                        <label for="tanggal" class="form-label">Tanggal</label>
                                                                         <input id="tanggal" class="form-control" type="date" name="tanggal" required />
                                                                     </div>
                                                                     <div class="col-12">
-                                                                        <label for="id_dokter_1" class="form-label">Dokter Praktek Pagi (08:00 - 10:00)</label>
-                                                                        <select id="id_dokter_1" class="form-select" name="id_dokter_1">
+                                                                        <label for="id_dokter" class="form-label">Dokter Praktek</label>
+                                                                        <select id="id_dokter" class="form-select" name="id_dokter">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
                                                                                 <?php if ($d['poli'] !== 'THT' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
@@ -340,27 +319,13 @@ $jadwalDokter = getJadwalDokter();
                                                                         </select>
                                                                     </div>
                                                                     <div class="col-12">
-                                                                        <label for="id_dokter_2" class="form-label">Dokter Praktek Siang (14:00 - 16:00)</label>
-                                                                        <select id="id_dokter_2" class="form-select" name="id_dokter_2">
-                                                                            <option selected disabled value="0">Pilih Dokter</option>
-                                                                            <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'THT' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
-                                                                                    continue;
-                                                                                } ?>
-                                                                                <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
-                                                                            <?php endforeach; ?>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <label for="id_dokter_3" class="form-label">Dokter Praktek Malam (19:00 - 21:00)</label>
-                                                                        <select id="id_dokter_3" class="form-select" name="id_dokter_3">
-                                                                            <option selected disabled value="0">Pilih Dokter</option>
-                                                                            <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'THT' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
-                                                                                    continue;
-                                                                                } ?>
-                                                                                <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
-                                                                            <?php endforeach; ?>
+                                                                        <label for="waktu" class="form-label">Waktu</label>
+                                                                        <select id="waktu" class="form-select" name="waktu">
+                                                                            <option selected disabled value="0">Pilih Waktu</option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_SATU ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_DUA ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_TIGA ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_EMPAT ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -442,7 +407,7 @@ $jadwalDokter = getJadwalDokter();
 
                                                                                     <div class="row gap-3">
                                                                                         <div class="col">
-                                                                                            <label for="tanggal" class="form-label">Tanggal</label>
+                                                                                            <label for="tanggal" class="form-label" class="form-label">Tanggal</label>
                                                                                             <input type="date" class="form-control" name="tanggal" id="tanggal">
                                                                                         </div>
                                                                                         <div class="col-12">
@@ -461,10 +426,11 @@ $jadwalDokter = getJadwalDokter();
                                                                                         <div class="col-12">
                                                                                             <label for="waktu" class="form-label">Waktu</label>
                                                                                             <select id="waktu" class="form-select" name="waktu">
-                                                                                                <option selected value="0">Pilih Waktu</option>
-                                                                                                <option value="pagi">Pagi 08:00 - 16:00 WIB</option>
-                                                                                                <option value="siang">Siang 14:00:00 - 16:00:00 WIB</option>
-                                                                                                <option value="malam">Malam 19:00:00 - 21:00:00 WIB</option>
+                                                                                                <option selected disabled value="0">Pilih Waktu</option>
+                                                                                                <option value="JADWAL_SATU"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                                                <option value="JADWAL_DUA"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                                                <option value="JADWAL_TIGA"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                                                <option value="JADWAL_EMPAT"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                                             </select>
                                                                                         </div>
                                                                                     </div>
@@ -537,18 +503,14 @@ $jadwalDokter = getJadwalDokter();
                                                         <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                             <input type="hidden" value="tambah" name="jenis">
                                                             <div class="modal-body">
-                                                                <div class="alert alert-warning" role="alert">
-                                                                    Kolom jadwal praktek dokter harus diisi minimal satu.
-                                                                </div>
-
                                                                 <div class="row gap-3">
                                                                     <div class="col-12">
-                                                                        <label for="tanggal">Tanggal</label>
+                                                                        <label for="tanggal" class="form-label">Tanggal</label>
                                                                         <input id="tanggal" class="form-control" type="date" name="tanggal" required />
                                                                     </div>
                                                                     <div class="col-12">
-                                                                        <label for="id_dokter_1" class="form-label">Dokter Praktek Pagi (08:00 - 10:00)</label>
-                                                                        <select id="id_dokter_1" class="form-select" name="id_dokter_1">
+                                                                        <label for="id_dokter" class="form-label">Dokter Praktek</label>
+                                                                        <select id="id_dokter" class="form-select" name="id_dokter">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
                                                                                 <?php if ($d['poli'] !== 'PDL' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
@@ -559,27 +521,13 @@ $jadwalDokter = getJadwalDokter();
                                                                         </select>
                                                                     </div>
                                                                     <div class="col-12">
-                                                                        <label for="id_dokter_2" class="form-label">Dokter Praktek Siang (14:00 - 16:00)</label>
-                                                                        <select id="id_dokter_2" class="form-select" name="id_dokter_2">
-                                                                            <option selected disabled value="0">Pilih Dokter</option>
-                                                                            <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'PDL' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
-                                                                                    continue;
-                                                                                } ?>
-                                                                                <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
-                                                                            <?php endforeach; ?>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <label for="id_dokter_3" class="form-label">Dokter Praktek Malam (19:00 - 21:00)</label>
-                                                                        <select id="id_dokter_3" class="form-select" name="id_dokter_3">
-                                                                            <option selected disabled value="0">Pilih Dokter</option>
-                                                                            <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'PDL' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
-                                                                                    continue;
-                                                                                } ?>
-                                                                                <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
-                                                                            <?php endforeach; ?>
+                                                                        <label for="waktu" class="form-label">Waktu</label>
+                                                                        <select id="waktu" class="form-select" name="waktu">
+                                                                            <option selected disabled value="0">Pilih Waktu</option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_SATU ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_DUA ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_TIGA ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_EMPAT ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -661,7 +609,7 @@ $jadwalDokter = getJadwalDokter();
 
                                                                                     <div class="row gap-3">
                                                                                         <div class="col">
-                                                                                            <label for="tanggal" class="form-label">Tanggal</label>
+                                                                                            <label for="tanggal" class="form-label" class="form-label">Tanggal</label>
                                                                                             <input type="date" class="form-control" name="tanggal" id="tanggal">
                                                                                         </div>
                                                                                         <div class="col-12">
@@ -680,10 +628,11 @@ $jadwalDokter = getJadwalDokter();
                                                                                         <div class="col-12">
                                                                                             <label for="waktu" class="form-label">Waktu</label>
                                                                                             <select id="waktu" class="form-select" name="waktu">
-                                                                                                <option selected value="0">Pilih Waktu</option>
-                                                                                                <option value="pagi">Pagi 08:00 - 16:00 WIB</option>
-                                                                                                <option value="siang">Siang 14:00:00 - 16:00:00 WIB</option>
-                                                                                                <option value="malam">Malam 19:00:00 - 21:00:00 WIB</option>
+                                                                                                <option selected disabled value="0">Pilih Waktu</option>
+                                                                                                <option value="JADWAL_SATU"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                                                <option value="JADWAL_DUA"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                                                <option value="JADWAL_TIGA"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                                                <option value="JADWAL_EMPAT"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                                             </select>
                                                                                         </div>
                                                                                     </div>
@@ -756,18 +705,14 @@ $jadwalDokter = getJadwalDokter();
                                                         <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                             <input type="hidden" value="tambah" name="jenis">
                                                             <div class="modal-body">
-                                                                <div class="alert alert-warning" role="alert">
-                                                                    Kolom jadwal praktek dokter harus diisi minimal satu.
-                                                                </div>
-
                                                                 <div class="row gap-3">
                                                                     <div class="col-12">
-                                                                        <label for="tanggal">Tanggal</label>
+                                                                        <label for="tanggal" class="form-label">Tanggal</label>
                                                                         <input id="tanggal" class="form-control" type="date" name="tanggal" required />
                                                                     </div>
                                                                     <div class="col-12">
-                                                                        <label for="id_dokter_1" class="form-label">Dokter Praktek Pagi (08:00 - 10:00)</label>
-                                                                        <select id="id_dokter_1" class="form-select" name="id_dokter_1">
+                                                                        <label for="id_dokter" class="form-label">Dokter Praktek</label>
+                                                                        <select id="id_dokter" class="form-select" name="id_dokter">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
                                                                                 <?php if ($d['poli'] !== 'Anak' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
@@ -778,27 +723,13 @@ $jadwalDokter = getJadwalDokter();
                                                                         </select>
                                                                     </div>
                                                                     <div class="col-12">
-                                                                        <label for="id_dokter_2" class="form-label">Dokter Praktek Siang (14:00 - 16:00)</label>
-                                                                        <select id="id_dokter_2" class="form-select" name="id_dokter_2">
-                                                                            <option selected disabled value="0">Pilih Dokter</option>
-                                                                            <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Anak' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
-                                                                                    continue;
-                                                                                } ?>
-                                                                                <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
-                                                                            <?php endforeach; ?>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <label for="id_dokter_3" class="form-label">Dokter Praktek Malam (19:00 - 21:00)</label>
-                                                                        <select id="id_dokter_3" class="form-select" name="id_dokter_3">
-                                                                            <option selected disabled value="0">Pilih Dokter</option>
-                                                                            <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Anak' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
-                                                                                    continue;
-                                                                                } ?>
-                                                                                <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
-                                                                            <?php endforeach; ?>
+                                                                        <label for="waktu" class="form-label">Waktu</label>
+                                                                        <select id="waktu" class="form-select" name="waktu">
+                                                                            <option selected disabled value="0">Pilih Waktu</option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_SATU ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_DUA ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_TIGA ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_EMPAT ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -880,7 +811,7 @@ $jadwalDokter = getJadwalDokter();
 
                                                                                     <div class="row gap-3">
                                                                                         <div class="col">
-                                                                                            <label for="tanggal" class="form-label">Tanggal</label>
+                                                                                            <label for="tanggal" class="form-label" class="form-label">Tanggal</label>
                                                                                             <input type="date" class="form-control" name="tanggal" id="tanggal">
                                                                                         </div>
                                                                                         <div class="col-12">
@@ -899,10 +830,11 @@ $jadwalDokter = getJadwalDokter();
                                                                                         <div class="col-12">
                                                                                             <label for="waktu" class="form-label">Waktu</label>
                                                                                             <select id="waktu" class="form-select" name="waktu">
-                                                                                                <option selected value="0">Pilih Waktu</option>
-                                                                                                <option value="pagi">Pagi 08:00 - 16:00 WIB</option>
-                                                                                                <option value="siang">Siang 14:00:00 - 16:00:00 WIB</option>
-                                                                                                <option value="malam">Malam 19:00:00 - 21:00:00 WIB</option>
+                                                                                                <option selected disabled value="0">Pilih Waktu</option>
+                                                                                                <option value="JADWAL_SATU"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                                                <option value="JADWAL_DUA"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                                                <option value="JADWAL_TIGA"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                                                <option value="JADWAL_EMPAT"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                                             </select>
                                                                                         </div>
                                                                                     </div>
@@ -975,18 +907,14 @@ $jadwalDokter = getJadwalDokter();
                                                         <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                             <input type="hidden" value="tambah" name="jenis">
                                                             <div class="modal-body">
-                                                                <div class="alert alert-warning" role="alert">
-                                                                    Kolom jadwal praktek dokter harus diisi minimal satu.
-                                                                </div>
-
                                                                 <div class="row gap-3">
                                                                     <div class="col-12">
-                                                                        <label for="tanggal">Tanggal</label>
+                                                                        <label for="tanggal" class="form-label">Tanggal</label>
                                                                         <input id="tanggal" class="form-control" type="date" name="tanggal" required />
                                                                     </div>
                                                                     <div class="col-12">
-                                                                        <label for="id_dokter_1" class="form-label">Dokter Praktek Pagi (08:00 - 10:00)</label>
-                                                                        <select id="id_dokter_1" class="form-select" name="id_dokter_1">
+                                                                        <label for="id_dokter" class="form-label">Dokter Praktek</label>
+                                                                        <select id="id_dokter" class="form-select" name="id_dokter">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
                                                                                 <?php if ($d['poli'] !== 'Saraf') {
@@ -997,27 +925,13 @@ $jadwalDokter = getJadwalDokter();
                                                                         </select>
                                                                     </div>
                                                                     <div class="col-12">
-                                                                        <label for="id_dokter_2" class="form-label">Dokter Praktek Siang (14:00 - 16:00)</label>
-                                                                        <select id="id_dokter_2" class="form-select" name="id_dokter_2">
-                                                                            <option selected disabled value="0">Pilih Dokter</option>
-                                                                            <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Saraf') {
-                                                                                    continue;
-                                                                                } ?>
-                                                                                <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
-                                                                            <?php endforeach; ?>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <label for="id_dokter_3" class="form-label">Dokter Praktek Malam (19:00 - 21:00)</label>
-                                                                        <select id="id_dokter_3" class="form-select" name="id_dokter_3">
-                                                                            <option selected disabled value="0">Pilih Dokter</option>
-                                                                            <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Saraf') {
-                                                                                    continue;
-                                                                                } ?>
-                                                                                <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
-                                                                            <?php endforeach; ?>
+                                                                        <label for="waktu" class="form-label">Waktu</label>
+                                                                        <select id="waktu" class="form-select" name="waktu">
+                                                                            <option selected disabled value="0">Pilih Waktu</option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_SATU ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_DUA ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_TIGA ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_EMPAT ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -1099,7 +1013,7 @@ $jadwalDokter = getJadwalDokter();
 
                                                                                     <div class="row gap-3">
                                                                                         <div class="col">
-                                                                                            <label for="tanggal" class="form-label">Tanggal</label>
+                                                                                            <label for="tanggal" class="form-label" class="form-label">Tanggal</label>
                                                                                             <input type="date" class="form-control" name="tanggal" id="tanggal">
                                                                                         </div>
                                                                                         <div class="col-12">
@@ -1118,10 +1032,11 @@ $jadwalDokter = getJadwalDokter();
                                                                                         <div class="col-12">
                                                                                             <label for="waktu" class="form-label">Waktu</label>
                                                                                             <select id="waktu" class="form-select" name="waktu">
-                                                                                                <option selected value="0">Pilih Waktu</option>
-                                                                                                <option value="pagi">Pagi 08:00 - 16:00 WIB</option>
-                                                                                                <option value="siang">Siang 14:00:00 - 16:00:00 WIB</option>
-                                                                                                <option value="malam">Malam 19:00:00 - 21:00:00 WIB</option>
+                                                                                                <option selected disabled value="0">Pilih Waktu</option>
+                                                                                                <option value="JADWAL_SATU"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                                                <option value="JADWAL_DUA"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                                                <option value="JADWAL_TIGA"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                                                <option value="JADWAL_EMPAT"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                                             </select>
                                                                                         </div>
                                                                                     </div>
@@ -1194,18 +1109,14 @@ $jadwalDokter = getJadwalDokter();
                                                         <form action="./actions/kelola_jadwal_dokter.php" method="post">
                                                             <input type="hidden" value="tambah" name="jenis">
                                                             <div class="modal-body">
-                                                                <div class="alert alert-warning" role="alert">
-                                                                    Kolom jadwal praktek dokter harus diisi minimal satu.
-                                                                </div>
-
                                                                 <div class="row gap-3">
                                                                     <div class="col-12">
-                                                                        <label for="tanggal">Tanggal</label>
+                                                                        <label for="tanggal" class="form-label">Tanggal</label>
                                                                         <input id="tanggal" class="form-control" type="date" name="tanggal" required />
                                                                     </div>
                                                                     <div class="col-12">
-                                                                        <label for="id_dokter_1" class="form-label">Dokter Praktek Pagi (08:00 - 10:00)</label>
-                                                                        <select id="id_dokter_1" class="form-select" name="id_dokter_1">
+                                                                        <label for="id_dokter" class="form-label">Dokter Praktek</label>
+                                                                        <select id="id_dokter" class="form-select" name="id_dokter">
                                                                             <option selected disabled value="0">Pilih Dokter</option>
                                                                             <?php foreach ($dokter as $d) : ?>
                                                                                 <?php if ($d['poli'] !== 'Mata' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
@@ -1216,27 +1127,13 @@ $jadwalDokter = getJadwalDokter();
                                                                         </select>
                                                                     </div>
                                                                     <div class="col-12">
-                                                                        <label for="id_dokter_2" class="form-label">Dokter Praktek Siang (14:00 - 16:00)</label>
-                                                                        <select id="id_dokter_2" class="form-select" name="id_dokter_2">
-                                                                            <option selected disabled value="0">Pilih Dokter</option>
-                                                                            <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Mata' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
-                                                                                    continue;
-                                                                                } ?>
-                                                                                <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
-                                                                            <?php endforeach; ?>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <label for="id_dokter_3" class="form-label">Dokter Praktek Malam (19:00 - 21:00)</label>
-                                                                        <select id="id_dokter_3" class="form-select" name="id_dokter_3">
-                                                                            <option selected disabled value="0">Pilih Dokter</option>
-                                                                            <?php foreach ($dokter as $d) : ?>
-                                                                                <?php if ($d['poli'] !== 'Mata' || $d['status_pegawai'] === 'cuti' || getLiburTodayByPegawaiId($d['id_pegawai']) !== false) {
-                                                                                    continue;
-                                                                                } ?>
-                                                                                <option value="<?= $d['id_dokter'] ?>"><?= $d['nama'] ?>/<?= $d['nip'] ?></option>
-                                                                            <?php endforeach; ?>
+                                                                        <label for="waktu" class="form-label">Waktu</label>
+                                                                        <select id="waktu" class="form-select" name="waktu">
+                                                                            <option selected disabled value="0">Pilih Waktu</option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_SATU ?>"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_DUA ?>"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_TIGA ?>"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                            <option value="<?= ShiftDokter::JADWAL_EMPAT ?>"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -1318,7 +1215,7 @@ $jadwalDokter = getJadwalDokter();
 
                                                                                     <div class="row gap-3">
                                                                                         <div class="col">
-                                                                                            <label for="tanggal" class="form-label">Tanggal</label>
+                                                                                            <label for="tanggal" class="form-label" class="form-label">Tanggal</label>
                                                                                             <input type="date" class="form-control" name="tanggal" id="tanggal">
                                                                                         </div>
                                                                                         <div class="col-12">
@@ -1337,10 +1234,11 @@ $jadwalDokter = getJadwalDokter();
                                                                                         <div class="col-12">
                                                                                             <label for="waktu" class="form-label">Waktu</label>
                                                                                             <select id="waktu" class="form-select" name="waktu">
-                                                                                                <option selected value="0">Pilih Waktu</option>
-                                                                                                <option value="pagi">Pagi 08:00 - 16:00 WIB</option>
-                                                                                                <option value="siang">Siang 14:00:00 - 16:00:00 WIB</option>
-                                                                                                <option value="malam">Malam 19:00:00 - 21:00:00 WIB</option>
+                                                                                                <option selected disabled value="0">Pilih Waktu</option>
+                                                                                                <option value="JADWAL_SATU"><?= implode(" - ", ShiftDokter::JADWAL_SATU) ?></option>
+                                                                                                <option value="JADWAL_DUA"><?= implode(" - ", ShiftDokter::JADWAL_DUA) ?></option>
+                                                                                                <option value="JADWAL_TIGA"><?= implode(" - ", ShiftDokter::JADWAL_TIGA) ?></option>
+                                                                                                <option value="JADWAL_EMPAT"><?= implode(" - ", ShiftDokter::JADWAL_EMPAT) ?></option>
                                                                                             </select>
                                                                                         </div>
                                                                                     </div>

@@ -5,7 +5,7 @@ session_start();
 require_once '../services/db.php';
 require_once '../utils/utils.php';
 
-$allowedFields = ['id_dokter', 'tanggal', 'waktu_mulai', 'waktu_selesai', 'shift'];
+$allowedFields = ['id_dokter', 'tanggal', 'waktu'];
 
 if (isset($_POST['submit'])) {
 
@@ -13,52 +13,59 @@ if (isset($_POST['submit'])) {
 
     switch ($_POST['jenis']) {
         case 'tambah':
-            // validation
-            if (!isset($_POST['tanggal'])) {
-                $_SESSION['errorMsg'] = 'Kolom tanggal harus diisi.';
-                redirect('../kelola_jadwal_dokter.php');
+            $dataTemp = [];
+            $isValid = true;
+
+            foreach ($allowedFields as $field) {
+                $isValid = isset($_POST[$field]);
+
+                if (isset($_POST[$field]) && $_POST[$field] === "0") {
+                    $isValid = false;
+                }
+
+                if (!$isValid) {
+                    break;
+                }
+
+                $dataTemp[$field] = $_POST[$field];
             }
 
-            if (!isset($_POST['id_dokter_1']) && !isset($_POST['id_dokter_2']) && !isset($_POST['id_dokter_3'])) {
-                $_SESSION['errorMsg'] = 'Jadwal praktek dokter harus diisi minimal satu.';
-                redirect('../kelola_jadwal_dokter.php');
+            if (!$isValid) {
+                $_SESSION['errorMsg'] = 'Semua kolom harus diisi.';
+                redirect('../kelola_perawat.php');
             }
 
-            $data = [];
+            $waktu = explode(' - ', $dataTemp['waktu']);
 
-            if (isset($_POST['id_dokter_1'])) {
-                $data['pagi'] = [
-                    'id_dokter' => $_POST['id_dokter_1'],
-                    'tanggal' => $_POST['tanggal'],
-                    'waktu_mulai' => '08:00',
-                    'waktu_selesai' => '10:00',
-                    'shift' => 'pagi'
-                ];
+            $shift = 'satu';
+
+            switch ($dataTemp['waktu']) {
+                case implode(' - ', ShiftDokter::JADWAL_SATU):
+                    $shift = 'satu';
+                    break;
+
+                case implode(' - ', ShiftDokter::JADWAL_DUA):
+                    $shift = 'dua';
+                    break;
+
+                case implode(' - ', ShiftDokter::JADWAL_TIGA):
+                    $shift = 'tiga';
+                    break;
+
+                case implode(' - ', ShiftDokter::JADWAL_EMPAT):
+                    $shift = 'empat';
+                    break;
             }
 
-            if (isset($_POST['id_dokter_2'])) {
-                $data['siang'] = [
-                    'id_dokter' => $_POST['id_dokter_2'],
-                    'tanggal' => $_POST['tanggal'],
-                    'waktu_mulai' => '14:00',
-                    'waktu_selesai' => '16:00',
-                    'shift' => 'siang'
-                ];
-            }
+            $data = [
+                'id_dokter' => $dataTemp['id_dokter'],
+                'tanggal' => $dataTemp['tanggal'],
+                'waktu_mulai' => $waktu[0],
+                'waktu_selesai' => $waktu[1],
+                'shift' => $shift
+            ];
 
-            if (isset($_POST['id_dokter_3'])) {
-                $data['malam'] = [
-                    'id_dokter' => $_POST['id_dokter_3'],
-                    'tanggal' => $_POST['tanggal'],
-                    'waktu_mulai' => '19:00',
-                    'waktu_selesai' => '21:00',
-                    'shift' => 'malam'
-                ];
-            }
-
-            foreach ($data as $d) {
-                addJadwalDokter($d);
-            }
+            addJadwalDokter($data);
 
             $_SESSION['successMsg'] = 'Jadwal dokter berhasil ditambahkan.';
 
@@ -82,22 +89,31 @@ if (isset($_POST['submit'])) {
 
             if (isset($_POST['waktu']) && $_POST['waktu'] !== '0') {
                 switch ($_POST['waktu']) {
-                    case 'pagi':
-                        $data['waktu_mulai'] = '08:00';
-                        $data['waktu_selesai'] = '10:00';
-                        $data['shift'] = 'pagi';
+                    case implode(' - ', ShiftDokter::JADWAL_SATU):
+                        $data['waktu_mulai'] = ShiftDokter::JADWAL_SATU['waktu_mulai'];
+                        $data['waktu_selesai'] = ShiftDokter::JADWAL_SATU['waktu_selesai'];
+                        $data['shift'] = 'satu';
 
                         break;
-                    case 'siang':
-                        $data['waktu_mulai'] = '14:00';
-                        $data['waktu_selesai'] = '16:00';
-                        $data['shift'] = 'siang';
+
+                    case implode(' - ', ShiftDokter::JADWAL_DUA):
+                        $data['waktu_mulai'] = ShiftDokter::JADWAL_DUA['waktu_mulai'];
+                        $data['waktu_selesai'] = ShiftDokter::JADWAL_DUA['waktu_selesai'];
+                        $data['shift'] = 'dua';
 
                         break;
-                    case 'malam':
-                        $data['waktu_mulai'] = '19:00';
-                        $data['waktu_selesai'] = '21:00';
-                        $data['shift'] = 'malam';
+
+                    case implode(' - ', ShiftDokter::JADWAL_TIGA):
+                        $data['waktu_mulai'] = ShiftDokter::JADWAL_TIGA['waktu_mulai'];
+                        $data['waktu_selesai'] = ShiftDokter::JADWAL_TIGA['waktu_selesai'];
+                        $data['shift'] = 'tiga';
+
+                        break;
+
+                    case implode(' - ', ShiftDokter::JADWAL_EMPAT):
+                        $data['waktu_mulai'] = ShiftDokter::JADWAL_EMPAT['waktu_mulai'];
+                        $data['waktu_selesai'] = ShiftDokter::JADWAL_EMPAT['waktu_selesai'];
+                        $data['shift'] = 'empat';
 
                         break;
                 }

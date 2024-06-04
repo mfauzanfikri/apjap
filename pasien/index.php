@@ -60,7 +60,9 @@ foreach ($jadwalDokter as $jd) {
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Jadwal Praktek Dokter <span>| <?= $formattedDate ?></span></h5>
-
+                        <p style="font-size: smaller;">
+                            keterangan: a = AM, p = PM
+                        </p>
                         <div id="calendar"></div>
                     </div>
                 </div>

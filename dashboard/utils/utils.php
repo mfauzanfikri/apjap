@@ -58,22 +58,6 @@ function authorization($rules) {
         }
     }
 
-    // if (isset($rules['jabatan'])) {
-    //     $userJabatan = $_SESSION['jabatan'];
-
-    //     if (is_array($rules['jabatan'])) {
-    //         $isAuthorized = array_search($userJabatan, $rules['jabatan']);
-
-    //         if ($isAuthorized === false) {
-    //             return false;
-    //         }
-    //     } else {
-    //         if ($rules['jabatan'] !== $userJabatan) {
-    //             return false;
-    //         }
-    //     }
-    // }
-
     if (isset($rules['profesi'])) {
         $userIsDokter = $_SESSION['isDokter'];
         $userIsPerawat = $_SESSION['isPerawat'];
@@ -105,6 +89,21 @@ class Role {
 class Profesi {
     const DOKTER = 'dokter';
     const PERAWAT = 'perawat';
+}
+
+class ShiftDokter {
+    const JADWAL_SATU = ['waktu_mulai' => '09:00', 'waktu_selesai' => '13:00'];
+    const JADWAL_DUA = ['waktu_mulai' => '09:00', 'waktu_selesai' => '12:00'];
+    const JADWAL_TIGA = ['waktu_mulai' => '10:30', 'waktu_selesai' => '13:00'];
+    const JADWAL_EMPAT = ['waktu_mulai' => '13:00', 'waktu_selesai' => '16:00'];
+}
+
+class ShiftPerawat {
+    const PAGI = ['waktu_mulai' => '07:45', 'waktu_selesai' => '16:00'];
+    const PAGI_SYMBOL = 'P';
+    const MALAM = ['waktu_mulai' => '16:00', 'waktu_selesai' => '07:45'];
+    const MALAM_SYMBOL = 'S/M';
+    const LIBUR_SYMBOL = 'L';
 }
 
 function sendMessage(string $target, string $message) {

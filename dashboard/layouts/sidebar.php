@@ -92,7 +92,9 @@
 
         <?php endif; ?>
 
-        <li class="nav-heading">Jadwal Kerja</li>
+        <?php if (authorization(['role' => [Role::ADMIN, Role::ATASAN]]) || authorization(['profesi' => [Profesi::DOKTER, Profesi::PERAWAT]])) : ?>
+            <li class="nav-heading">Jadwal Kerja</li>
+        <?php endif; ?>
 
         <?php if (authorization(['role' => [Role::ADMIN, Role::ATASAN]]) || authorization(['profesi' => Profesi::DOKTER])) : ?>
             <li class="nav-item">
@@ -146,12 +148,14 @@
             </a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link <?= $url === '/dashboard/pengajuan_jadwal_operasi.php' || $url === '/apkjadwal/dashboard/pengajuan_jadwal_operasi.php' ? '' : 'collapsed' ?>" href="pengajuan_jadwal_operasi.php">
-                <i class="bi bi-calendar2-heart"></i>
-                <span>Pengajuan Jadwal Operasi</span>
-            </a>
-        </li>
+        <?php if (authorization(['role' => [Role::ADMIN, Role::ATASAN]]) || authorization(['profesi' => [Profesi::DOKTER, Profesi::PERAWAT]])) : ?>
+            <li class="nav-item">
+                <a class="nav-link <?= $url === '/dashboard/pengajuan_jadwal_operasi.php' || $url === '/apkjadwal/dashboard/pengajuan_jadwal_operasi.php' ? '' : 'collapsed' ?>" href="pengajuan_jadwal_operasi.php">
+                    <i class="bi bi-calendar2-heart"></i>
+                    <span>Pengajuan Jadwal Operasi</span>
+                </a>
+            </li>
+        <?php endif; ?>
 
         <?php if (authorization(['role' => [Role::ADMIN, Role::ATASAN]])) : ?>
             <li class="nav-heading">Laporan</li>

@@ -85,9 +85,8 @@ $jadwalPerawat = getJadwalPerawat();
                                                                 <label for="shift" class="form-label">Shift</label>
                                                                 <select id="shift" class="form-select" name="shift" required>
                                                                     <option selected disabled value="0">Pilih Shift</option>
-                                                                    <option value="1">Shift 1 07:00 - 14.00 WIB</option>
-                                                                    <option value="2">Shift 2 14:00 - 21.00 WIB</option>
-                                                                    <option value="3">Shift 3 21:00 - 07.00 WIB</option>
+                                                                    <option value="<?= ShiftPerawat::PAGI_SYMBOL ?>">Shift Pagi <?= implode(' - ', ShiftPerawat::PAGI) ?> WIB</option>
+                                                                    <option value="<?= ShiftPerawat::MALAM_SYMBOL ?>">Shift malam <?= implode(' - ', ShiftPerawat::MALAM) ?> WIB</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-12">
@@ -190,11 +189,10 @@ $jadwalPerawat = getJadwalPerawat();
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <label for="shift" class="form-label">Shift</label>
-                                                                                    <select id="shift" class="form-select" name="shift">
-                                                                                        <option selected value="0">Pilih Shift</option>
-                                                                                        <option value="1">Shift 1 07:00 - 14.00 WIB</option>
-                                                                                        <option value="2">Shift 2 14:00 - 21.00 WIB</option>
-                                                                                        <option value="3">Shift 3 21:00 - 07.00 WIB</option>
+                                                                                    <select id="shift" class="form-select" name="shift" required>
+                                                                                        <option selected disabled value="0">Pilih Shift</option>
+                                                                                        <option value="<?= ShiftPerawat::PAGI_SYMBOL ?>">Shift Pagi <?= implode(' - ', ShiftPerawat::PAGI) ?> WIB</option>
+                                                                                        <option value="<?= ShiftPerawat::MALAM_SYMBOL ?>">Shift malam <?= implode(' - ', ShiftPerawat::MALAM) ?> WIB</option>
                                                                                     </select>
                                                                                 </div>
                                                                                 <div class="col-12">

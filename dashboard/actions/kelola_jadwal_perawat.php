@@ -5,7 +5,7 @@ session_start();
 require_once '../services/db.php';
 require_once '../utils/utils.php';
 
-$allowedFields = ['id_perawat', 'tanggal', 'waktu_mulai', 'waktu_selesai', 'shift', 'poli'];
+$allowedFields = ['id_perawat', 'tanggal', 'shift', 'poli'];
 
 if (isset($_POST['submit'])) {
     switch ($_POST['jenis']) {
@@ -16,10 +16,6 @@ if (isset($_POST['submit'])) {
             $isValid = true;
 
             foreach ($allowedFields as $field) {
-                if ($field === 'waktu_mulai' || $field === 'waktu_selesai') {
-                    continue;
-                }
-
                 $isValid = isset($_POST[$field]);
 
                 if (isset($_POST[$field]) && $_POST[$field] === "0") {
@@ -39,17 +35,13 @@ if (isset($_POST['submit'])) {
             }
 
             switch ($data['shift']) {
-                case '1':
-                    $data['waktu_mulai'] = '07:00';
-                    $data['waktu_selesai'] = '14:00';
+                case ShiftPerawat::PAGI_SYMBOL:
+                    $data['waktu_mulai'] = ShiftPerawat::PAGI['waktu_mulai'];
+                    $data['waktu_selesai'] = ShiftPerawat::PAGI['waktu_selesai'];
                     break;
-                case '2':
-                    $data['waktu_mulai'] = '14:00';
-                    $data['waktu_selesai'] = '21:00';
-                    break;
-                case '3':
-                    $data['waktu_mulai'] = '21:00';
-                    $data['waktu_selesai'] = '07:00';
+                case ShiftPerawat::MALAM_SYMBOL:
+                    $data['waktu_mulai'] = ShiftPerawat::MALAM['waktu_mulai'];
+                    $data['waktu_selesai'] = ShiftPerawat::MALAM['waktu_selesai'];
                     break;
             }
 
@@ -73,13 +65,26 @@ if (isset($_POST['submit'])) {
             }
 
             foreach ($allowedFields as $field) {
-                if (isset($_POST[$field]) && !empty(trim($_POST[$field]))) {
+                if (isset($_POST[$field]) && !empty(trim($_POST[$field]) && $_POST[$field] !== '0')) {
                     $data[$field] = $_POST[$field];
                 }
             }
 
             if (empty($data)) {
                 redirect('../kelola_jadwal_perawat.php');
+            }
+
+            if (isset($_POST['shift'])) {
+                switch ($data['shift']) {
+                    case ShiftPerawat::PAGI_SYMBOL:
+                        $data['waktu_mulai'] = ShiftPerawat::PAGI['waktu_mulai'];
+                        $data['waktu_selesai'] = ShiftPerawat::PAGI['waktu_selesai'];
+                        break;
+                    case ShiftPerawat::MALAM_SYMBOL:
+                        $data['waktu_mulai'] = ShiftPerawat::MALAM['waktu_mulai'];
+                        $data['waktu_selesai'] = ShiftPerawat::MALAM['waktu_selesai'];
+                        break;
+                }
             }
 
             $data['status'] = 'proses';

@@ -594,9 +594,10 @@ function getJadwalPerawat() {
 }
 
 function getJadwalPerawatById($jpId) {
-    $subQuery = 'SELECT jp.id_jadwal_perawat,jp.id_validator,jp.id_perawat,jp.tanggal,jp.waktu_mulai,jp.waktu_selesai,jp.shift,jp.poli,jp.status,p.id_pegawai,p.no_sip FROM jadwal_perawat jp LEFT JOIN perawat p ON jp.id_perawat = p.id_perawat WHERE id_jadwal_perawat = $jpId';
-    $subQuery2 = "SELECT a.id_jadwal_perawat,a.id_perawat,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.poli,a.status,a.id_pegawai,a.no_sip,b.nama nama_validator, b.nip nip_validator FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_validator = b.id_pegawai WHERE id_jadwal_perawat = $jpId";
-    $jadwalPerawat = fetch("SELECT a.id_jadwal_perawat,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.poli,a.status,a.no_sip,b.nip,b.nama,b.status_pegawai FROM ($subQuery2) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai WHERE id_jadwal_perawat = $jpId");
+    $subQuery = 'SELECT jp.id_jadwal_perawat,jp.id_validator,jp.id_perawat,jp.tanggal,jp.waktu_mulai,jp.waktu_selesai,jp.shift,jp.poli,jp.status,p.id_pegawai,p.no_sip FROM jadwal_perawat jp LEFT JOIN perawat p ON jp.id_perawat = p.id_perawat WHERE id_jadwal_perawat = :id';
+    $subQuery2 = "SELECT a.id_jadwal_perawat,a.id_perawat,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.poli,a.status,a.id_pegawai,a.no_sip,b.nama nama_validator, b.nip nip_validator FROM ($subQuery) a LEFT JOIN pegawai b ON a.id_validator = b.id_pegawai WHERE id_jadwal_perawat = :id";
+
+    $jadwalPerawat = fetch("SELECT a.id_jadwal_perawat,a.tanggal,a.waktu_mulai,a.waktu_selesai,a.shift,a.poli,a.status,a.no_sip,b.nip,b.nama,b.status_pegawai FROM ($subQuery2) a LEFT JOIN pegawai b ON a.id_pegawai = b.id_pegawai WHERE id_jadwal_perawat = :id", ['id' => $jpId]);
 
     return $jadwalPerawat;
 }

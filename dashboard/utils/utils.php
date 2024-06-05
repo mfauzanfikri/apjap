@@ -143,7 +143,7 @@ function checkCutiStatus() {
     // cek status cuti pegawai
     $pegawaiWithCutiStatus = getPegawaiWithCutiStatus();
     foreach ($pegawaiWithCutiStatus as $pwcs) {
-        $isCuti = getPegawaiCutiToday($pwcs['id_pegawai']);
+        $isCuti = getPegawaiCutiTodayById($pwcs['id_pegawai']);
 
         if ($isCuti === false) {
             editPegawai(['status_pegawai' => 'aktif'], $pwcs['id_pegawai']);

@@ -754,7 +754,7 @@ function getCuti() {
 }
 
 function getCutiById($id) {
-    $subQuery = "SELECT c.id_cuti,c.id_validator,p.nama nama_validator,p.nip nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status FROM cuti c LEFT JOIN pegawai p ON c.id_validator = p.id_pegawai";
+    $subQuery = "SELECT c.id_cuti,c.id_pegawai,c.id_validator,p.nama nama_validator,p.nip nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status FROM cuti c LEFT JOIN pegawai p ON c.id_validator = p.id_pegawai";
 
     $cuti = fetch("SELECT c.id_cuti,c.id_validator,c.nama_validator,c.nip_validator,c.tanggal_mulai,c.tanggal_selesai,c.status,p.id_pegawai,p.nama,p.nip,p.status_pegawai FROM ($subQuery) c LEFT JOIN pegawai p ON c.id_pegawai = p.id_pegawai WHERE c.id_cuti = $id");
 

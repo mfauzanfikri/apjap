@@ -89,28 +89,28 @@ if (isset($_POST['submit'])) {
 
             if (isset($_POST['waktu']) && $_POST['waktu'] !== '0') {
                 switch ($_POST['waktu']) {
-                    case implode(' - ', ShiftDokter::JADWAL_SATU):
+                    case 'JADWAL_SATU':
                         $data['waktu_mulai'] = ShiftDokter::JADWAL_SATU['waktu_mulai'];
                         $data['waktu_selesai'] = ShiftDokter::JADWAL_SATU['waktu_selesai'];
                         $data['shift'] = 'satu';
 
                         break;
 
-                    case implode(' - ', ShiftDokter::JADWAL_DUA):
+                    case 'JADWAL_DUA':
                         $data['waktu_mulai'] = ShiftDokter::JADWAL_DUA['waktu_mulai'];
                         $data['waktu_selesai'] = ShiftDokter::JADWAL_DUA['waktu_selesai'];
                         $data['shift'] = 'dua';
 
                         break;
 
-                    case implode(' - ', ShiftDokter::JADWAL_TIGA):
+                    case 'JADWAL_TIGA':
                         $data['waktu_mulai'] = ShiftDokter::JADWAL_TIGA['waktu_mulai'];
                         $data['waktu_selesai'] = ShiftDokter::JADWAL_TIGA['waktu_selesai'];
                         $data['shift'] = 'tiga';
 
                         break;
 
-                    case implode(' - ', ShiftDokter::JADWAL_EMPAT):
+                    case 'JADWAL_EMPAT':
                         $data['waktu_mulai'] = ShiftDokter::JADWAL_EMPAT['waktu_mulai'];
                         $data['waktu_selesai'] = ShiftDokter::JADWAL_EMPAT['waktu_selesai'];
                         $data['shift'] = 'empat';

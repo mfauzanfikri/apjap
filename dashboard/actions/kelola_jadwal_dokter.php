@@ -123,6 +123,8 @@ if (isset($_POST['submit'])) {
                 redirect('../kelola_jadwal_dokter.php');
             }
 
+            $data['notifikasi'] = 0;
+
             $isSuccess = editJadwalDokter($data, $_POST['id_jadwal_dokter']);
 
             if ($isSuccess === true) {

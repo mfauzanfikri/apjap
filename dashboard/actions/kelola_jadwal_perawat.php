@@ -88,6 +88,7 @@ if (isset($_POST['submit'])) {
             }
 
             $data['status'] = 'proses';
+            $data['notifikasi'] = 0;
 
             $isSuccess = editJadwalPerawat($data, $_POST['id_jadwal_perawat']);
 
